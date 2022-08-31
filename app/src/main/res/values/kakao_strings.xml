@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    //보안 설정하기
+    <string name="kakao_nativeAppKey">141d93b35d73e0cb8eedda837fa792dd</string>
+    <string name="kakao_redirection_scheme">kakao141d93b35d73e0cb8eedda837fa792dd</string>
+</resources>
