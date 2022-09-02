@@ -14,4 +14,9 @@
         android:textSize="30sp"
         android:textColor="@color/black"
         android:text=""/>
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:text="api"
+        android:id="@+id/loginAPIBtn"/>
 </LinearLayout>

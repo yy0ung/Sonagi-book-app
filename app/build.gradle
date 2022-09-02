@@ -45,4 +45,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
     implementation "com.kakao.sdk:v2-user:2.10.0"
+
+    //retrofit
+    def retrofit_verson = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_verson"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_verson"
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+
+
+
 }
