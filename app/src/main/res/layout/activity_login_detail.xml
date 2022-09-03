@@ -12,11 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="30sp"
+        android:gravity="center"
         android:textColor="@color/black"
-        android:text=""/>
+        android:text="인증코드"/>
+
+    <EditText
+        android:id="@+id/loginInvitationCode"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:hint="인증코드"/>
+
     <Button
         android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:text="api"
-        android:id="@+id/loginAPIBtn"/>
+        android:layout_height="60dp"
+        android:text="인증하기"
+        android:id="@+id/loginCodeProofBtn"/>
 </LinearLayout>

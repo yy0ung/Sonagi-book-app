@@ -11,7 +11,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SonagiBookapp">
+        android:theme="@style/Theme.SonagiBookapp"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".HomeActivity2"
+            android:exported="true" />
+        <activity
+            android:name=".LoginInputActivity"
+            android:exported="true" />
         <activity
             android:name=".LoginDetailActivity"
             android:exported="true" />
@@ -26,8 +33,7 @@
         </activity>
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
-            android:exported="true"
-            android:launchMode="singleTask">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
