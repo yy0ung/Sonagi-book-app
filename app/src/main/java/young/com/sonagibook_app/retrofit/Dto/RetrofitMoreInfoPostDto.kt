@@ -11,3 +11,5 @@ data class RetrofitMoreInfoPostDto(
     @SerializedName("data")
     val data : dataDtoMoreInfo
 )
+
+

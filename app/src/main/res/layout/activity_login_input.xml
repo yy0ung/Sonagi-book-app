@@ -52,6 +52,7 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
+                android:inputType="text"
                 android:hint="생년월일"/>
             <EditText
                 android:id="@+id/loginInputPhone"

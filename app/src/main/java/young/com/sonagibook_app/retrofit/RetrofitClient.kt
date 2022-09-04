@@ -2,6 +2,9 @@ package young.com.sonagibook_app.retrofit
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.internal.GsonBuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -28,6 +31,7 @@ object RetrofitClient {
             retrofitClient = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(client.build())
+
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }

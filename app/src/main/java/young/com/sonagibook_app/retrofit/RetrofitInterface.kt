@@ -19,6 +19,6 @@ interface RetrofitInterface {
 
     @POST("v1/auth/register")
     @Headers("Content-type: application/json")
-    fun setPostMoreInfo(@Body userInfo : RetrofitMoreInfoPostDto)
+    fun setPostMoreInfo(@Body userInfo : HashMap<String, Any>)
     : retrofit2.Call<RetrofitPostResponseDto>
 }

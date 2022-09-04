@@ -32,33 +32,42 @@ class LoginInputActivity : AppCompatActivity() {
         val profile = binding.loginInputProfileMsg
         val dataClass = dataDtoMoreInfo(brith.text.toString(), phone.text.toString(),
             major.text.toString(), profile.text.toString())
+        val map = LinkedHashMap<String, Any>()
+        val map2 = LinkedHashMap<String,String?>()
+        map.put("register_token",token)
+        map.put("code",code)
+        map2.put("birth","20000313")
+        map2.put("phone","01012341234")
+        map2.put("major","aa")
+        map2.put("profile_message","none")
+        map.put("data", map2)
 
 
         binding.loginInputBtn.setOnClickListener {
 
             Toast.makeText(this,brith.text.toString(),Toast.LENGTH_LONG).show()
-            setPostMoreInfo(token, code, dataClass)
+            setPostMoreInfo(map)
         }
 
     }
 
-    private fun setPostMoreInfo(token : String, code : String, data : dataDtoMoreInfo){
+    private fun setPostMoreInfo(map : LinkedHashMap<String, Any>){
         val iRetrofit : RetrofitInterface = RetrofitClient.getClient(API.BASE_URL)!!.create(
             RetrofitInterface::class.java)
 
-        val info = RetrofitMoreInfoPostDto(register_token = token, code = code, data = data)
+        //val info = RetrofitMoreInfoPostDto(register_token = token, code = code, data = data)
 
-        val call = iRetrofit.setPostMoreInfo(info)
+        val call = iRetrofit.setPostMoreInfo(map)
         call.enqueue(object : retrofit2.Callback<RetrofitPostResponseDto>{
             override fun onResponse(
                 call: Call<RetrofitPostResponseDto>,
                 response: Response<RetrofitPostResponseDto>
             ) {
                 Log.d(TAG, "onResponse: success, ${response.body()}")
-                if(response.isSuccessful){
-                    val intent = Intent(this@LoginInputActivity, HomeActivity2::class.java)
-                    startActivity(intent)
-                }
+//                if(response.isSuccessful){
+//                    val intent = Intent(this@LoginInputActivity, HomeActivity2::class.java)
+//                    startActivity(intent)
+//                }
             }
 
             override fun onFailure(call: Call<RetrofitPostResponseDto>, t: Throwable) {
