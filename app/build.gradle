@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -52,6 +53,23 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_verson"
 
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+
+    def lifecycle_version = "2.6.0-alpha01"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha01")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1")
+
+    // viewModelScope
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+
+    // Coroutine
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+
+
+
+    implementation("androidx.core:core-ktx:1.8.0")
 
 
 

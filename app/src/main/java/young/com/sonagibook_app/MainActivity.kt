@@ -5,13 +5,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Response
@@ -21,8 +18,6 @@ import young.com.sonagibook_app.retrofit.Dto.RetrofitPostRequestDto
 import young.com.sonagibook_app.retrofit.Dto.RetrofitPostResponseDto
 import young.com.sonagibook_app.retrofit.RetrofitClient
 import young.com.sonagibook_app.retrofit.RetrofitInterface
-import young.com.sonagibook_app.retrofit.RetrofitManager
-import java.util.ArrayList
 
 
 class MainActivity : AppCompatActivity() {

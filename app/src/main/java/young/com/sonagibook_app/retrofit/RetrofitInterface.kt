@@ -2,6 +2,7 @@ package young.com.sonagibook_app.retrofit
 
 import com.google.gson.JsonElement
 import org.json.JSONObject
+import retrofit2.Response
 import retrofit2.http.*
 import young.com.sonagibook_app.retrofit.Dto.*
 
@@ -9,8 +10,8 @@ interface RetrofitInterface {
 
     @POST("v1/auth/login/kakao")
     @Headers("Content-type: application/json")
-    fun setPostToken(@Body token : RetrofitPostRequestDto)
-    : retrofit2.Call<RetrofitPostResponseDto>
+    suspend fun postToken(@Body token : RetrofitPostRequestDto)
+    : Response<RetrofitPostResponseDto>
 
     @GET("v1/auth/invitation/{code}")
     @Headers("Content-type: application/json")

@@ -10,11 +10,9 @@ import retrofit2.Call
 import retrofit2.Response
 import young.com.sonagibook_app.Utils.API
 import young.com.sonagibook_app.databinding.ActivityLoginDetailBinding
-import young.com.sonagibook_app.retrofit.Dto.RetrofitPostRequestDto
 import young.com.sonagibook_app.retrofit.Dto.RetrofitUserInfoGetDto
 import young.com.sonagibook_app.retrofit.RetrofitClient
 import young.com.sonagibook_app.retrofit.RetrofitInterface
-import young.com.sonagibook_app.retrofit.RetrofitManager
 
 class LoginDetailActivity : AppCompatActivity() {
     lateinit var binding : ActivityLoginDetailBinding
