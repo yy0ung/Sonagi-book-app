@@ -52,6 +52,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        binding.homeLoginLogout.setOnClickListener {
+            val intent = Intent(this,DesignTestActivity::class.java)
+            startActivity(intent)
+        }
+
 
 
 
