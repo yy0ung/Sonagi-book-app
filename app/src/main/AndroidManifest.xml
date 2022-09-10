@@ -14,11 +14,13 @@
         android:theme="@style/Theme.SonagiBookapp"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".DesignTestActivity"
+            android:name=".LoginActivity"
             android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".HomeFragment"-->
-<!--            android:exported="true" />-->
+        <activity
+            android:name=".DesignTestActivity"
+            android:exported="true" /> <!-- <activity -->
+        <!-- android:name=".HomeFragment" -->
+        <!-- android:exported="true" /> -->
         <activity
             android:name=".HomeActivity2"
             android:exported="true" />

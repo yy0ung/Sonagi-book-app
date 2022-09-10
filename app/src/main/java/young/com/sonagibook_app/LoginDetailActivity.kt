@@ -29,35 +29,35 @@ class LoginDetailActivity : AppCompatActivity() {
 
         Toast.makeText(this, registerToken,Toast.LENGTH_SHORT).show()
         binding.loginCodeProofBtn.setOnClickListener {
-            getToken(inviteCode.text.toString(), registerToken.toString())
+//            getToken(inviteCode.text.toString(), registerToken.toString())
         }
 
     }
 
-    private fun getToken(code : String, token : String){
-        val iRetrofit : RetrofitInterface = RetrofitClient.getClient(API.BASE_URL)!!.create(
-            RetrofitInterface::class.java)
-
-        val call = iRetrofit.getToken(code, token)
-        call.enqueue(object : retrofit2.Callback<RetrofitUserInfoGetDto>{
-            override fun onResponse(
-                call: Call<RetrofitUserInfoGetDto>,
-                response: Response<RetrofitUserInfoGetDto>
-            ) {
-                Log.d(TAG, "onResponse: ${response.body()}")
-                if(response.isSuccessful){
-                    val intent = Intent(this@LoginDetailActivity,LoginInputActivity::class.java)
-
-                    intent.putExtra("registerToken", registerToken.toString())
-                    intent.putExtra("code", binding.loginInvitationCode.text.toString())
-                    startActivity(intent)
-                }
-            }
-
-            override fun onFailure(call: Call<RetrofitUserInfoGetDto>, t: Throwable) {
-                Log.d(TAG, "onFailure: fail, $t")
-            }
-
-        })
-    }
+//    private fun getToken(code : String, token : String){
+//        val iRetrofit : RetrofitInterface = RetrofitClient.getClient(API.BASE_URL)!!.create(
+//            RetrofitInterface::class.java)
+//
+//        val call = iRetrofit.getToken(code, token)
+//        call.enqueue(object : retrofit2.Callback<RetrofitUserInfoGetDto>{
+//            override fun onResponse(
+//                call: Call<RetrofitUserInfoGetDto>,
+//                response: Response<RetrofitUserInfoGetDto>
+//            ) {
+//                Log.d(TAG, "onResponse: ${response.body()}")
+//                if(response.isSuccessful){
+//                    val intent = Intent(this@LoginDetailActivity,LoginInputActivity::class.java)
+//
+//                    intent.putExtra("registerToken", registerToken.toString())
+//                    intent.putExtra("code", binding.loginInvitationCode.text.toString())
+//                    startActivity(intent)
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<RetrofitUserInfoGetDto>, t: Throwable) {
+//                Log.d(TAG, "onFailure: fail, $t")
+//            }
+//
+//        })
+//    }
 }

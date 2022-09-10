@@ -8,11 +8,22 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import young.com.sonagibook_app.retrofit.Dto.RetrofitPostRequestDto
 import young.com.sonagibook_app.retrofit.Dto.RetrofitPostResponseDto
+import young.com.sonagibook_app.retrofit.Dto.RetrofitUserInfoGetDto
 import young.com.sonagibook_app.retrofit.LoginRepository
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
-    private val _loginRepositories = MutableLiveData<RetrofitPostResponseDto>()
-    val loginRepositories = _loginRepositories
+    private val _loginRepositoriesPostToken = MutableLiveData<RetrofitPostResponseDto>()
+    val loginRepositories1 : MutableLiveData<RetrofitPostResponseDto>
+        get() = _loginRepositoriesPostToken
+
+    private val _loginRepositoriesGetToken = MutableLiveData<RetrofitUserInfoGetDto>()
+    val loginRepositories2 : MutableLiveData<RetrofitUserInfoGetDto>
+        get() = _loginRepositoriesGetToken
+
+    // 합쳐줘야 함
+    public val loginModel = ArrayList<RetrofitPostResponseDto>()
+    public val loginModel2 = ArrayList<RetrofitUserInfoGetDto>()
+
     init {
         Log.d(TAG, "create: viewModel")
     }
@@ -23,7 +34,21 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             loginRepository.postToken(token).let { response ->
                 if(response.isSuccessful){
                     Log.d(TAG, "postToken: ${response.body()}")
-                    _loginRepositories.postValue(response.body())
+                    _loginRepositoriesPostToken.postValue(response.body())
+//                    response.body()?.let { loginModel.add(it) }
+                }
+            }
+        }
+    }
+
+    fun getToken(code : String, token : String){
+        Log.d(TAG, "getToken: getget")
+        viewModelScope.launch {
+            loginRepository.getToken(code, token).let { response ->
+                if(response.isSuccessful){
+                    Log.d(TAG, "getToken: ${response.body()}")
+                    _loginRepositoriesGetToken.postValue(response.body())
+
                 }
             }
         }

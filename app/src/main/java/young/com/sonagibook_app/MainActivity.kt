@@ -35,49 +35,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.homeLoginKakao.setOnClickListener{
-            lifecycleScope.launch {
-                try {
-                    val oAuthToken = UserApiClient.loginWithKakao(context = applicationContext)
-                    token = oAuthToken.accessToken.toString()
-                    setPostToken(token)
-
-                } catch (error: Throwable) {
-                    if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
-                        Log.d("MainActivity", "사용자가 취소")
-                    } else {
-                        Log.e("MainActivity", "인증 에러", error)
-                    }
-                }
-            }
-        }
-
         binding.homeLoginLogout.setOnClickListener {
-            val intent = Intent(this,DesignTestActivity::class.java)
+            val intent = Intent(this,LoginActivity::class.java)
             startActivity(intent)
         }
 
 
-
-
-
     }
-    private fun setPostToken(token : String){
-        viewModelFactory = LoginViewModelFactory(LoginRepository())
-        viewModel = ViewModelProvider(this,viewModelFactory).get(LoginViewModel::class.java)
-        val accessToken = RetrofitPostRequestDto(token = token)
-        viewModel.postToken(token = accessToken)
-        viewModel.loginRepositories.observe(this){
-            Log.d(TAG, "setPostToken: ${it.success}")
-            if(it.data.registered == false){
-                val intent = Intent(this, LoginDetailActivity::class.java)
-                startActivity(intent)
-            }else if(it.data.registered == true){
-                val intent = Intent(this,HomeActivity2::class.java)
-                startActivity(intent)
-            }
-        }
-    }
+
 
 //    private fun setPostToken(accessToken : String){
 //        val iRetrofit : RetrofitInterface = RetrofitClient.getClient(API.BASE_URL)!!.create(RetrofitInterface::class.java)

@@ -9,7 +9,5 @@ class DesignTestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_design_test)
 
-        val fragment = supportFragmentManager.beginTransaction()
-        fragment.add(R.id.fragment, HomeFragment()).commit()
     }
 }

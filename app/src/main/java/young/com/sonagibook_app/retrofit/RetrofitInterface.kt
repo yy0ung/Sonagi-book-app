@@ -15,8 +15,8 @@ interface RetrofitInterface {
 
     @GET("v1/auth/invitation/{code}")
     @Headers("Content-type: application/json")
-    fun getToken(@Path("code") code : String,
-                 @Header("register_token") token : String) : retrofit2.Call<RetrofitUserInfoGetDto>
+    suspend fun getToken(@Path("code") code : String,
+                 @Header("register_token") token : String) : Response<RetrofitUserInfoGetDto>
 
     @POST("v1/auth/register")
     @Headers("Content-type: application/json")
