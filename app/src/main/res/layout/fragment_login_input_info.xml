@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginInputInfoFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="100dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/loginInputName"
+                android:layout_marginBottom="20dp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                tools:ignore="Deprecated" />
+            <TextView
+                android:id="@+id/loginInputGrade"
+                android:layout_marginBottom="20dp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                tools:ignore="Deprecated" />
+            <TextView
+                android:id="@+id/loginInputSession"
+                android:layout_marginBottom="20dp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                tools:ignore="Deprecated" />
+            <EditText
+                android:id="@+id/loginInputBrith"
+                android:layout_marginBottom="20dp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:inputType="text"
+                android:hint="생년월일"/>
+            <EditText
+                android:id="@+id/loginInputPhone"
+                android:layout_marginBottom="20dp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:hint="전화번호"/>
+            <EditText
+                android:id="@+id/loginInputMajor"
+                android:layout_marginBottom="20dp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:hint="전공"/>
+            <EditText
+                android:id="@+id/loginInputProfileMsg"
+                android:layout_marginBottom="20dp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:hint="프로필"/>
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:id="@+id/loginInputBtn"
+                android:text="가입하기"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</FrameLayout>

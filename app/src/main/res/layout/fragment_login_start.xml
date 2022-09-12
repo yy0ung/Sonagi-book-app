@@ -1,26 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:background="@drawable/background"
     android:orientation="vertical"
     tools:context=".MainActivity">
-
     <TextView
+        android:id="@+id/loginStartTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="login activity"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="소나기 관련\n공지, 일정, 예약을\n한 곳에서 쉽게\n확인하세요."
+        android:fontFamily="@font/bold"
+        android:lineHeight="43.44sp"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:paddingStart="30sp"
+        android:paddingBottom="190sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/loginStartKakaoBtn"/>
 
     <ImageView
-        android:id="@+id/homeLoginKakao"
+        android:id="@+id/loginStartKakaoBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/kakao_login_medium_wide"/>
+        android:src="@drawable/kakao_login_medium_wide"
+        app:layout_constraintTop_toBottomOf="@id/loginStartTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-</LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

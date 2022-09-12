@@ -6,5 +6,6 @@ data class RetrofitUserInfoGetDto(
     val success : Boolean,
     val msg : String,
     val data : dataDtoServerUserInfo?,
+    val inviteCode : String?,
     val code : Int?
 )

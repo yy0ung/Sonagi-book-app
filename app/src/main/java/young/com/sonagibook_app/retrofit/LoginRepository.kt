@@ -22,4 +22,8 @@ class LoginRepository {
         return iRetrofit.getToken(code, token)
     }
 
+    suspend fun postMoreInfo(userInfo : HashMap<String, Any>) : Response<RetrofitPostResponseDto>{
+        return iRetrofit.postMoreInfo(userInfo)
+    }
+
 }

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import young.com.sonagibook_app.retrofit.Dto.RetrofitPostRequestDto
+import young.com.sonagibook_app.retrofit.Dto.RetrofitUserInfoGetDto
 import young.com.sonagibook_app.retrofit.LoginRepository
 
 class LoginCodeInputFragment : Fragment() {
@@ -41,7 +42,8 @@ class LoginCodeInputFragment : Fragment() {
                 getToken(inputCode.toString(), viewModel.loginModel.get(0).data.register_token.toString())
                 viewModel.loginRepositories2.observe(requireActivity()){
                     Log.d(TAG, "onCreateView: $it")
-                    (activity as LoginActivity).click2(it)
+                    val userInfo = RetrofitUserInfoGetDto(it.success, it.msg, it.data, inputCode.toString(),null)
+                    (activity as LoginActivity).click2(userInfo)
                 }
             }
         }

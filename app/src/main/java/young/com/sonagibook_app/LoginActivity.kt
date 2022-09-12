@@ -32,14 +32,14 @@ class LoginActivity : AppCompatActivity() {
     fun click(obj : RetrofitPostResponseDto){
         viewModel.loginModel.add(obj)
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragment, LoginCodeInputFragment()).commit()
+            .replace(R.id.fragment, LoginCodeInputFragment()).commit()
 
     }
     fun click2(obj : RetrofitUserInfoGetDto){
-        CoroutineScope(Dispatchers.Main).launch {
-            viewModel.loginModel2.add(obj)
-            Log.d(TAG, "click2: ${viewModel.loginModel2.size}")
-            Log.d(TAG, "click2: ${viewModel.loginModel2.get(0).data}")
-        }
+        viewModel.loginModel2.add(obj)
+//        Log.d(TAG, "click2: ${viewModel.loginModel2.size}")
+//        Log.d(TAG, "click2: ${viewModel.loginModel2.get(0).data}")
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment, LoginInputInfoFragment()).commit()
     }
 }

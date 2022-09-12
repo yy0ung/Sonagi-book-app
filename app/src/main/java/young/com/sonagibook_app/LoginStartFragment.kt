@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -32,7 +33,7 @@ class LoginStartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_login_start, container,false)
-        val homeLoginKakao : ImageView = view.findViewById(R.id.homeLoginKakao)
+        val homeLoginKakao : ImageView = view.findViewById(R.id.loginStartKakaoBtn)
 
 
         viewModel = ViewModelProvider(requireActivity(),LoginViewModelFactory(LoginRepository())).get(LoginViewModel::class.java)
@@ -46,7 +47,7 @@ class LoginStartFragment : Fragment() {
                     viewModel.loginRepositories1.observe(requireActivity()){
                         Log.d(ContentValues.TAG, "setPostToken: ${it}")
                         if(it.data.registered == true){
-                            (activity as LoginActivity).click(it)
+                            Toast.makeText(context,"이미 로그인 된 계정",Toast.LENGTH_LONG).show()
                         }else if(it.data.registered == false){
 //                            val intent = Intent(context,HomeActivity2::class.java)
 //                            startActivity(intent)

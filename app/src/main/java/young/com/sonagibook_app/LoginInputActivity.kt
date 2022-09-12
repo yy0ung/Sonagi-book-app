@@ -43,37 +43,8 @@ class LoginInputActivity : AppCompatActivity() {
         map.put("data", map2)
 
 
-        binding.loginInputBtn.setOnClickListener {
-
-            Toast.makeText(this,brith.text.toString(),Toast.LENGTH_LONG).show()
-            setPostMoreInfo(map)
-        }
 
     }
 
-    private fun setPostMoreInfo(map : LinkedHashMap<String, Any>){
-        val iRetrofit : RetrofitInterface = RetrofitClient.getClient(API.BASE_URL)!!.create(
-            RetrofitInterface::class.java)
 
-        //val info = RetrofitMoreInfoPostDto(register_token = token, code = code, data = data)
-
-        val call = iRetrofit.setPostMoreInfo(map)
-        call.enqueue(object : retrofit2.Callback<RetrofitPostResponseDto>{
-            override fun onResponse(
-                call: Call<RetrofitPostResponseDto>,
-                response: Response<RetrofitPostResponseDto>
-            ) {
-                Log.d(TAG, "onResponse: success, ${response.body()}")
-//                if(response.isSuccessful){
-//                    val intent = Intent(this@LoginInputActivity, HomeActivity2::class.java)
-//                    startActivity(intent)
-//                }
-            }
-
-            override fun onFailure(call: Call<RetrofitPostResponseDto>, t: Throwable) {
-                Log.d(TAG, "onFailure: fail, $t")
-            }
-
-        })
-    }
 }

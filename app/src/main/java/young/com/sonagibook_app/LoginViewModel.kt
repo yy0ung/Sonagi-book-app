@@ -20,6 +20,10 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     val loginRepositories2 : MutableLiveData<RetrofitUserInfoGetDto>
         get() = _loginRepositoriesGetToken
 
+    private val _loginRepositoriesPostInfo = MutableLiveData<RetrofitPostResponseDto>()
+    val loginRepositories3 : MutableLiveData<RetrofitPostResponseDto>
+        get() = _loginRepositoriesPostInfo
+
     // 합쳐줘야 함
     public val loginModel = ArrayList<RetrofitPostResponseDto>()
     public val loginModel2 = ArrayList<RetrofitUserInfoGetDto>()
@@ -49,6 +53,18 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                     Log.d(TAG, "getToken: ${response.body()}")
                     _loginRepositoriesGetToken.postValue(response.body())
 
+                }
+            }
+        }
+    }
+
+    fun postMoreInfo(userInfo : HashMap<String, Any>){
+        Log.d(TAG, "postMoreInfo: postpostMore")
+        viewModelScope.launch {
+            loginRepository.postMoreInfo(userInfo).let { response ->
+                if(response.isSuccessful){
+                    Log.d(TAG, "postMoreInfo: ${response.body()}")
+                    _loginRepositoriesPostInfo.postValue(response.body())
                 }
             }
         }
