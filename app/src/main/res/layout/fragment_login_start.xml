@@ -17,17 +17,17 @@
         android:textSize="30sp"
         android:textColor="@color/black"
         android:paddingStart="30sp"
-        android:paddingBottom="190sp"
+        android:paddingTop="96sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/loginStartKakaoBtn"/>
+        />
 
     <ImageView
         android:id="@+id/loginStartKakaoBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="64sp"
         android:src="@drawable/kakao_login_medium_wide"
-        app:layout_constraintTop_toBottomOf="@id/loginStartTitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

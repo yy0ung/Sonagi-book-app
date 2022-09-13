@@ -1,80 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".LoginInputInfoFragment">
 
     <ScrollView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_marginTop="100dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/loginInputName"
-                android:layout_marginBottom="20dp"
-                android:layout_width="300dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/loginInputTopAlert"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                tools:ignore="Deprecated" />
-            <TextView
-                android:id="@+id/loginInputGrade"
-                android:layout_marginBottom="20dp"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                tools:ignore="Deprecated" />
-            <TextView
-                android:id="@+id/loginInputSession"
-                android:layout_marginBottom="20dp"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                tools:ignore="Deprecated" />
-            <EditText
-                android:id="@+id/loginInputBrith"
-                android:layout_marginBottom="20dp"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:inputType="text"
-                android:hint="생년월일"/>
-            <EditText
-                android:id="@+id/loginInputPhone"
-                android:layout_marginBottom="20dp"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:hint="전화번호"/>
-            <EditText
-                android:id="@+id/loginInputMajor"
-                android:layout_marginBottom="20dp"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:hint="전공"/>
-            <EditText
-                android:id="@+id/loginInputProfileMsg"
-                android:layout_marginBottom="20dp"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:hint="프로필"/>
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:id="@+id/loginInputBtn"
-                android:text="가입하기"/>
+                android:text="다른 사용자들에게 노출될 정보를 설정합니다.\n노출 설정하지 않은 정보는 다른 사용자들에게 보이지 않습니다."
+                android:fontFamily="@font/medium"
+                android:textSize="12dp"
+                android:textColor="@color/black"
+                android:paddingStart="20dp"
+                android:paddingVertical="15dp"
+                android:background="#F4F5F6"
+                />
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/loginInputAvatar"
+                android:layout_width="116dp"
+                android:layout_height="116dp"
+                app:layout_constraintTop_toBottomOf="@id/loginInputTopAlert"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/avatar"
+                android:layout_marginTop="20dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/loginInputChangeBtn"
+                android:layout_width="100dp"
+                android:layout_height="42dp"
+                android:background="@drawable/round_graybtn_item"
+                app:layout_constraintTop_toBottomOf="@id/loginInputAvatar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="15dp"
+                android:text="캐릭터 변경"
+                android:textColor="#9CA1AA"
+                android:fontFamily="@font/medium"
+                android:textSize="15dp"/>
+
+            <TextView
+                android:id="@+id/loginInputUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="이명훈"
+                app:layout_constraintTop_toBottomOf="@id/loginInputChangeBtn"
+                app:layout_constraintBottom_toTopOf="@id/loginInputUserGrade_Session"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:fontFamily="@font/medium"
+                android:textFontWeight="700"
+                android:textColor="@color/black"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:id="@+id/loginInputUserGrade_Session"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="19학번 | Guitar"
+                android:fontFamily="@font/medium"
+                app:layout_constraintTop_toBottomOf="@id/loginInputUserName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textFontWeight="350"
+                android:textColor="@color/black"/>
+
+
+
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     </ScrollView>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

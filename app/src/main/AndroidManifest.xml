@@ -15,7 +15,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".LoginActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".DesignTestActivity"
             android:exported="true" /> <!-- <activity -->

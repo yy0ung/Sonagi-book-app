@@ -52,8 +52,6 @@ class LoginInputInfoFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory(LoginRepository())).get(LoginViewModel::class.java)
 
         CoroutineScope(Dispatchers.Main).launch {
-            Log.d(TAG, "onCreateView: ${viewModel.loginModel2.size}")
-            Log.d(TAG, "onCreateView: ${viewModel.loginModel.size}")
             getLastInfo(viewModel)
             registerToken = viewModel.loginModel.get(0).data.register_token.toString()
             code = viewModel.loginModel2.get(0).inviteCode.toString()
@@ -65,7 +63,7 @@ class LoginInputInfoFragment : Fragment() {
             session.text = userSession
             map.put("register_token",registerToken)
             map.put("code",code)
-            map2.put("birth",tbirth.toString())
+            map2.put("birth", tbirth.toString())
             map2.put("phone",tPhone.toString())
             map2.put("major",tMajor.toString())
             map2.put("profile_message",tPhone.toString())
@@ -75,11 +73,19 @@ class LoginInputInfoFragment : Fragment() {
 
         btn.setOnClickListener {
             lifecycleScope.launch {
-                postMoreInfo(map)
-                viewModel.loginRepositories3.observe(requireActivity()){
-                    Log.d(TAG, "onCreateView: $it")
+                if(tPhone==null || tbirth.isEmpty() || tMajor==null){
+                    Toast.makeText(context,"빈칸을 모두 채우세요",Toast.LENGTH_LONG).show()
+                }else{
 
+                    postMoreInfo(map)
+                    viewModel.loginRepositories3.observe(requireActivity()){
+                        Log.d(TAG, "onCreateView: ${it.data}")
+
+
+
+                    }
                 }
+
             }
         }
 

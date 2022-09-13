@@ -1,11 +1,13 @@
 package young.com.sonagibook_app
 
+import android.app.Service
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -20,6 +22,8 @@ import young.com.sonagibook_app.retrofit.LoginRepository
 class LoginCodeInputFragment : Fragment() {
     private lateinit var viewModel : LoginViewModel
     private lateinit var viewModelFactory: LoginViewModelFactory
+    var imm : InputMethodManager? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,10 +37,9 @@ class LoginCodeInputFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory(LoginRepository())).get(LoginViewModel::class.java)
 
-        code.setOnClickListener {
-            Log.d(TAG, "onCreateView: ${viewModel.loginModel.size}")
-            Log.d(TAG, "onCreateView: ${viewModel.loginModel.get(0)}")
-        }
+        imm = context?.getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+
+
         btn.setOnClickListener {
             lifecycleScope.launch {
                 getToken(inputCode.toString(), viewModel.loginModel.get(0).data.register_token.toString())
