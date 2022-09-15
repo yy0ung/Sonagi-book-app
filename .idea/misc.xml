@@ -6,8 +6,9 @@
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable-v24/home_box_item2.xml" value="0.175" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable-v24/home_box_item3.xml" value="0.28854166666666664" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/home_box_item.xml" value="0.28854166666666664" />
-        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/round_btn_item.xml" value="0.11041666666666666" />
+        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/round_btn_item.xml" value="0.33" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/round_graybtn_item.xml" value="0.30364583333333334" />
+        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/round_profilemsg_item.xml" value="0.22685185185185186" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout-v28/fragment_login_code_input.xml" value="0.21979166666666666" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/activity_design_test.xml" value="0.1140625" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/activity_home2.xml" value="0.1" />
@@ -15,7 +16,7 @@
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/activity_login_detail.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/activity_login_input.xml" value="0.18" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/activity_main.xml" value="0.3359375" />
-        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/fragment_home.xml" value="0.5" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/fragment_login_code_input.xml" value="0.22" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/fragment_login_input_info.xml" value="0.25" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/fragment_login_start.xml" value="0.2234375" />

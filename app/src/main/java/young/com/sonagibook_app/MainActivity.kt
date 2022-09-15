@@ -35,10 +35,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.homeLoginLogout.setOnClickListener {
-            val intent = Intent(this,LoginActivity::class.java)
-            startActivity(intent)
-        }
+        val fragment = supportFragmentManager.beginTransaction()
+        fragment.add(R.id.MainFragment, HomeFragment()).commit()
+
+//        binding.homeLoginLogout.setOnClickListener {
+//            val intent = Intent(this,LoginActivity::class.java)
+//            startActivity(intent)
+//        }
 
 
     }
