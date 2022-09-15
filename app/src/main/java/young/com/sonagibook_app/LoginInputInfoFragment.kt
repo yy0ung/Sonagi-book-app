@@ -34,18 +34,17 @@ class LoginInputInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_login_input_info, container, false)
-        val name : TextView = view.findViewById(R.id.loginInputName)
-        val grade : TextView = view.findViewById(R.id.loginInputGrade)
-        val session : TextView = view.findViewById(R.id.loginInputSession)
-        val phone = view.findViewById<EditText>(R.id.loginInputPhone)
+        val name : TextView = view.findViewById(R.id.loginInputUserName)
+        val gradeSession : TextView = view.findViewById(R.id.loginInputUserGrade_Session)
+        val phone = view.findViewById<EditText>(R.id.loginInputInputPhone)
         val tPhone = phone.text
-        val major : EditText = view.findViewById(R.id.loginInputMajor)
+        val major : EditText = view.findViewById(R.id.loginInputInputMajor)
         val tMajor = major.text
-        val birth : EditText = view.findViewById(R.id.loginInputBrith)
+        val birth : EditText = view.findViewById(R.id.loginInputInputBirth)
         val tbirth = birth.text
-        val profile : EditText = view.findViewById(R.id.loginInputProfileMsg)
+        val profile : EditText = view.findViewById(R.id.loginInputInputProfile)
         val tProfile = profile.text
-        val btn : Button = view.findViewById(R.id.loginInputBtn)
+        val btn : Button = view.findViewById(R.id.loginInputSaveBtn)
         val map = LinkedHashMap<String, Any>()
         val map2 = LinkedHashMap<String,String?>()
 
@@ -59,14 +58,13 @@ class LoginInputInfoFragment : Fragment() {
             userGrade = viewModel.loginModel2.get(0).data?.grade.toString()
             userSession = viewModel.loginModel2.get(0).data?.session.toString()
             name.text = userName
-            grade.text = userGrade
-            session.text = userSession
+            gradeSession.text = "$userGrade | $userSession"
             map.put("register_token",registerToken)
             map.put("code",code)
             map2.put("birth", tbirth.toString())
             map2.put("phone",tPhone.toString())
             map2.put("major",tMajor.toString())
-            map2.put("profile_message",tPhone.toString())
+            map2.put("profile_message",tProfile.toString())
             map.put("data", map2)
 
         }
