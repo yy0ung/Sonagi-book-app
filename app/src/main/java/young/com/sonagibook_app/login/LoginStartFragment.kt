@@ -1,4 +1,4 @@
-package young.com.sonagibook_app
+package young.com.sonagibook_app.login
 
 import android.content.ContentValues
 import android.content.Intent
@@ -7,18 +7,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.launch
-import young.com.sonagibook_app.databinding.ActivityMainBinding
+import young.com.sonagibook_app.*
 import young.com.sonagibook_app.retrofit.Dto.RetrofitPostRequestDto
 import young.com.sonagibook_app.retrofit.LoginRepository
 
@@ -26,7 +24,7 @@ class LoginStartFragment : Fragment() {
     private var token = ""
 
     private lateinit var viewModel: LoginViewModel
-    private lateinit var viewModelFactory: LoginViewModelFactory
+    private lateinit var loginViewModelFactory: LoginViewModelFactory
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,7 +34,8 @@ class LoginStartFragment : Fragment() {
         val homeLoginKakao : ImageView = view.findViewById(R.id.loginStartKakaoBtn)
 
 
-        viewModel = ViewModelProvider(requireActivity(),LoginViewModelFactory(LoginRepository())).get(LoginViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory(LoginRepository())).get(
+            LoginViewModel::class.java)
 
         homeLoginKakao.setOnClickListener{
             lifecycleScope.launch {
@@ -48,6 +47,9 @@ class LoginStartFragment : Fragment() {
                         Log.d(ContentValues.TAG, "setPostToken: ${it}")
                         if(it.data.registered == true){
                             Toast.makeText(context,"이미 로그인 된 계정",Toast.LENGTH_LONG).show()
+                            val intent = Intent(context, MainActivity::class.java)
+                            intent.putExtra("accessToken", it.data.access_token.toString())
+                            startActivity(intent)
                         }else if(it.data.registered == false){
 //                            val intent = Intent(context,HomeActivity2::class.java)
 //                            startActivity(intent)
@@ -72,10 +74,12 @@ class LoginStartFragment : Fragment() {
     }
 
     private suspend fun setPostToken(token : String){
-        viewModelFactory = LoginViewModelFactory(LoginRepository())
-        viewModel = ViewModelProvider(this,viewModelFactory).get(LoginViewModel::class.java)
+        loginViewModelFactory = LoginViewModelFactory(LoginRepository())
+        viewModel = ViewModelProvider(this,loginViewModelFactory).get(LoginViewModel::class.java)
         val accessToken = RetrofitPostRequestDto(token = token)
         viewModel.postToken(token = accessToken)
 
     }
+
+
 }

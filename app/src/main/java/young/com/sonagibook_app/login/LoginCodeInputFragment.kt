@@ -1,6 +1,5 @@
-package young.com.sonagibook_app
+package young.com.sonagibook_app.login
 
-import android.app.Service
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
@@ -15,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import young.com.sonagibook_app.retrofit.Dto.RetrofitPostRequestDto
+import young.com.sonagibook_app.R
 import young.com.sonagibook_app.retrofit.Dto.RetrofitUserInfoGetDto
 import young.com.sonagibook_app.retrofit.LoginRepository
 
@@ -35,7 +34,8 @@ class LoginCodeInputFragment : Fragment() {
         val inputCode = input.text
         val btn : Button = view.findViewById(R.id.loginCodeProofBtn)
 
-        viewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory(LoginRepository())).get(LoginViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory(LoginRepository())).get(
+            LoginViewModel::class.java)
 
         imm = context?.getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager?
 

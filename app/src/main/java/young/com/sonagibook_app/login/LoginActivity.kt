@@ -1,15 +1,13 @@
-package young.com.sonagibook_app
+package young.com.sonagibook_app.login
 
 import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
-import android.widget.Toast
+import android.view.WindowManager
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import young.com.sonagibook_app.*
 import young.com.sonagibook_app.retrofit.Dto.RetrofitPostResponseDto
 import young.com.sonagibook_app.retrofit.Dto.RetrofitUserInfoGetDto
 import young.com.sonagibook_app.retrofit.LoginRepository
@@ -23,7 +21,16 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        viewModel = ViewModelProvider(this, LoginViewModelFactory(LoginRepository())).get(LoginViewModel::class.java)
+        viewModel = ViewModelProvider(this, LoginViewModelFactory(LoginRepository())).get(
+            LoginViewModel::class.java)
+
+        val display = windowManager.defaultDisplay
+        val outM = DisplayMetrics()
+        display.getMetrics(outM)
+        val density = resources.displayMetrics.density
+        val dpH = outM.heightPixels / density
+        val dpW = outM.widthPixels / density
+        Log.d(TAG, "onCreate: h : $dpH W : $dpW")
 
 
         val fragment = supportFragmentManager.beginTransaction()

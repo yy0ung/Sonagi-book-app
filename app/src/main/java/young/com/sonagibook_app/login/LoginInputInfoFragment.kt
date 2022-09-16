@@ -1,4 +1,4 @@
-package young.com.sonagibook_app
+package young.com.sonagibook_app.login
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
@@ -17,6 +17,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import young.com.sonagibook_app.R
+import young.com.sonagibook_app.retrofit.Dto.RetrofitMoreInfoPostDto
 import young.com.sonagibook_app.retrofit.LoginRepository
 import young.com.sonagibook_app.retrofit.dataDto.dataDtoMoreInfo
 
@@ -28,6 +30,7 @@ class LoginInputInfoFragment : Fragment() {
     private lateinit var userName : String
     private lateinit var userGrade : String
     private lateinit var userSession : String
+    private lateinit var info : RetrofitMoreInfoPostDto
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +51,9 @@ class LoginInputInfoFragment : Fragment() {
         val map = LinkedHashMap<String, Any>()
         val map2 = LinkedHashMap<String,String?>()
 
-        viewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory(LoginRepository())).get(LoginViewModel::class.java)
+
+        viewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory(LoginRepository())).get(
+            LoginViewModel::class.java)
 
         CoroutineScope(Dispatchers.Main).launch {
             getLastInfo(viewModel)
@@ -59,13 +64,10 @@ class LoginInputInfoFragment : Fragment() {
             userSession = viewModel.loginModel2.get(0).data?.session.toString()
             name.text = userName
             gradeSession.text = "$userGrade | $userSession"
-            map.put("register_token",registerToken)
-            map.put("code",code)
-            map2.put("birth", tbirth.toString())
-            map2.put("phone",tPhone.toString())
-            map2.put("major",tMajor.toString())
-            map2.put("profile_message",tProfile.toString())
-            map.put("data", map2)
+//
+            info = RetrofitMoreInfoPostDto(registerToken,code,
+                dataDtoMoreInfo("20000313","01012341234","행정학과",null)
+            )
 
         }
 
@@ -75,7 +77,7 @@ class LoginInputInfoFragment : Fragment() {
                     Toast.makeText(context,"빈칸을 모두 채우세요",Toast.LENGTH_LONG).show()
                 }else{
 
-                    postMoreInfo(map)
+                    postMoreInfo(info)
                     viewModel.loginRepositories3.observe(requireActivity()){
                         Log.d(TAG, "onCreateView: ${it.data}")
 
@@ -90,7 +92,7 @@ class LoginInputInfoFragment : Fragment() {
         return view
     }
 
-    private fun postMoreInfo(userInfo : HashMap<String, Any>){
+    private fun postMoreInfo(userInfo : RetrofitMoreInfoPostDto){
         viewModelFactory = LoginViewModelFactory(LoginRepository())
         viewModel = ViewModelProvider(this,viewModelFactory).get(LoginViewModel::class.java)
 

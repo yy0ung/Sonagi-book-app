@@ -1,4 +1,4 @@
-package young.com.sonagibook_app
+package young.com.sonagibook_app.login
 
 import android.content.ContentValues.TAG
 import android.util.Log
@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import young.com.sonagibook_app.retrofit.Dto.RetrofitMoreInfoPostDto
 import young.com.sonagibook_app.retrofit.Dto.RetrofitPostRequestDto
 import young.com.sonagibook_app.retrofit.Dto.RetrofitPostResponseDto
 import young.com.sonagibook_app.retrofit.Dto.RetrofitUserInfoGetDto
@@ -58,7 +59,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         }
     }
 
-    fun postMoreInfo(userInfo : HashMap<String, Any>){
+    fun postMoreInfo(userInfo : RetrofitMoreInfoPostDto){
         Log.d(TAG, "postMoreInfo: postpostMore")
         viewModelScope.launch {
             loginRepository.postMoreInfo(userInfo).let { response ->

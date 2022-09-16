@@ -8,6 +8,7 @@ import young.com.sonagibook_app.retrofit.Dto.*
 
 interface RetrofitInterface {
 
+    //login
     @POST("v1/auth/login/kakao")
     @Headers("Content-type: application/json")
     suspend fun postToken(@Body token : RetrofitPostRequestDto)
@@ -20,6 +21,13 @@ interface RetrofitInterface {
 
     @POST("v1/auth/register")
     @Headers("Content-type: application/json")
-    suspend fun postMoreInfo(@Body userInfo : HashMap<String, Any>)
+    suspend fun postMoreInfo(@Body userInfo : RetrofitMoreInfoPostDto)
     : Response<RetrofitPostResponseDto>
+
+    //auth
+    @GET("v1/auth/token")
+    @Headers("Content-type: application/json")
+    suspend fun getAccessToken(@Header("Authorization") token : String)
+    : Response<RetrofitGetResponseAllInfo>
+
 }

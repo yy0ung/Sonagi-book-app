@@ -1,4 +1,4 @@
-package young.com.sonagibook_app
+package young.com.sonagibook_app.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
