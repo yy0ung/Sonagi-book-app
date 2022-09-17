@@ -64,18 +64,19 @@ class LoginInputInfoFragment : Fragment() {
             userSession = viewModel.loginModel2.get(0).data?.session.toString()
             name.text = userName
             gradeSession.text = "$userGrade | $userSession"
-//
-            info = RetrofitMoreInfoPostDto(registerToken,code,
-                dataDtoMoreInfo("20000313","01012341234","행정학과",null)
-            )
+
+            val data = dataDtoMoreInfo("20000313","01012341234","행정학과","안녕")
+
+            info = RetrofitMoreInfoPostDto(registerToken, code, data)
 
         }
 
         btn.setOnClickListener {
             lifecycleScope.launch {
-                if(tPhone==null || tbirth.isEmpty() || tMajor==null){
+                if(phone.text.isEmpty() || birth.text.isEmpty() || major.text.isEmpty()){
                     Toast.makeText(context,"빈칸을 모두 채우세요",Toast.LENGTH_LONG).show()
                 }else{
+                    Log.d(TAG, "onCreateView: ${tbirth.toString()} /// ${tPhone.toString()} /// ${tMajor.toString()} ///")
 
                     postMoreInfo(info)
                     viewModel.loginRepositories3.observe(requireActivity()){

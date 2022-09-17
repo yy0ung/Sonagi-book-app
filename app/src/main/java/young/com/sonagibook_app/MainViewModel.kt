@@ -18,6 +18,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     }
 
     val accessToken = ArrayList<String>()
+    val userHomeDataModel = ArrayList<RetrofitGetResponseAllInfo>()
 
     fun getAccessToken(token : String){
         Log.d(TAG, "getAccessToken: getget")
@@ -26,6 +27,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 if(response.isSuccessful){
                     Log.d(TAG, "getAccessToken: ${response.body()}")
                     _repositoriesGetAccessToken.postValue(response.body())
+                    response.body()?.let { userHomeDataModel.add(it) }
                 }
             }
         }

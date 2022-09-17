@@ -24,14 +24,6 @@ class LoginActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, LoginViewModelFactory(LoginRepository())).get(
             LoginViewModel::class.java)
 
-        val display = windowManager.defaultDisplay
-        val outM = DisplayMetrics()
-        display.getMetrics(outM)
-        val density = resources.displayMetrics.density
-        val dpH = outM.heightPixels / density
-        val dpW = outM.widthPixels / density
-        Log.d(TAG, "onCreate: h : $dpH W : $dpW")
-
 
         val fragment = supportFragmentManager.beginTransaction()
         fragment.add(R.id.fragment, LoginStartFragment()).commit()

@@ -115,17 +115,19 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
-                <EditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/loginInputInputPhone"
                     android:layout_width="335dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/regular"
                     android:hint="01012341234"
                     android:includeFontPadding="false"
+                    android:inputType="number"
                     android:paddingStart="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/loginInputTitlePhone" />
+                    app:layout_constraintTop_toBottomOf="@id/loginInputTitlePhone"/>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,5 +1,6 @@
 package young.com.sonagibook_app
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,6 +24,7 @@ import young.com.sonagibook_app.retrofit.LoginRepository
 class HomeFragment : Fragment() {
     private lateinit var mainViewModelFactory: MainViewModelFactory
     private lateinit var viewModel: MainViewModel
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,13 +38,15 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(Repository())).get(
             MainViewModel::class.java)
 
-        lifecycleScope.launch {
+        CoroutineScope(Dispatchers.Main).launch {
             fetchUserInfo()
-            val token = "Bearer ${viewModel.accessToken.get(0)}"
-            getAccessToken(token)
-
-            //main 에서 받아야함
+            Log.d(TAG, "onCreateView: ${viewModel.userHomeDataModel.get(0).data.birth}")
+            val profile = viewModel.userHomeDataModel.get(0).data
+            info.text = "${profile.grade}${profile.session} ${profile.name}님"
+            profileMsg.text = profile.profile_message.toString()
         }
+
+
 
 
 
@@ -49,15 +54,11 @@ class HomeFragment : Fragment() {
         return view
     }
 
-    private suspend fun getAccessToken(token : String) {
-        mainViewModelFactory = MainViewModelFactory(Repository())
-        viewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
-        viewModel.getAccessToken(token)
-
-    }
     private suspend fun fetchUserInfo(){
         withContext(Dispatchers.IO){
-            while (viewModel.accessToken.size==0){}
+            while (viewModel.userHomeDataModel.size==0){}
         }
     }
+
+    
 }

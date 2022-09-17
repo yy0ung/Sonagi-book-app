@@ -24,20 +24,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DesignTestActivity"
-            android:exported="true" /> <!-- <activity -->
-        <!-- android:name=".HomeFragment" -->
-        <!-- android:exported="true" /> -->
-        <activity
-            android:name=".HomeActivity2"
-            android:exported="true" />
-        <activity
-            android:name=".LoginInputActivity"
-            android:exported="true" />
-        <activity
-            android:name=".LoginDetailActivity"
-            android:exported="true" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"/>
         <activity
