@@ -2,9 +2,12 @@ package young.com.sonagibook_app
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineScope
@@ -25,6 +28,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
 
         viewModel = ViewModelProvider(this,MainViewModelFactory(Repository()))
             .get(MainViewModel::class.java)
@@ -45,11 +51,37 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.accessToken.add(accessToken)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         val fragment = supportFragmentManager.beginTransaction()
         fragment.add(R.id.homeMainFragment, HomeFragment()).commit()
+        changeColorToBlue(binding.homeNav1)
+
+        binding.homeNav1.setOnClickListener{
+            changeColorToBlue(binding.homeNav1)
+            changeColorToGray(binding.homeNav5, binding.homeNav4, binding.homeNav3,binding.homeNav2)
+            supportFragmentManager.beginTransaction().replace(R.id.homeMainFragment, HomeFragment()).commit()
+        }
+        binding.homeNav2.setOnClickListener{
+            changeColorToBlue(binding.homeNav2)
+            changeColorToGray(binding.homeNav5, binding.homeNav4, binding.homeNav3,binding.homeNav1)
+            supportFragmentManager.beginTransaction().replace(R.id.homeMainFragment, ScheduleFragment()).commit()
+        }
+        binding.homeNav3.setOnClickListener{
+            changeColorToBlue(binding.homeNav3)
+            changeColorToGray(binding.homeNav5, binding.homeNav4, binding.homeNav2,binding.homeNav1)
+            supportFragmentManager.beginTransaction().replace(R.id.homeMainFragment, BookFragment()).commit()
+        }
+        binding.homeNav4.setOnClickListener{
+            changeColorToBlue(binding.homeNav4)
+            changeColorToGray(binding.homeNav5, binding.homeNav2, binding.homeNav3,binding.homeNav1)
+            supportFragmentManager.beginTransaction().replace(R.id.homeMainFragment, ContactFragment()).commit()
+        }
+        binding.homeNav5.setOnClickListener{
+            changeColorToBlue(binding.homeNav5)
+            changeColorToGray(binding.homeNav2, binding.homeNav4, binding.homeNav3,binding.homeNav1)
+            supportFragmentManager.beginTransaction().replace(R.id.homeMainFragment, MoreFragment()).commit()
+        }
+
+
 
 
 
@@ -64,6 +96,18 @@ class MainActivity : AppCompatActivity() {
         withContext(Dispatchers.IO){
             while (viewModel.userHomeDataModel.size==0){}
         }
+    }
+
+    private fun changeColorToBlue(imgG : ImageView){
+        imgG.setColorFilter(Color.parseColor("#6773F6"))
+    }
+
+    private fun changeColorToGray(g1:ImageView, g2:ImageView, g3:ImageView, g4:ImageView){
+        g1.setColorFilter(Color.parseColor("#C8CBD0"))
+        g2.setColorFilter(Color.parseColor("#C8CBD0"))
+        g3.setColorFilter(Color.parseColor("#C8CBD0"))
+        g4.setColorFilter(Color.parseColor("#C8CBD0"))
+
     }
 
 
