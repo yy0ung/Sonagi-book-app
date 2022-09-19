@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="335dp"
+    android:layout_height="83dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/noticeItemTitle"
+        android:fontFamily="@font/regular"
+        android:textSize="14dp"
+        android:textFontWeight="500"
+        android:text="공지 제목"
+        android:textColor="@color/black"
+        android:includeFontPadding="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/noticeItemContext"
+        android:fontFamily="@font/regular"
+        android:textSize="13dp"
+        android:textFontWeight="400"
+        android:text="공지 내용"
+        android:textColor="#717784"
+        android:includeFontPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/noticeItemTitle"
+        app:layout_constraintStart_toStartOf="parent"/>
+    // 작성자
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/noticeItemUser"
+        android:fontFamily="@font/regular"
+        android:textSize="11dp"
+        android:textFontWeight="400"
+        android:layout_marginTop="9dp"
+        android:text="작성자"
+        android:textColor="#C8CBD0"
+        android:includeFontPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/noticeItemContext"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/noticeItemLikeContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/noticeItemTitle">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/noticeItemLikeImg"
+            android:src="@drawable/likeempty"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="3dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/noticeItemLikeNum"
+            android:textColor="#6B77FF"
+            android:text="num"
+            android:fontFamily="@font/regular"
+            android:includeFontPadding="false"
+            android:textSize="11dp"
+            />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

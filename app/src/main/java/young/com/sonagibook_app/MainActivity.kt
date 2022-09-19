@@ -30,23 +30,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
-        viewModel = ViewModelProvider(this,MainViewModelFactory(Repository()))
-            .get(MainViewModel::class.java)
+        
 
         mainViewModelFactory = MainViewModelFactory(Repository())
         viewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
 
         val accessToken : String = intent.getStringExtra("accessToken")!!
-
+        val token = "Bearer $accessToken"
         CoroutineScope(Dispatchers.Main).launch {
-            val token = "Bearer $accessToken"
             getAccessToken(token)
             fetchUserInfo()
             Log.d(TAG, "Activity onCreate: ${viewModel.userHomeDataModel.get(0).data.birth}")
 
             //main 에서 받아야함
+        }
+
+        CoroutineScope(Dispatchers.Main).launch { 
+            getNoticeList(1,token)
+            viewModel.repositories2.observe(this@MainActivity){
+                Log.d(TAG, "onCreate: $it")
+            }
         }
 
         viewModel.accessToken.add(accessToken)
@@ -91,6 +94,9 @@ class MainActivity : AppCompatActivity() {
     private suspend fun getAccessToken(token : String) {
         viewModel.getAccessToken(token)
 
+    }
+    private suspend fun getNoticeList(page : Int, token : String){
+        viewModel.getNoticeList(page, token)
     }
     private suspend fun fetchUserInfo(){
         withContext(Dispatchers.IO){

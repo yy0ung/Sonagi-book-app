@@ -30,4 +30,16 @@ interface RetrofitInterface {
     suspend fun getAccessToken(@Header("Authorization") token : String)
     : Response<RetrofitGetResponseAllInfo>
 
+    //notice
+    @POST("v1/notice")
+    @Headers("Content-type: application/json")
+    suspend fun postNewNotice(@Header("Authorization") token : String,
+    @Body noticeInfo : RetrofitPostNoticeDto)
+
+    @GET("v1/notice/list/{page}")
+    @Headers("Content-type: application/json")
+    suspend fun getNoticeList(@Path("page")page : Int,
+                              @Header("Authorization") token : String)
+    :Response<RetrofitResponseNoticeDto>
+
 }

@@ -2,6 +2,7 @@ package young.com.sonagibook_app
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -33,6 +34,7 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container,false)
         val info = view.findViewById<TextView>(R.id.homeProfileInfo)
         val profileMsg = view.findViewById<TextView>(R.id.homeProfileMsg)
+        val noticeMore = view.findViewById<TextView>(R.id.homeNoticeMoreBtn)
 
         val btn = view.findViewById<LinearLayout>(R.id.homeUpcomingContainer)
         viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(Repository())).get(
@@ -46,10 +48,11 @@ class HomeFragment : Fragment() {
             profileMsg.text = profile.profile_message.toString()
         }
 
-
-
-
-
+        noticeMore.setOnClickListener {
+            val intent = Intent(context,NoticeListActivity::class.java)
+            intent.putExtra("accessToken",viewModel.accessToken[0].toString())
+            startActivity(intent)
+        }
 
         return view
     }
