@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             getNoticeList(1,token)
             viewModel.repositories2.observe(this@MainActivity){
                 Log.d(TAG, "onCreate: $it")
+                viewModel.homeNoticeDataModel.add(it)
             }
         }
 

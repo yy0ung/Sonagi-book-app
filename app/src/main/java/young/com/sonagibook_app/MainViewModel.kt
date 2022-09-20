@@ -24,6 +24,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     val accessToken = ArrayList<String>()
     val userHomeDataModel = ArrayList<RetrofitGetResponseAllInfo>()
+    val homeNoticeDataModel = ArrayList<RetrofitResponseNoticeDto>()
 
     fun getAccessToken(token : String){
         Log.d(TAG, "getAccessToken: getget")

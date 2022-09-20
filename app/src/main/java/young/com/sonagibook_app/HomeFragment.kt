@@ -14,6 +14,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,6 +37,7 @@ class HomeFragment : Fragment() {
         val info = view.findViewById<TextView>(R.id.homeProfileInfo)
         val profileMsg = view.findViewById<TextView>(R.id.homeProfileMsg)
         val noticeMore = view.findViewById<TextView>(R.id.homeNoticeMoreBtn)
+        val noticeRecycler = view.findViewById<RecyclerView>(R.id.homeNoticeContainer)
 
         val btn = view.findViewById<LinearLayout>(R.id.homeUpcomingContainer)
         viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(Repository())).get(
@@ -46,6 +49,13 @@ class HomeFragment : Fragment() {
             val profile = viewModel.userHomeDataModel.get(0).data
             info.text = "${profile.grade}${profile.session} ${profile.name}님"
             profileMsg.text = profile.profile_message.toString()
+        }
+        CoroutineScope(Dispatchers.Main).launch {
+            fetchNoticeInfo()
+            Log.d(TAG, "onCreateView: ${viewModel.homeNoticeDataModel.get(0)}")
+            val adapter = NoticeItemsAdapter(viewModel.homeNoticeDataModel)
+            noticeRecycler.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+            noticeRecycler.adapter = adapter
         }
 
         noticeMore.setOnClickListener {
@@ -60,6 +70,12 @@ class HomeFragment : Fragment() {
     private suspend fun fetchUserInfo(){
         withContext(Dispatchers.IO){
             while (viewModel.userHomeDataModel.size==0){}
+        }
+    }
+
+    private suspend fun fetchNoticeInfo(){
+        withContext(Dispatchers.IO){
+            while (viewModel.homeNoticeDataModel.size==0){}
         }
     }
 

@@ -16,6 +16,6 @@ data class DataDto(
     val createdAt : String,
     val nid : String,
     val title : String,
-    val important : Any,
+    val important : Any?,
     val updatedAt : String
 )

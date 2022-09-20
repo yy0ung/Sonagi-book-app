@@ -18,6 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/homeMainFragment"/>
     <LinearLayout
+        android:background="#FFFFFF"
         android:layout_width="match_parent"
         android:layout_height="85dp"
         android:id="@+id/homeTapBar"
