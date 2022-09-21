@@ -7,10 +7,16 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.WindowManager
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import young.com.sonagibook_app.*
 import young.com.sonagibook_app.retrofit.Dto.RetrofitPostResponseDto
 import young.com.sonagibook_app.retrofit.Dto.RetrofitUserInfoGetDto
 import young.com.sonagibook_app.retrofit.LoginRepository
+import young.com.sonagibook_app.room.RoomRepository
+import young.com.sonagibook_app.room.Token
+import young.com.sonagibook_app.room.TokenDatabase
 
 
 class LoginActivity : AppCompatActivity() {
@@ -23,6 +29,16 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, LoginViewModelFactory(LoginRepository())).get(
             LoginViewModel::class.java)
+
+        val tokenDB by lazy { TokenDatabase.getInstance(this) }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            //tokenDB?.tokenDao()?.insert(Token("aa","bb"))
+            val rst = tokenDB?.tokenDao()?.getAll()
+            Log.d(TAG, "onCreate: ####${rst?.accessToken}")
+        }
+
+
 
 
         val fragment = supportFragmentManager.beginTransaction()

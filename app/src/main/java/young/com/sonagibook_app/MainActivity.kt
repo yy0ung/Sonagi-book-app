@@ -18,6 +18,8 @@ import young.com.sonagibook_app.login.LoginActivity
 import young.com.sonagibook_app.login.LoginViewModel
 import young.com.sonagibook_app.login.LoginViewModelFactory
 import young.com.sonagibook_app.databinding.ActivityMainBinding
+import young.com.sonagibook_app.room.Token
+import young.com.sonagibook_app.room.TokenDatabase
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +36,8 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModelFactory = MainViewModelFactory(Repository())
         viewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
+
+
 
         val accessToken : String = intent.getStringExtra("accessToken")!!
         val token = "Bearer $accessToken"
