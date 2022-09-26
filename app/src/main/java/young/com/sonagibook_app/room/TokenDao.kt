@@ -14,6 +14,6 @@ interface TokenDao {
     @Query("SELECT * FROM TokenTable")
     fun getAll() : Token
 
-    //@Query("DELETE FROM TokenTable")
-    //fun deleteAll(refreshToken : String)
+    @Delete
+    fun deleteAll(token : Token)
 }

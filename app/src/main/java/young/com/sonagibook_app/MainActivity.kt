@@ -1,28 +1,20 @@
 package young.com.sonagibook_app
 
 import android.content.ContentValues.TAG
-import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import young.com.sonagibook_app.login.LoginActivity
-import young.com.sonagibook_app.login.LoginViewModel
-import young.com.sonagibook_app.login.LoginViewModelFactory
+import kotlinx.coroutines.*
 import young.com.sonagibook_app.databinding.ActivityMainBinding
 import young.com.sonagibook_app.room.Token
 import young.com.sonagibook_app.room.TokenDatabase
 
 
 class MainActivity : AppCompatActivity() {
+    private val tokenDB by lazy { TokenDatabase.getInstance(this) }
     lateinit var binding : ActivityMainBinding
     var token : String = ""
     private lateinit var viewModel: MainViewModel
@@ -37,14 +29,15 @@ class MainActivity : AppCompatActivity() {
         mainViewModelFactory = MainViewModelFactory(Repository())
         viewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
 
+        //val accessToken : String = intent.getStringExtra("accessToken")!!
 
-
-        val accessToken : String = intent.getStringExtra("accessToken")!!
-        val token = "Bearer $accessToken"
         CoroutineScope(Dispatchers.Main).launch {
+            val accessToken =
+                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB()?.accessToken }
+            val token = "Bearer $accessToken"
             getAccessToken(token)
             fetchUserInfo()
-            Log.d(TAG, "Activity onCreate: ${viewModel.userHomeDataModel.get(0).data.birth}")
+            Log.d(TAG, "@@@Activity onCreate: $accessToken")
 
             //main 에서 받아야함
         }
@@ -57,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.accessToken.add(accessToken)
+//        viewModel.accessToken.add(accessToken)
 
         val fragment = supportFragmentManager.beginTransaction()
         fragment.add(R.id.homeMainFragment, HomeFragment()).commit()
@@ -119,6 +112,10 @@ class MainActivity : AppCompatActivity() {
         g3.setColorFilter(Color.parseColor("#C8CBD0"))
         g4.setColorFilter(Color.parseColor("#C8CBD0"))
 
+    }
+
+    private suspend fun getTokenDB() : Token?{
+        return tokenDB?.tokenDao()?.getAll()
     }
 
 

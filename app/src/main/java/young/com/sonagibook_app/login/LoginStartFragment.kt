@@ -15,14 +15,19 @@ import androidx.lifecycle.lifecycleScope
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import young.com.sonagibook_app.*
 import young.com.sonagibook_app.retrofit.Dto.RetrofitPostRequestDto
 import young.com.sonagibook_app.retrofit.LoginRepository
+import young.com.sonagibook_app.room.Token
+import young.com.sonagibook_app.room.TokenDatabase
 
 class LoginStartFragment : Fragment() {
     private var token = ""
-
+    private val tokenDB by lazy { TokenDatabase.getInstance(requireActivity()) }
     private lateinit var viewModel: LoginViewModel
     private lateinit var loginViewModelFactory: LoginViewModelFactory
     override fun onCreateView(
@@ -32,6 +37,7 @@ class LoginStartFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_login_start, container,false)
         val homeLoginKakao : ImageView = view.findViewById(R.id.loginStartKakaoBtn)
+
 
 
         viewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory(LoginRepository())).get(
@@ -44,8 +50,9 @@ class LoginStartFragment : Fragment() {
                     token = oAuthToken!!.accessToken.toString()
                     setPostToken(token)
                     viewModel.loginRepositories1.observe(requireActivity()){
-                        Log.d(ContentValues.TAG, "setPostToken: ${it}")
+                        Log.d(ContentValues.TAG, "////setPostToken: ${it}")
                         if(it.data.registered == true){
+                            //CoroutineScope(Dispatchers.Main).launch { dbInsert(it.data.access_token.toString(), it.data.refresh_token.toString()) }
                             Toast.makeText(context,"이미 로그인 된 계정",Toast.LENGTH_LONG).show()
                             val intent = Intent(context, MainActivity::class.java)
                             intent.putExtra("accessToken", it.data.access_token.toString())
@@ -79,6 +86,9 @@ class LoginStartFragment : Fragment() {
         val accessToken = RetrofitPostRequestDto(token = token)
         viewModel.postToken(token = accessToken)
 
+    }
+    private suspend fun dbInsert(access : String, refresh : String){
+        withContext(Dispatchers.IO){ tokenDB?.tokenDao()?.insert(Token(access, refresh)) }
     }
 
 

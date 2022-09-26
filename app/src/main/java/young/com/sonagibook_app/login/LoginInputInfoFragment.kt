@@ -21,6 +21,8 @@ import young.com.sonagibook_app.R
 import young.com.sonagibook_app.retrofit.Dto.RetrofitMoreInfoPostDto
 import young.com.sonagibook_app.retrofit.LoginRepository
 import young.com.sonagibook_app.retrofit.dataDto.dataDtoMoreInfo
+import young.com.sonagibook_app.room.Token
+import young.com.sonagibook_app.room.TokenDatabase
 
 class LoginInputInfoFragment : Fragment() {
     private lateinit var viewModel : LoginViewModel
@@ -31,6 +33,7 @@ class LoginInputInfoFragment : Fragment() {
     private lateinit var userGrade : String
     private lateinit var userSession : String
     private lateinit var info : RetrofitMoreInfoPostDto
+    private val tokenDB by lazy { TokenDatabase.getInstance(requireActivity()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,9 +83,8 @@ class LoginInputInfoFragment : Fragment() {
 
                     postMoreInfo(info)
                     viewModel.loginRepositories3.observe(requireActivity()){
-                        Log.d(TAG, "onCreateView: ${it.data}")
-
-
+                        Log.d(TAG, "////onCreateView: ${it.data}")
+                        CoroutineScope(Dispatchers.IO).launch { dbInsert(it.data.access_token.toString(), it.data.refresh_token.toString()) }
 
                     }
                 }
@@ -103,6 +105,12 @@ class LoginInputInfoFragment : Fragment() {
     private suspend fun getLastInfo(model : LoginViewModel){
         withContext(Dispatchers.IO){
             while(model.loginModel2.size==0 || model.loginModel.size==0){}
+        }
+    }
+
+    private suspend fun dbInsert(access : String, refresh : String){
+        withContext(Dispatchers.IO){
+            tokenDB?.tokenDao()?.insert(Token(access, refresh))
         }
     }
 
