@@ -9,7 +9,7 @@ interface TokenDao {
     fun insert(token : Token)
 
     @Update
-    fun update(vararg token : Token)
+    fun update(token : Token)
 
     @Query("SELECT * FROM TokenTable")
     fun getAll() : Token

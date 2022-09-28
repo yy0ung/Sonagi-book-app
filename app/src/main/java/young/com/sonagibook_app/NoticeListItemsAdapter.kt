@@ -18,15 +18,17 @@ class NoticeListItemsAdapter(private val noticeItemList : ArrayList<RetrofitResp
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.itemTitle.text = noticeItemList.get(0).data[position].title
         holder.itemUser.text = noticeItemList.get(0).data[position].name
+        holder.itemLike.text = noticeItemList.get(0).data[position].likes.toString()
     }
 
     override fun getItemCount(): Int {
-        return noticeItemList.get(0).data.size
+        return noticeItemList.size
     }
     inner class CustomViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val itemTitle : TextView = itemView.findViewById(R.id.noticeItemTitle)
         val itemContent : TextView = itemView.findViewById(R.id.noticeItemContext)
         val itemUser : TextView = itemView.findViewById(R.id.noticeItemUser)
+        val itemLike : TextView = itemView.findViewById(R.id.noticeItemLikeNum)
     }
 
 }

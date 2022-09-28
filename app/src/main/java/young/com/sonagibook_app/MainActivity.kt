@@ -27,23 +27,30 @@ class MainActivity : AppCompatActivity() {
         
 
         mainViewModelFactory = MainViewModelFactory(Repository())
-        viewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
 
-        //val accessToken : String = intent.getStringExtra("accessToken")!!
+        //refresh token 으로 room db 업데이트
+        //updateTokenDB(Token())
 
         CoroutineScope(Dispatchers.Main).launch {
-            val accessToken =
-                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB()?.accessToken }
-            val token = "Bearer $accessToken"
-            getAccessToken(token)
-            fetchUserInfo()
-            Log.d(TAG, "@@@Activity onCreate: $accessToken")
+            val token =
+                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }
+            val accessToken = "Bearer ${token?.accessToken}"
+            getAccessToken(accessToken,token?.refreshToken.toString())
+            viewModel.repositories1.observe(this@MainActivity){
+                Log.d(TAG, "new ///// onCreate: $it")
+                viewModel.userHomeDataModel.add(it)
+            }
+            //Log.d(TAG, "@@@Activity onCreate: $accessToken")
 
             //main 에서 받아야함
         }
 
-        CoroutineScope(Dispatchers.Main).launch { 
-            getNoticeList(1,token)
+        CoroutineScope(Dispatchers.Main).launch {
+            val token =
+                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }
+            val accessToken = "Bearer ${token?.accessToken}"
+            getNoticeList(1,accessToken)
             viewModel.repositories2.observe(this@MainActivity){
                 Log.d(TAG, "onCreate: $it")
                 viewModel.homeNoticeDataModel.add(it)
@@ -89,8 +96,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private suspend fun getAccessToken(token : String) {
-        viewModel.getAccessToken(token)
+    private suspend fun getAccessToken(token : String, refreshToken : String) {
+        viewModel.getAccessToken(token, refreshToken)
+        viewModel.repositories1.observe(this@MainActivity){
+            Log.d(TAG, "new ///// onCreate: $it")
+            viewModel.userHomeDataModel.add(it)
+        }
 
     }
     private suspend fun getNoticeList(page : Int, token : String){
@@ -117,6 +128,15 @@ class MainActivity : AppCompatActivity() {
     private suspend fun getTokenDB() : Token?{
         return tokenDB?.tokenDao()?.getAll()
     }
+    private suspend fun updateTokenDB(token : Token){
+        tokenDB?.tokenDao()?.update(token)
+    }
+
+    private suspend fun postRefreshToken(token : String){
+        viewModel.postRefreshToken(token)
+    }
+
+
 
 
 

@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
 
         noticeMore.setOnClickListener {
             val intent = Intent(context,NoticeListActivity::class.java)
-            intent.putExtra("accessToken",viewModel.accessToken[0].toString())
+            //intent.putExtra("accessToken",viewModel.accessToken[0].toString())
             startActivity(intent)
         }
 

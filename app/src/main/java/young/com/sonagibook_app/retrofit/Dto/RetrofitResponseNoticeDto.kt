@@ -17,5 +17,6 @@ data class DataDto(
     val nid : String,
     val title : String,
     val important : Any?,
-    val updatedAt : String
+    val updatedAt : String,
+    val likes : Int
 )
