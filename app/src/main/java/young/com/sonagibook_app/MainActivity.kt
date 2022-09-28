@@ -29,14 +29,15 @@ class MainActivity : AppCompatActivity() {
         mainViewModelFactory = MainViewModelFactory(Repository())
         viewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
 
-        //refresh token 으로 room db 업데이트
-        //updateTokenDB(Token())
 
         CoroutineScope(Dispatchers.Main).launch {
             val token =
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }
             val accessToken = "Bearer ${token?.accessToken}"
+            Log.d(TAG, "onCreate: @@@@@@@$accessToken")
             getAccessToken(accessToken,token?.refreshToken.toString())
+
+
             viewModel.repositories1.observe(this@MainActivity){
                 Log.d(TAG, "new ///// onCreate: $it")
                 viewModel.userHomeDataModel.add(it)
@@ -107,11 +108,6 @@ class MainActivity : AppCompatActivity() {
     private suspend fun getNoticeList(page : Int, token : String){
         viewModel.getNoticeList(page, token)
     }
-    private suspend fun fetchUserInfo(){
-        withContext(Dispatchers.IO){
-            while (viewModel.userHomeDataModel.size==0){}
-        }
-    }
 
     private fun changeColorToBlue(imgG : ImageView){
         imgG.setColorFilter(Color.parseColor("#6773F6"))
@@ -133,7 +129,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun postRefreshToken(token : String){
-        viewModel.postRefreshToken(token)
+        val map = HashMap<String, String>()
+        map["refresh_token"] = token
+        viewModel.postRefreshToken(map)
     }
 
 

@@ -5,14 +5,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
 import young.com.sonagibook_app.databinding.ActivityNoticeListBinding
 import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseNoticeDto
 import young.com.sonagibook_app.room.TokenDatabase

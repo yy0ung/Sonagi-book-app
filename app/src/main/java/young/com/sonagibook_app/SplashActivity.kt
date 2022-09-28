@@ -1,6 +1,5 @@
 package young.com.sonagibook_app
 
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +18,6 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
 
         //DB에 token 저장되어있는지 여부에 따라 화면 전환
         CoroutineScope(Dispatchers.Main).launch {

@@ -32,7 +32,7 @@ interface RetrofitInterface {
 
     @POST("v1/auth/token")
     @Headers("Content-type: application/json")
-    suspend fun postRefreshToken(@Body refreshToken : String) : Response<RetrofitResponseRefreshTokenDto>
+    suspend fun postRefreshToken(@Body refreshToken : HashMap<String,String>) : Response<RetrofitResponseRefreshTokenDto>
 
     //notice
     @POST("v1/notice")
@@ -49,7 +49,7 @@ interface RetrofitInterface {
     @GET("v1/notice/{nid}")
     @Headers("Content-type: application/json")
     suspend fun getNoticeContent(@Path("nid") nid : String, @Header("Authorization") token : String)
-            :Response<RetrofitResponseNoticeDto>
+            :Response<RetrofitResponseNoticeContentDto>
 
     @DELETE("v1/notice/{nid}")
     @Headers("Content-type: application/json")

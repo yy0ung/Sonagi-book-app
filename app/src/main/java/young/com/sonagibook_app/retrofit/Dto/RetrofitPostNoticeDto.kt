@@ -1,17 +1,19 @@
 package young.com.sonagibook_app.retrofit.Dto
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-data class RetrofitPostNoticeDto(
+class RetrofitPostNoticeDto(
     @SerializedName("data")
-    val data : NoticeDto
+    var data : NoticeDto?
 )
 
-data class NoticeDto(
+class NoticeDto(
     @SerializedName("title")
-    val title : String,
+    var title : String?=null,
     @SerializedName("content")
-    val content : String,
+    var content : String?=null,
     @SerializedName("important")
-    val important : Any
+    var important : Boolean?=null
 )

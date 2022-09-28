@@ -24,10 +24,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".NoticeAddActivity"
-            android:exported="true" />
+            android:exported="true"/>
+
         <activity
             android:name=".NoticeListActivity"
             android:exported="true" />

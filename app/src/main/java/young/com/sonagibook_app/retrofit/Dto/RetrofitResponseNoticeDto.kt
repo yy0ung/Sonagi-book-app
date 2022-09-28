@@ -6,6 +6,10 @@ data class RetrofitResponseNoticeDto(
     val data : List<DataDto>
 )
 
+data class RetrofitResponseNoticeContentDto(
+    val data : DataDto
+)
+
 data class DataDto(
     @SerializedName("User.name")
     val name : String,
@@ -13,6 +17,7 @@ data class DataDto(
     val privileged : Int,
     @SerializedName("User.session")
     val session : String,
+    val content : String?,
     val createdAt : String,
     val nid : String,
     val title : String,

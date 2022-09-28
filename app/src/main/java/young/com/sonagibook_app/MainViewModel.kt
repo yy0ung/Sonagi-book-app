@@ -9,6 +9,8 @@ import kotlinx.coroutines.launch
 import young.com.sonagibook_app.retrofit.Dto.RetrofitGetResponseAllInfo
 import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseNoticeDto
 import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseRefreshTokenDto
+import young.com.sonagibook_app.room.Token
+import young.com.sonagibook_app.room.TokenDatabase
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
     private val _repositoriesGetAccessToken = MutableLiveData<RetrofitGetResponseAllInfo>()
@@ -21,12 +23,17 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     val repositories3 : MutableLiveData<RetrofitResponseRefreshTokenDto>
         get() = _repositoriesPostRefreshToken
 
+    private var _newAccessToken : String? = null
+    val newAccessToken : String? get() = _newAccessToken
+
 
     init {
         Log.d(TAG, "create: viewModelMain")
+        _newAccessToken = null
+        
     }
 
-    val accessToken = ArrayList<String>()
+    
     val userHomeDataModel = ArrayList<RetrofitGetResponseAllInfo>()
     val homeNoticeDataModel = ArrayList<RetrofitResponseNoticeDto>()
 
@@ -39,7 +46,9 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                     _repositoriesGetAccessToken.postValue(response.body())
                     //response.body()?.let { userHomeDataModel.add(it) }
                 }else{
-                    postRefreshToken(refreshToken)
+                    val map = HashMap<String, String>()
+                    map["refresh_token"] = refreshToken
+                    postRefreshToken(map)
                     Log.d(TAG, "getAccessToken: viewModel 재발급")
                 }
             }
@@ -57,12 +66,15 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun postRefreshToken(refreshToken : String){
+    fun postRefreshToken(refreshToken : HashMap<String,String>){
         viewModelScope.launch {
             repository.postRefreshToken(refreshToken).let { response ->
                 if(response.isSuccessful){
                     Log.d(TAG, "postRefreshToken: ${response.body()}")
                     _repositoriesPostRefreshToken.postValue(response.body())
+
+
+
                 }
             }
         }

@@ -12,12 +12,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:hint="제목을 입력하세요"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/noticeAddInputContext"
+        android:inputType="text"
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"

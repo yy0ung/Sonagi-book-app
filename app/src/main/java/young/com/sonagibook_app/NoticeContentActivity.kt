@@ -1,7 +1,9 @@
 package young.com.sonagibook_app
 
+import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,12 +26,24 @@ class NoticeContentActivity : AppCompatActivity() {
 
         val nid : String = intent.getStringExtra("nid")!!
         CoroutineScope(Dispatchers.Main).launch {
-                val token =
-                    withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { tokenDB?.tokenDao()?.getAll() }
-                val accessToken = "Bearer ${token?.accessToken}"
+
+            val token =
+                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { tokenDB?.tokenDao()?.getAll() }
+            val accessToken = "Bearer ${token?.accessToken}"
+
+            getNoticeContent(nid, accessToken)
+            viewModel.repositories1.observe(this@NoticeContentActivity){
+                binding.noticeContentTitle.text = it.data.title
+                binding.noticeContentContent.text = it.data.content
+                binding.noticeContentWriter.text = it.data.name
+                binding.noticeContentLikeNum.text = it.data.likes.toString()
+
+            }
+
 
             binding.delete.setOnClickListener {
                 viewModel.deleteNoticeItem(nid, accessToken)
+                Log.d(TAG, "onCreate: 삭제 성공")
             }
 
             }
@@ -37,5 +51,9 @@ class NoticeContentActivity : AppCompatActivity() {
 
 
 
+    }
+
+    private suspend fun getNoticeContent(nid : String, token : String){
+        viewModel.getNoticeContent(nid, token)
     }
 }

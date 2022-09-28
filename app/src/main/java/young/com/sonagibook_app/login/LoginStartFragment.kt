@@ -15,7 +15,6 @@ import androidx.lifecycle.lifecycleScope
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -42,6 +41,8 @@ class LoginStartFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory(LoginRepository())).get(
             LoginViewModel::class.java)
+
+
 
         homeLoginKakao.setOnClickListener{
             lifecycleScope.launch {
