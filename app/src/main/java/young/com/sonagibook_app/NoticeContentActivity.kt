@@ -1,5 +1,6 @@
 package young.com.sonagibook_app
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +19,7 @@ class NoticeContentActivity : AppCompatActivity() {
     private lateinit var binding : ActivityNoticeContentBinding
     private lateinit var viewModel : NoticeContentViewModel
     private lateinit var viewModelFactory : NoticeContentViewModelFactory
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNoticeContentBinding.inflate(layoutInflater)
@@ -38,6 +40,12 @@ class NoticeContentActivity : AppCompatActivity() {
                 binding.noticeContentContent.text = it.data.content
                 binding.noticeContentWriter.text = it.data.name
                 binding.noticeContentLikeNum.text = it.data.likes.toString()
+
+                val createDate = it.data.createdAt.toString()
+                val year = createDate.substring(0,4)
+                val month = createDate.substring(5,7)
+                val date = createDate.substring(8,10)
+                binding.noticeContentDate.text = "${year}년 ${month}월 ${date}일"
 
             }
 

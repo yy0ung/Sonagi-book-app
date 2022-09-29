@@ -1,5 +1,6 @@
 package young.com.sonagibook_app
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ class NoticeItemsAdapter(private val noticeItemList : ArrayList<RetrofitResponse
         return CustomViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.itemTitle.text = noticeItemList.get(0).data[position].title
         holder.itemUser.text = noticeItemList.get(0).data[position].name
@@ -27,6 +29,21 @@ class NoticeItemsAdapter(private val noticeItemList : ArrayList<RetrofitResponse
             intent.putExtra("nid",noticeItemList.get(0).data[position].nid.toString())
             ContextCompat.startActivity(holder.itemContainer.context,intent,null)
         }
+
+        val content = noticeItemList.get(0).data[position].content
+        if (content != null) {
+            if(content.length <30){
+                holder.itemContent.text = content
+            }else{
+                holder.itemContent.text = content.substring(0,31)+"..."
+            }
+        }
+
+        val createDate = noticeItemList.get(0).data[position].createdAt
+        //val year = createDate.substring(0,4).toString()
+        val month = createDate.substring(5,7).toString()
+        val date = createDate.substring(8,10).toString()
+        holder.itemDate.text = "${month}월 ${date}일"
     }
 
     override fun getItemCount(): Int {
@@ -36,8 +53,9 @@ class NoticeItemsAdapter(private val noticeItemList : ArrayList<RetrofitResponse
         val itemContainer : ConstraintLayout = itemView.findViewById(R.id.noticeItemContainer)
         val itemTitle : TextView = itemView.findViewById(R.id.noticeItemTitle)
         val itemContent : TextView = itemView.findViewById(R.id.noticeItemContext)
-        val itemUser : TextView = itemView.findViewById(R.id.noticeItemUser)
+        val itemUser : TextView = itemView.findViewById(R.id.noticeItemWriter)
         val itemLike : TextView = itemView.findViewById(R.id.noticeItemLikeNum)
+        val itemDate : TextView = itemView.findViewById(R.id.noticeItemDate)
     }
 
 }
