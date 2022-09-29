@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import young.com.sonagibook_app.databinding.ActivityNoticeContentBinding
+import young.com.sonagibook_app.retrofit.Dto.RetrofitPostNoticeLikeDto
 import young.com.sonagibook_app.room.TokenDatabase
 
 class NoticeContentActivity : AppCompatActivity() {
@@ -46,6 +47,21 @@ class NoticeContentActivity : AppCompatActivity() {
                 Log.d(TAG, "onCreate: 삭제 성공")
             }
 
+            binding.noticeContentLikeImg.setOnClickListener{
+                CoroutineScope(Dispatchers.IO).launch { postNoticeLike(accessToken, nid) }
+                viewModel.repositories2.observe(this@NoticeContentActivity){
+                    binding.noticeContentLikeNum.text = (it.data?.likes?.plus(1)).toString()
+                }
+
+            }
+            binding.noticeContentCancelLikeImg.setOnClickListener{
+                CoroutineScope(Dispatchers.IO).launch { postNoticeCancelLike(accessToken, nid) }
+                viewModel.repositories3.observe(this@NoticeContentActivity){
+                    binding.noticeContentLikeNum.text = (it.data?.likes).toString()
+                }
+
+            }
+
             }
 
 
@@ -55,5 +71,17 @@ class NoticeContentActivity : AppCompatActivity() {
 
     private suspend fun getNoticeContent(nid : String, token : String){
         viewModel.getNoticeContent(nid, token)
+    }
+
+    private suspend fun postNoticeLike(token: String, nid: String){
+        val map = HashMap<String, String>()
+        map["nid"] = nid
+        viewModel.postNoticeLike(token, RetrofitPostNoticeLikeDto(map))
+    }
+
+    private suspend fun postNoticeCancelLike(token: String, nid: String){
+        val map = HashMap<String, String>()
+        map["nid"] = nid
+        viewModel.postNoticeCancelLike(token, RetrofitPostNoticeLikeDto(map))
     }
 }

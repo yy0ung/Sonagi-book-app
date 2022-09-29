@@ -54,6 +54,21 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
             }
         }
     }
+    fun getNewAccessToken(token : String){
+        Log.d(TAG, "getAccessToken: 새로운 fun")
+        viewModelScope.launch {
+            repository.getAccessToken(token).let { response ->
+                if(response.isSuccessful){
+                    Log.d(TAG, "getNewAccessToken: ${response.body()}")
+                    _repositoriesGetAccessToken.postValue(response.body())
+                }else{
+                    Log.d(TAG, "getNewAccessToken: 실패")
+                }
+            }
+        }
+    }
+
+
 
     fun getNoticeList(page : Int, token :String){
         viewModelScope.launch {

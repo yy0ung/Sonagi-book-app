@@ -33,16 +33,24 @@
         android:text="공지 내용"
         android:textSize="20dp"/>
     <Button
-        android:layout_width="50dp"
+        android:layout_width="100dp"
         android:layout_height="50dp"
+        android:text="좋아요"
         android:id="@+id/noticeContentLikeImg"
         app:layout_constraintTop_toBottomOf="@id/noticeContentContent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="취소"
+        android:id="@+id/noticeContentCancelLikeImg"
+        app:layout_constraintTop_toBottomOf="@id/noticeContentLikeImg"
         app:layout_constraintStart_toStartOf="parent"/>
     <TextView
         android:id="@+id/noticeContentLikeNum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/noticeContentLikeImg"
+        app:layout_constraintTop_toBottomOf="@id/noticeContentCancelLikeImg"
         app:layout_constraintStart_toStartOf="parent"
         android:text="num"
         android:textSize="20dp"/>

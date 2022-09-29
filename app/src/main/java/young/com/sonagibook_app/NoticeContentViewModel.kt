@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import young.com.sonagibook_app.retrofit.Dto.RetrofitPostNoticeLikeDto
 import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseNoticeContentDto
 import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseNoticeDto
 import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseNoticeLikeDto
@@ -37,7 +38,7 @@ class NoticeContentViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun postNoticeLike(token: String, nid: String){
+    fun postNoticeLike(token: String, nid: RetrofitPostNoticeLikeDto){
         viewModelScope.launch {
             repository.postNoticeLike(token, nid).let { response ->
                 if(response.isSuccessful){
@@ -48,7 +49,7 @@ class NoticeContentViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun postNoticeCancelLike(token: String, nid: String){
+    fun postNoticeCancelLike(token: String, nid: RetrofitPostNoticeLikeDto){
         viewModelScope.launch {
             repository.postNoticeCancelLike(token, nid).let { response ->
                 if(response.isSuccessful){

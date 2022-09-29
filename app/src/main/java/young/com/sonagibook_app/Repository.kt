@@ -42,11 +42,11 @@ class Repository {
         return iRetrofit.deleteNoticeItem(nid, token)
     }
 
-    suspend fun postNoticeLike(token : String, nid: String) : Response<RetrofitResponseNoticeLikeDto>{
+    suspend fun postNoticeLike(token : String, nid: RetrofitPostNoticeLikeDto) : Response<RetrofitResponseNoticeLikeDto>{
         return iRetrofit.postNoticeLike(token, nid)
     }
 
-    suspend fun postNoticeCancelLike(token : String, nid: String) : Response<RetrofitResponseNoticeLikeDto>{
+    suspend fun postNoticeCancelLike(token : String, nid: RetrofitPostNoticeLikeDto) : Response<RetrofitResponseNoticeLikeDto>{
         return iRetrofit.postNoticeCancelLike(token, nid)
     }
 

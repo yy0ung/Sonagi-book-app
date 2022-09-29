@@ -9,6 +9,11 @@ class RetrofitPostNoticeDto(
     var data : NoticeDto?
 )
 
+class RetrofitPostNoticeLikeDto(
+    @SerializedName("data")
+    val data : HashMap<String, String>
+)
+
 class NoticeDto(
     @SerializedName("title")
     var title : String?=null,

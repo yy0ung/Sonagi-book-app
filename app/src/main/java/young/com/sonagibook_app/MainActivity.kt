@@ -37,9 +37,14 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "onCreate: @@@@@@@$accessToken")
             getAccessToken(accessToken,token?.refreshToken.toString())
 
+            viewModel.repositories3.observe(this@MainActivity){
+                Log.d(TAG, "onCreate: 만료 됨")
+                CoroutineScope(Dispatchers.IO).launch { updateTokenDB(Token(it.data.accessToken.toString(),token?.refreshToken.toString())) }
+            }
+
 
             viewModel.repositories1.observe(this@MainActivity){
-                Log.d(TAG, "new ///// onCreate: $it")
+                Log.d(TAG, "만료 안됨")
                 viewModel.userHomeDataModel.add(it)
             }
             //Log.d(TAG, "@@@Activity onCreate: $accessToken")
@@ -126,13 +131,9 @@ class MainActivity : AppCompatActivity() {
     }
     private suspend fun updateTokenDB(token : Token){
         tokenDB?.tokenDao()?.update(token)
+        Log.d(TAG, "updateTokenDB: 업데이트 성공")
     }
-
-    private suspend fun postRefreshToken(token : String){
-        val map = HashMap<String, String>()
-        map["refresh_token"] = token
-        viewModel.postRefreshToken(map)
-    }
+    
 
 
 

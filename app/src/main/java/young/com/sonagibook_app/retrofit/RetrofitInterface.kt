@@ -57,12 +57,12 @@ interface RetrofitInterface {
 
     @POST("v1/notice/like")
     @Headers("Content-type: application/json")
-    suspend fun postNoticeLike(@Header("Authorization") token : String, @Body nid : String)
+    suspend fun postNoticeLike(@Header("Authorization") token : String, @Body nid : RetrofitPostNoticeLikeDto)
             : Response<RetrofitResponseNoticeLikeDto>
 
-    @POST("v1/notice/like")
+    @POST("v1/notice/unlike")
     @Headers("Content-type: application/json")
-    suspend fun postNoticeCancelLike(@Header("Authorization") token : String, @Body nid : String)
+    suspend fun postNoticeCancelLike(@Header("Authorization") token : String, @Body nid : RetrofitPostNoticeLikeDto)
             : Response<RetrofitResponseNoticeLikeDto>
 
 }
