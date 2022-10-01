@@ -130,8 +130,13 @@ class MainActivity : AppCompatActivity() {
         return tokenDB?.tokenDao()?.getAll()
     }
     private suspend fun updateTokenDB(token : Token){
-        tokenDB?.tokenDao()?.update(token)
-        Log.d(TAG, "updateTokenDB: 업데이트 성공")
+        CoroutineScope(Dispatchers.IO).launch {
+            tokenDB?.tokenDao()?.update(token)
+            //viewModel.getWithNewAccessToken(token.accessToken)
+            Log.d(TAG, "updateTokenDB: 업데이트 성공")
+        }
+
+
     }
     
 

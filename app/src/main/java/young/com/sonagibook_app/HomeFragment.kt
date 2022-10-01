@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container,false)
         val info = view.findViewById<TextView>(R.id.homeProfileInfo)
-        val profileMsg = view.findViewById<TextView>(R.id.homeProfileMsg)
+        //val profileMsg = view.findViewById<TextView>(R.id.homeProfileMsg)
         val noticeMore = view.findViewById<TextView>(R.id.homeNoticeMoreBtn)
         val noticeRecycler = view.findViewById<RecyclerView>(R.id.homeNoticeContainer)
 
@@ -48,7 +48,7 @@ class HomeFragment : Fragment() {
             Log.d(TAG, "onCreateView: ${viewModel.userHomeDataModel.get(0).data.birth}")
             val profile = viewModel.userHomeDataModel.get(0).data
             info.text = "${profile.grade}${profile.session} ${profile.name}님"
-            profileMsg.text = profile.profile_message.toString()
+            //profileMsg.text = profile.profile_message.toString()
         }
         CoroutineScope(Dispatchers.Main).launch {
             fetchNoticeInfo()

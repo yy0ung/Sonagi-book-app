@@ -22,6 +22,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     private val _repositoriesPostRefreshToken = MutableLiveData<RetrofitResponseRefreshTokenDto>()
     val repositories3 : MutableLiveData<RetrofitResponseRefreshTokenDto>
         get() = _repositoriesPostRefreshToken
+    private val _repositoriesGetNewAccessToken = MutableLiveData<RetrofitGetResponseAllInfo>()
+    val repositories4 : MutableLiveData<RetrofitGetResponseAllInfo>
+        get() = _repositoriesGetNewAccessToken
+
 
     private var _newAccessToken : String? = null
     val newAccessToken : String? get() = _newAccessToken
@@ -54,15 +58,15 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
             }
         }
     }
-    fun getNewAccessToken(token : String){
+    fun getWithNewAccessToken(token : String){
         Log.d(TAG, "getAccessToken: 새로운 fun")
         viewModelScope.launch {
             repository.getAccessToken(token).let { response ->
                 if(response.isSuccessful){
                     Log.d(TAG, "getNewAccessToken: ${response.body()}")
-                    _repositoriesGetAccessToken.postValue(response.body())
+                    _repositoriesGetNewAccessToken.postValue(response.body())
                 }else{
-                    Log.d(TAG, "getNewAccessToken: 실패")
+                    Log.d(TAG, "getWithNewAccessToken: 불러오기 실패")
                 }
             }
         }
