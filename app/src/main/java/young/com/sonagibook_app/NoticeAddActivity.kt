@@ -4,6 +4,8 @@ import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.EditText
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,34 +27,33 @@ class NoticeAddActivity : AppCompatActivity() {
         binding = ActivityNoticeAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var noticeTitle  = binding.noticeAddInputTitle
-        val title = noticeTitle.text
-        val noticeContent = binding.noticeAddInputContext.text.toString()
-        //val accessToken : String = intent.getStringExtra("accessToken")!!
         viewModelFactory = NoticeViewModelFactory((Repository()))
         viewModel = ViewModelProvider(this, viewModelFactory).get(NoticeViewModel::class.java)
 
-        val notice = RetrofitPostNoticeDto(NoticeDto("0929 test2","0929 text content2", true))
-
-
-        //val token = "Bearer $accessToken"
-        //Toast.makeText(this,token, Toast.LENGTH_LONG).show()
-
         binding.noticeAddSendBtn.setOnClickListener {
-            //Toast.makeText(this,"${a.title},,${title.toString()}",Toast.LENGTH_LONG).show()
-            CoroutineScope(Dispatchers.Main).launch {
-                val token =
-                    withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { tokenDB?.tokenDao()?.getAll() }
-                val accessToken = "Bearer ${token?.accessToken}"
-                postNewNotice(accessToken, notice)
-                Log.d(ContentValues.TAG, "Activity onCreate: success")
-
-            }
+            addNoticeItem()
         }
 
     }
 
     private suspend fun postNewNotice(token : String, noticeInfo : RetrofitPostNoticeDto){
         viewModel.postNewNotice(token, noticeInfo)
+    }
+
+    private fun addNoticeItem(){
+        var title = findViewById<EditText>(R.id.noticeAddInputTitle)
+        var content = findViewById<EditText>(R.id.noticeAddInputContext)
+
+        val notice = RetrofitPostNoticeDto(NoticeDto(title.text.toString(),content.text.toString(), true))
+        Toast.makeText(this, "${notice},,${title.text.toString()}",Toast.LENGTH_LONG).show()
+
+        CoroutineScope(Dispatchers.Main).launch {
+            val token =
+                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { tokenDB?.tokenDao()?.getAll() }
+            val accessToken = "Bearer ${token?.accessToken}"
+            postNewNotice(accessToken, notice)
+            Log.d(ContentValues.TAG, "Activity onCreate: 공지 올리기 성공")
+
+        }
     }
 }

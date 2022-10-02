@@ -4,21 +4,21 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-class RetrofitPostNoticeDto(
+data class RetrofitPostNoticeDto(
     @SerializedName("data")
     var data : NoticeDto?
 )
 
-class RetrofitPostNoticeLikeDto(
+data class RetrofitPostNoticeLikeDto(
     @SerializedName("data")
     val data : HashMap<String, String>
 )
 
-class NoticeDto(
+data class NoticeDto(
     @SerializedName("title")
-    var title : String?=null,
+    var title: String?=null,
     @SerializedName("content")
-    var content : String?=null,
+    var content: String?=null,
     @SerializedName("important")
-    var important : Boolean?=null
+    var important : Any? = null
 )
