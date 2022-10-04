@@ -27,6 +27,12 @@ class NoticeContentActivity : AppCompatActivity() {
         viewModelFactory = NoticeContentViewModelFactory(Repository())
         viewModel = ViewModelProvider(this, viewModelFactory).get(NoticeContentViewModel::class.java)
 
+        //toolbar
+        setSupportActionBar(binding.noticeContentToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.noticeContentToolbar.setNavigationOnClickListener { onBackPressed() }
+
         val nid : String = intent.getStringExtra("nid")!!
         CoroutineScope(Dispatchers.Main).launch {
 

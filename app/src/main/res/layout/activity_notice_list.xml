@@ -5,6 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NoticeListActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/noticeListToolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"
+        android:paddingTop="20dp"
+        android:theme="@style/ToolbarTheme">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="공지사항"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:fontFamily="@font/bold"
+            android:includeFontPadding="false"
+            android:layout_gravity="center"/>
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

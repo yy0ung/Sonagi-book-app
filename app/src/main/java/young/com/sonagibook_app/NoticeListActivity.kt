@@ -26,6 +26,12 @@ class NoticeListActivity : AppCompatActivity() {
         binding = ActivityNoticeListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //toolbar
+        setSupportActionBar(binding.noticeListToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.noticeListToolbar.setNavigationOnClickListener { onBackPressed() }
+
         noticeListViewModelFactory = NoticeListViewModelFactory(Repository())
         viewModel = ViewModelProvider(this,noticeListViewModelFactory)[NoticeListViewModel::class.java]
 
