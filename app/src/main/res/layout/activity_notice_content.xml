@@ -22,17 +22,17 @@
         app:layout_goneMarginStart="20dp"
         android:id="@+id/noticeContentImportant"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/noticeContentToolbar"
         android:fontFamily="@font/bold"
         android:textSize="18dp"
         android:paddingEnd="5dp"
-        android:layout_marginTop="67dp"
+        android:layout_marginTop="15dp"
         android:visibility="gone"
         android:textFontWeight="500"
         android:textColor="#FF4848"
         android:includeFontPadding="false"/>
     <TextView
-        android:layout_marginTop="67dp"
+        android:layout_marginTop="15dp"
         android:layout_marginStart="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         android:text="공지 제목"
         android:textColor="@color/black"
         android:includeFontPadding="false"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/noticeContentToolbar"
         app:layout_constraintStart_toEndOf="@id/noticeContentImportant"/>
     <ImageView
         android:layout_width="40dp"
@@ -121,33 +121,45 @@
         android:lineHeight="23.1dp"
         android:includeFontPadding="false"
         android:textSize="14dp"/>
-    <Button
-        android:layout_marginTop="50dp"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="좋아요"
-        android:id="@+id/noticeContentLikeImg"
-        app:layout_constraintTop_toBottomOf="@id/noticeContentContent"
-        app:layout_constraintStart_toStartOf="parent"/>
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="취소"
-        android:id="@+id/noticeContentCancelLikeImg"
-        app:layout_constraintTop_toBottomOf="@id/noticeContentLikeImg"
-        app:layout_constraintStart_toStartOf="parent"/>
-    <TextView
-        android:id="@+id/noticeContentLikeNum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/noticeContentCancelLikeImg"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="num"
-        android:textSize="20dp"/>
-    <Button
-        android:layout_marginTop="50dp"
-        app:layout_constraintStart_toStartOf="parent"
+    <LinearLayout
+        android:layout_width="83dp"
+        android:layout_height="43dp"
+        android:id="@+id/noticeContentLikeContainer"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="60dp"
+        android:gravity="center"
+        android:background="@drawable/noticecontent_round_graybtn_item"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="19dp"
+            android:layout_height="20dp"
+            android:id="@+id/noticeContentLikeImg"
+            android:src="@drawable/likeimggray"
+            android:layout_gravity="center_vertical"
+            android:visibility="visible"/>
+        <TextView
+            android:id="@+id/noticeContentLikeNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#636363"
+            android:fontFamily="@font/medium"
+            android:includeFontPadding="false"
+            android:layout_gravity="center_vertical"
+            android:text="N"
+            android:layout_marginStart="8dp"
+            android:textSize="20dp"/>
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/noticeContentContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="삭제"

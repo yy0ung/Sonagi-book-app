@@ -23,5 +23,6 @@ data class DataDto(
     val title : String,
     val important : Any?,
     val updatedAt : String,
-    val likes : Int
+    val likes : Int,
+    val liked : Boolean
 )

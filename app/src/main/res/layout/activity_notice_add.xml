@@ -4,41 +4,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".NoticeAddActivity">
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        android:id="@+id/noticeAddToolContainer">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="취소"
+            android:gravity="left"
+            android:layout_weight="1"
+            android:textFontWeight="400"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:id="@+id/noticeAddCancelBtn"
+            android:fontFamily="@font/bold"
+            android:includeFontPadding="false"
+            />
+        <TextView
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="공지 등록"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:fontFamily="@font/bold"
+            android:includeFontPadding="false"
+            />
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/noticeAddSendBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="등록"
+            android:gravity="right"
+            android:textFontWeight="400"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:fontFamily="@font/bold"
+            android:includeFontPadding="false"
+            />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/noticeAddInputTitle"
-        android:layout_width="330dp"
+        android:layout_width="335dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="17dp"
         android:hint="제목을 입력하세요"
         android:inputType="text"
+        android:textColor="#D6D6D6"
+        android:fontFamily="@font/regular"
+        android:textSize="18dp"
+        android:includeFontPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/noticeAddToolContainer" />
 
+    //custom 필요
     <EditText
         android:id="@+id/noticeAddInputContext"
-        android:inputType="text"
-        android:layout_width="330dp"
+        android:layout_width="335dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:hint="내용을 입력하세요"
+        android:layout_marginTop="17dp"
+        android:hint="제목을 입력하세요"
+        android:inputType="text"
+        android:textColor="#D6D6D6"
+        android:fontFamily="@font/regular"
+        android:textSize="18dp"
+        android:includeFontPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/noticeAddInputTitle" />
 
-    <TextView
-        android:id="@+id/noticeAddSendBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="완료"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/noticeAddInputContext" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
