@@ -74,7 +74,8 @@ tools:context=".NoticeAddActivity">
 <EditText
     android:id="@+id/noticeEditInputContext"
     android:layout_width="335dp"
-    android:layout_height="wrap_content"
+    android:gravity="top"
+    android:layout_height="500dp"
     android:layout_marginTop="17dp"
     android:hint="내용을 입력하세요"
     android:inputType="text"
