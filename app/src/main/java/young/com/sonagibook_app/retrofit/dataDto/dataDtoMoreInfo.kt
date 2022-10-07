@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class dataDtoMoreInfo(
     @SerializedName("birth")
-    val birth : String,
+    var birth : String,
     @SerializedName("phone")
-    val phone : String,
+    var phone : String,
     @SerializedName("major")
-    val major : String,
+    var major : String,
     @SerializedName("profile_message")
-    val profile_message : String?
+    var profile_message : String?
 )

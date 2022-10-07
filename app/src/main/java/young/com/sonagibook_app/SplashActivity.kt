@@ -38,4 +38,6 @@ class SplashActivity : AppCompatActivity() {
     private suspend fun getTokenDB() : Token?{
         return tokenDB?.tokenDao()?.getAll()
     }
+
+
 }

@@ -92,8 +92,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                     Log.d(TAG, "postRefreshToken: ${response.body()}")
                     _repositoriesPostRefreshToken.postValue(response.body())
 
-
-
                 }
             }
         }

@@ -1,10 +1,14 @@
 package young.com.sonagibook_app
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -12,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView
 import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseNoticeDto
 
 class NoticeItemsAdapter(private val noticeItemList : ArrayList<RetrofitResponseNoticeDto>)
-    : RecyclerView.Adapter<NoticeItemsAdapter.CustomViewHolder>() {
+    : RecyclerView.Adapter<NoticeItemsAdapter.CustomViewHolder>(){
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_notice,parent,false)
 
@@ -33,10 +39,12 @@ class NoticeItemsAdapter(private val noticeItemList : ArrayList<RetrofitResponse
         val content = noticeItemList.get(0).data[position].content
         if (content != null) {
             if(content.length <30){
-                holder.itemContent.text = content
+                holder.itemContent.text = content.toString()
             }else{
-                holder.itemContent.text = content.substring(0,31)+"..."
+                holder.itemContent.text = content.substring(0,31).toString()+"..."
             }
+        }else{
+            Log.d(TAG, "onBindViewHolder: 공지사항 내용 빈칸")
         }
 
         val createDate = noticeItemList.get(0).data[position].createdAt
@@ -58,4 +66,7 @@ class NoticeItemsAdapter(private val noticeItemList : ArrayList<RetrofitResponse
         val itemDate : TextView = itemView.findViewById(R.id.noticeItemDate)
     }
 
+
+
 }
+

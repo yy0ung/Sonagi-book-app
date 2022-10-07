@@ -16,4 +16,5 @@ interface TokenDao {
 
     @Delete
     fun deleteAll(token : Token)
+
 }

@@ -130,9 +130,14 @@ class MainActivity : AppCompatActivity() {
         return tokenDB?.tokenDao()?.getAll()
     }
     private suspend fun updateTokenDB(token : Token){
+
+//        viewModel.getWithNewAccessToken(token.accessToken)
+//        viewModel.repositories4.observe(this@MainActivity){
+//            Log.d(TAG, "자동으로 만료 token 업데이트")
+//            viewModel.userHomeDataModel.add(it)
+//        }
         CoroutineScope(Dispatchers.IO).launch {
             tokenDB?.tokenDao()?.update(token)
-            //viewModel.getWithNewAccessToken(token.accessToken)
             Log.d(TAG, "updateTokenDB: 업데이트 성공")
         }
 

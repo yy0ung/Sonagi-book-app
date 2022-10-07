@@ -11,17 +11,50 @@
         android:id="@+id/noticeListToolbar"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@color/white"
-        android:paddingTop="20dp"
+        android:paddingTop="40dp"
         android:theme="@style/ToolbarTheme">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="공지사항"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:fontFamily="@font/bold"
-            android:includeFontPadding="false"
-            android:layout_gravity="center"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="공지사항"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:fontFamily="@font/bold"
+                android:includeFontPadding="false"
+                android:visibility="visible"
+                android:id="@+id/noticeListToolbarTitle"/>
+            <SearchView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:searchIcon="@drawable/search"
+                android:id="@+id/noticeListToolbarSearchInput"/>
+<!--            <EditText-->
+<!--                android:layout_width="300dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/noticeListToolbarSearchInput"-->
+<!--                android:hint="검색어를 입력하세요"-->
+<!--                android:visibility="invisible"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"/>-->
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                android:src="@drawable/search"-->
+<!--                android:id="@+id/noticeListToolbarSearchBtn"-->
+<!--                android:layout_marginEnd="20dp"/>-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -30,8 +63,8 @@
         android:id="@+id/noticeListNoticeContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="50dp"
+        app:layout_constraintTop_toBottomOf="@id/noticeListToolbar"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"/>
 
 

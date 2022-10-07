@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
@@ -21,6 +22,7 @@ class NoticeListActivity : AppCompatActivity() {
     private lateinit var viewModel: NoticeListViewModel
     private lateinit var noticeListViewModelFactory: NoticeListViewModelFactory
     private val noticeList = ArrayList<RetrofitResponseNoticeDto>()
+    private val searchList = ArrayList<RetrofitResponseNoticeDto>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNoticeListBinding.inflate(layoutInflater)
@@ -55,6 +57,20 @@ class NoticeListActivity : AppCompatActivity() {
             val intent = Intent(this,NoticeAddActivity::class.java)
             startActivity(intent)
         }
+
+        var searchView : SearchView.OnQueryTextListener =
+            object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(s: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(s: String): Boolean {
+                NoticeListItemsAdapter(noticeList).filter.filter(s)
+                return false
+            }
+        }
+
+        binding.noticeListToolbarSearchInput.setOnQueryTextListener(searchView)
     }
 
     private suspend fun getNoticeList(page : Int, token : String){

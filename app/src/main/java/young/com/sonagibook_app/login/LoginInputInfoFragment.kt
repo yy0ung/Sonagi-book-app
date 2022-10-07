@@ -43,13 +43,9 @@ class LoginInputInfoFragment : Fragment() {
         val name : TextView = view.findViewById(R.id.loginInputUserName)
         val gradeSession : TextView = view.findViewById(R.id.loginInputUserGrade_Session)
         val phone = view.findViewById<EditText>(R.id.loginInputInputPhone)
-        val tPhone = phone.text
         val major : EditText = view.findViewById(R.id.loginInputInputMajor)
-        val tMajor = major.text
         val birth : EditText = view.findViewById(R.id.loginInputInputBirth)
-        val tbirth = birth.text
         val profile : EditText = view.findViewById(R.id.loginInputInputProfile)
-        val tProfile = profile.text
         val btn : Button = view.findViewById(R.id.loginInputSaveBtn)
         val map = LinkedHashMap<String, Any>()
         val map2 = LinkedHashMap<String,String?>()
@@ -68,31 +64,40 @@ class LoginInputInfoFragment : Fragment() {
             name.text = userName
             gradeSession.text = "$userGrade | $userSession"
 
-            val data = dataDtoMoreInfo("20000313","01012341234","행정학과","안녕")
-
-            info = RetrofitMoreInfoPostDto(registerToken, code, data)
-
         }
 
         btn.setOnClickListener {
             lifecycleScope.launch {
-                if(phone.text.isEmpty() || birth.text.isEmpty() || major.text.isEmpty()){
+                if(phone.text.toString().isEmpty() || birth.text.toString().isEmpty() || major.text.toString().isEmpty()){
                     Toast.makeText(context,"빈칸을 모두 채우세요",Toast.LENGTH_LONG).show()
+
                 }else{
-                    Log.d(TAG, "onCreateView: ${tbirth.toString()} /// ${tPhone.toString()} /// ${tMajor.toString()} ///")
-
-                    postMoreInfo(info)
-                    viewModel.loginRepositories3.observe(requireActivity()){
-                        Log.d(TAG, "////onCreateView: ${it.data}")
-                        CoroutineScope(Dispatchers.IO).launch { dbInsert(it.data.access_token.toString(), it.data.refresh_token.toString()) }
-
-                    }
+                    inputInfo()
                 }
 
             }
         }
 
         return view
+    }
+
+    private fun inputInfo(){
+        val phone = view?.findViewById<EditText>(R.id.loginInputInputPhone)
+        val major : EditText? = view?.findViewById(R.id.loginInputInputMajor)
+        val birth : EditText? = view?.findViewById(R.id.loginInputInputBirth)
+        val profile : EditText? = view?.findViewById(R.id.loginInputInputProfile)
+
+        info = RetrofitMoreInfoPostDto(registerToken,code, dataDtoMoreInfo(birth?.text.toString(),
+                phone?.text.toString(), major?.text.toString(), profile?.text.toString()))
+
+        postMoreInfo(info)
+        viewModel.loginRepositories3.observe(requireActivity()){
+            Log.d(TAG, "////onCreateView: ${it.data}")
+            CoroutineScope(Dispatchers.IO).launch { dbInsert(it.data.access_token.toString(), it.data.refresh_token.toString()) }
+
+        }
+
+
     }
 
     private fun postMoreInfo(userInfo : RetrofitMoreInfoPostDto){
