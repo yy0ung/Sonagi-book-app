@@ -23,20 +23,9 @@ class NoticeListActivity : AppCompatActivity() {
     private lateinit var noticeListViewModelFactory: NoticeListViewModelFactory
     private val noticeList = ArrayList<RetrofitResponseNoticeDto>()
     private val searchList = ArrayList<RetrofitResponseNoticeDto>()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityNoticeListBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        //toolbar
-        setSupportActionBar(binding.noticeListToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.noticeListToolbar.setNavigationOnClickListener { onBackPressed() }
-
-        noticeListViewModelFactory = NoticeListViewModelFactory(Repository())
-        viewModel = ViewModelProvider(this,noticeListViewModelFactory)[NoticeListViewModel::class.java]
-
+    override fun onStart() {
+        super.onStart()
         CoroutineScope(Dispatchers.Main).launch {
             val token =
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { tokenDB?.tokenDao()?.getAll() }
@@ -52,6 +41,23 @@ class NoticeListActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityNoticeListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        //toolbar
+        setSupportActionBar(binding.noticeListToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.noticeListToolbar.setNavigationOnClickListener { onBackPressed() }
+
+        noticeListViewModelFactory = NoticeListViewModelFactory(Repository())
+        viewModel = ViewModelProvider(this,noticeListViewModelFactory)[NoticeListViewModel::class.java]
+
+
 
         binding.noticeListAddBtn.setOnClickListener {
             val intent = Intent(this,NoticeAddActivity::class.java)

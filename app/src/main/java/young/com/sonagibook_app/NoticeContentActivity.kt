@@ -2,6 +2,7 @@ package young.com.sonagibook_app
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -89,6 +90,8 @@ class NoticeContentActivity : AppCompatActivity() {
                 Log.d(TAG, "onCreate: 삭제 성공")
             }
 
+
+
 //            binding.noticeContentLikeImg.setOnClickListener{
 //                CoroutineScope(Dispatchers.IO).launch { postNoticeLike(accessToken, nid) }
 //                viewModel.repositories2.observe(this@NoticeContentActivity){
@@ -105,6 +108,12 @@ class NoticeContentActivity : AppCompatActivity() {
 //            }
 
             }
+        binding.noticeContentEditBtn.setOnClickListener {
+            val intent = Intent(this@NoticeContentActivity, NoticeItemEditActivity::class.java)
+            intent.putExtra("nid", nid)
+            startActivity(intent)
+
+        }
 
 
 

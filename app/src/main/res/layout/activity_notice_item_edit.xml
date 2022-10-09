@@ -70,7 +70,7 @@ tools:context=".NoticeAddActivity">
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/noticeEditToolBar" />
 
-//custom 필요
+
 <EditText
     android:id="@+id/noticeEditInputContext"
     android:layout_width="335dp"
@@ -78,7 +78,7 @@ tools:context=".NoticeAddActivity">
     android:layout_height="500dp"
     android:layout_marginTop="17dp"
     android:hint="내용을 입력하세요"
-    android:inputType="text"
+    android:inputType="textMultiLine"
     android:textColor="#D6D6D6"
     android:fontFamily="@font/regular"
     android:textSize="18dp"

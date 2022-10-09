@@ -65,4 +65,9 @@ interface RetrofitInterface {
     suspend fun postNoticeCancelLike(@Header("Authorization") token : String, @Body nid : RetrofitPostNoticeLikeDto)
             : Response<RetrofitResponseNoticeLikeDto>
 
+    @PUT("v1/notice/{nid}")
+    @Headers("Content-type: application/json")
+    suspend fun putNoticeContent(@Path("nid") nid : String, @Header("Authorization") token : String)
+            :Response<RetrofitResponseNoticeContentDto>
+
 }

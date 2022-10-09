@@ -28,6 +28,19 @@ class HomeFragment : Fragment() {
     private lateinit var mainViewModelFactory: MainViewModelFactory
     private lateinit var viewModel: MainViewModel
     @SuppressLint("SetTextI18n")
+
+    override fun onStart() {
+        val noticeRecycler = requireView().findViewById<RecyclerView>(R.id.homeNoticeContainer)
+        super.onStart()
+        CoroutineScope(Dispatchers.Main).launch {
+            fetchNoticeInfo()
+            Log.d(TAG, "onCreateView: ${viewModel.homeNoticeDataModel.get(0)}")
+            val adapter = NoticeItemsAdapter(viewModel.homeNoticeDataModel)
+            noticeRecycler.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+            noticeRecycler.adapter = adapter
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,7 +50,7 @@ class HomeFragment : Fragment() {
         val info = view.findViewById<TextView>(R.id.homeProfileInfo)
         //val profileMsg = view.findViewById<TextView>(R.id.homeProfileMsg)
         val noticeMore = view.findViewById<TextView>(R.id.homeNoticeMoreBtn)
-        val noticeRecycler = view.findViewById<RecyclerView>(R.id.homeNoticeContainer)
+
 
         val btn = view.findViewById<LinearLayout>(R.id.homeUpcomingContainer)
         viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(Repository())).get(
@@ -50,13 +63,7 @@ class HomeFragment : Fragment() {
             info.text = "${profile.grade}${profile.session} ${profile.name}님"
             //profileMsg.text = profile.profile_message.toString()
         }
-        CoroutineScope(Dispatchers.Main).launch {
-            fetchNoticeInfo()
-            Log.d(TAG, "onCreateView: ${viewModel.homeNoticeDataModel.get(0)}")
-            val adapter = NoticeItemsAdapter(viewModel.homeNoticeDataModel)
-            noticeRecycler.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-            noticeRecycler.adapter = adapter
-        }
+
 
         noticeMore.setOnClickListener {
             val intent = Intent(context,NoticeListActivity::class.java)

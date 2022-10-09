@@ -50,10 +50,10 @@ class NoticeListItemsAdapter(private val noticeItemList : ArrayList<RetrofitResp
 
         val content = noticeItemList.get(0).data[position].content
         if (content != null) {
-            if(content.length <30){
+            if(content.length <26){
                 holder.itemContent.text = content.toString()
             }else{
-                holder.itemContent.text = content.substring(0,31)+"..."
+                holder.itemContent.text = content.substring(0,27)+"..."
             }
         }
 

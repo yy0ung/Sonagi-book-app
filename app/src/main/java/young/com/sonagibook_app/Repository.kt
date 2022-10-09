@@ -50,5 +50,9 @@ class Repository {
         return iRetrofit.postNoticeCancelLike(token, nid)
     }
 
+    suspend fun putNoticeContent(nid : String, token : String) : Response<RetrofitResponseNoticeContentDto>{
+        return iRetrofit.putNoticeContent(nid, token)
+    }
+
 
 }
