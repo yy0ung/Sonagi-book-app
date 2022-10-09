@@ -11,7 +11,7 @@
         android:id="@+id/noticeContentToolbar"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@color/white"
-        android:paddingTop="20dp"
+        android:paddingTop="40dp"
         android:theme="@style/ToolbarTheme">
         <ImageView
             android:layout_width="19dp"

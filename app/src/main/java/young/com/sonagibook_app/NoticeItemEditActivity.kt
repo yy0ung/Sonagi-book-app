@@ -9,6 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import young.com.sonagibook_app.databinding.ActivityNoticeItemEditBinding
+import young.com.sonagibook_app.retrofit.Dto.NoticeDto
+import young.com.sonagibook_app.retrofit.Dto.RetrofitPostNoticeDto
 import young.com.sonagibook_app.room.Token
 import young.com.sonagibook_app.room.TokenDatabase
 
@@ -36,6 +38,14 @@ class NoticeItemEditActivity : AppCompatActivity() {
                 binding.noticeEditInputContext.setText(it.data.content.toString())
 
             }
+
+            binding.noticeAddSendBtn.setOnClickListener {
+                CoroutineScope(Dispatchers.IO).launch { editContent(nid.toString(), accessToken) }
+            }
+        }
+
+        binding.noticeEditCancelBtn.setOnClickListener {
+            finish()
         }
 
     }
@@ -44,7 +54,20 @@ class NoticeItemEditActivity : AppCompatActivity() {
         viewModel.getNoticeContent(nid, token)
     }
 
+    private suspend fun putNoticeEditContent(nid : String, token: String, data : RetrofitPostNoticeDto){
+        viewModel.putNoticeContent(nid, token, data)
+    }
+
     private suspend fun getTokenDB() : Token?{
         return tokenDB?.tokenDao()?.getAll()
+    }
+
+    private suspend fun editContent(nid : String, token : String){
+        var title = binding.noticeEditInputTitle.text
+        var content = binding.noticeEditInputContext.text
+        //important 넣어야됨
+        val data = RetrofitPostNoticeDto(NoticeDto(title.toString(), content.toString(), true))
+
+        putNoticeEditContent(nid, token, data)
     }
 }

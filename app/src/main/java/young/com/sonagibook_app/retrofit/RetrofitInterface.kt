@@ -67,7 +67,8 @@ interface RetrofitInterface {
 
     @PUT("v1/notice/{nid}")
     @Headers("Content-type: application/json")
-    suspend fun putNoticeContent(@Path("nid") nid : String, @Header("Authorization") token : String)
-            :Response<RetrofitResponseNoticeContentDto>
+    suspend fun putNoticeContent(@Path("nid") nid : String,
+                                 @Header("Authorization") token : String, @Body data : RetrofitPostNoticeDto)
+
 
 }

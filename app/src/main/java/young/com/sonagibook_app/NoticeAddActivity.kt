@@ -33,6 +33,9 @@ class NoticeAddActivity : AppCompatActivity() {
         binding.noticeAddSendBtn.setOnClickListener {
             addNoticeItem()
         }
+        binding.noticeAddCancelBtn.setOnClickListener {
+            finish()
+        }
 
     }
 

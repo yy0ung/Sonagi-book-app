@@ -10,7 +10,7 @@ tools:context=".NoticeAddActivity">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="40dp"
     android:layout_marginHorizontal="20dp"
     android:orientation="horizontal"
     app:layout_constraintTop_toTopOf="parent"
@@ -62,8 +62,10 @@ tools:context=".NoticeAddActivity">
     android:layout_marginTop="17dp"
     android:hint="제목을 입력하세요"
     android:inputType="text"
-    android:textColor="#D6D6D6"
+    android:textColorHint="#D6D6D6"
+    android:textColor="@color/black"
     android:fontFamily="@font/regular"
+    android:textFontWeight="500"
     android:textSize="18dp"
     android:includeFontPadding="false"
     app:layout_constraintEnd_toEndOf="parent"
@@ -79,13 +81,72 @@ tools:context=".NoticeAddActivity">
     android:layout_marginTop="17dp"
     android:hint="내용을 입력하세요"
     android:inputType="textMultiLine"
-    android:textColor="#D6D6D6"
+    android:textColorHint="#D6D6D6"
+    android:textColor="@color/black"
+    android:background="@null"
+    android:textFontWeight="400"
     android:fontFamily="@font/regular"
-    android:textSize="18dp"
+    android:textSize="14dp"
     android:includeFontPadding="false"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/noticeEditInputTitle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingStart="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/noticeEditImportBtn"
+            android:layout_width="100dp"
+            android:layout_height="32dp"
+            android:background="@drawable/notice_round_btn"
+            android:gravity="center"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:src="@drawable/noticecheck"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="중요 공지"
+                android:textSize="14dp"
+                android:textFontWeight="400"
+                android:textColor="#28324C"
+                android:fontFamily="@font/regular"
+                android:includeFontPadding="false"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="140dp"
+            android:layout_height="32dp"
+            android:id="@+id/noticeEditScheAddBtn"
+            android:background="@drawable/notice_round_btn"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/noticesche"
+                android:layout_marginEnd="3dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="일정에 추가하기"
+                android:textSize="14dp"
+                android:textFontWeight="400"
+                android:textColor="#28324C"
+                android:fontFamily="@font/regular"
+                android:includeFontPadding="false"/>
+
+        </LinearLayout>
+    </LinearLayout>
 
 
 
