@@ -24,10 +24,25 @@
         <item name="android:includeFontPadding">false</item>
     </style>
 
-    <style name="CalenderViewCustom" parent="Theme.AppCompat">
-        <item name="android:textStyle">bold</item>
+    //캘린더
+    <style name="CustomWeekDayAppearance" parent="TextAppearance.MaterialCalendarWidget.WeekDay">
+        <item name="android:textColor">@color/dark_main</item>
+        <item name="android:textSize">12dp</item>
         <item name="fontFamily">@font/regular</item>
         <item name="android:includeFontPadding">false</item>
     </style>
+<!--    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">-->
+<!--        <item name="android:textColor">@color/dark_main</item>-->
+<!--    </style>-->
+
+<!--    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">-->
+
+<!--    </style>-->
+
+<!--    <style name="CalenderViewCustom" parent="Theme.AppCompat">-->
+<!--        <item name="android:textStyle">bold</item>-->
+<!--        <item name="fontFamily">@font/regular</item>-->
+<!--        <item name="android:includeFontPadding">false</item>-->
+<!--    </style>-->
 
 </resources>
