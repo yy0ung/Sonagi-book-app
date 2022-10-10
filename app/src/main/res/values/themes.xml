@@ -23,4 +23,11 @@
     <style name="TextView" parent="Widget.AppCompat.TextView">
         <item name="android:includeFontPadding">false</item>
     </style>
+
+    <style name="CalenderViewCustom" parent="Theme.AppCompat">
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/regular</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
 </resources>

@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import young.com.sonagibook_app.retrofit.Dto.RetrofitGetResponseAllInfo
 import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseNoticeDto
 import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseRefreshTokenDto
+import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseScheduleDto
 import young.com.sonagibook_app.room.Token
 import young.com.sonagibook_app.room.TokenDatabase
 
@@ -25,6 +26,9 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     private val _repositoriesGetNewAccessToken = MutableLiveData<RetrofitGetResponseAllInfo>()
     val repositories4 : MutableLiveData<RetrofitGetResponseAllInfo>
         get() = _repositoriesGetNewAccessToken
+    private val _repositoriesGetSchedule = MutableLiveData<RetrofitResponseScheduleDto>()
+    val repositories5 : MutableLiveData<RetrofitResponseScheduleDto>
+        get() = _repositoriesGetSchedule
 
 
     private var _newAccessToken : String? = null
@@ -40,6 +44,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     
     val userHomeDataModel = ArrayList<RetrofitGetResponseAllInfo>()
     val homeNoticeDataModel = ArrayList<RetrofitResponseNoticeDto>()
+    val homeScheduleDataModel = ArrayList<RetrofitResponseScheduleDto>()
 
     fun getAccessToken(token : String, refreshToken : String){
         Log.d(TAG, "getAccessToken: getget")
@@ -52,8 +57,9 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 }else{
                     val map = HashMap<String, String>()
                     map["refresh_token"] = refreshToken
-                    postRefreshToken(map)
                     Log.d(TAG, "getAccessToken: viewModel 재발급")
+                    postRefreshToken(map)
+
                 }
             }
         }
@@ -91,7 +97,20 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 if(response.isSuccessful){
                     Log.d(TAG, "postRefreshToken: ${response.body()}")
                     _repositoriesPostRefreshToken.postValue(response.body())
+                    response.body()?.data?.let { getAccessToken(it.accessToken, refreshToken["refreshToken"].toString()) }
+                    //getWithNewAccessToken(response.body()?.data?.accessToken.toString())
 
+                }
+            }
+        }
+    }
+
+    fun getScheduleList(token: String, date : String){
+        viewModelScope.launch {
+            repository.getSchedule(token, date).let { response ->
+                if(response.isSuccessful){
+                    Log.d(TAG, "getScheduleList: ${response.body()}")
+                    _repositoriesGetSchedule.postValue(response.body())
                 }
             }
         }

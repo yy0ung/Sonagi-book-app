@@ -37,11 +37,10 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "onCreate: @@@@@@@$accessToken")
             getAccessToken(accessToken,token?.refreshToken.toString())
 
-            viewModel.repositories3.observe(this@MainActivity){
+            viewModel.repositories3.observe(this@MainActivity){it->
                 Log.d(TAG, "onCreate: 만료 됨")
                 CoroutineScope(Dispatchers.IO).launch { updateTokenDB(Token(it.data.accessToken.toString(),token?.refreshToken.toString())) }
             }
-
 
             viewModel.repositories1.observe(this@MainActivity){
                 Log.d(TAG, "만료 안됨")
@@ -60,6 +59,12 @@ class MainActivity : AppCompatActivity() {
             viewModel.repositories2.observe(this@MainActivity){
                 Log.d(TAG, "onCreate: $it")
                 viewModel.homeNoticeDataModel.add(it)
+            }
+
+            getScheduleList(accessToken, "202210")
+            viewModel.repositories5.observe(this@MainActivity){
+                Log.d(TAG, "onCreate: $it")
+                viewModel.homeScheduleDataModel.add(it)
             }
         }
 
@@ -142,6 +147,10 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    private suspend fun getScheduleList(token: String, date : String){
+        viewModel.getScheduleList(token, date)
     }
     
 

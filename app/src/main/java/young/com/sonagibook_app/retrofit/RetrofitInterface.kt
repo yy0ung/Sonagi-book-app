@@ -70,5 +70,14 @@ interface RetrofitInterface {
     suspend fun putNoticeContent(@Path("nid") nid : String,
                                  @Header("Authorization") token : String, @Body data : RetrofitPostNoticeDto)
 
+    //schedule
+    @POST("v1/event")
+    @Headers("Content-type: application/json")
+    suspend fun postSchedule(@Header("Authorization") token : String, @Body data : RetrofitPostScheduleDto)
+            :Response<RetrofitResponseScheduleDto>
+
+    @GET("v1/event/list/{date}")
+    @Headers("Content-type: application/json")
+    suspend fun getScheduleList(@Header("Authorization") token : String, @Path("date") date : String) : Response<RetrofitResponseScheduleDto>
 
 }
