@@ -4,15 +4,17 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 import com.prolificinteractive.materialcalendarview.format.MonthArrayTitleFormatter
 import kotlinx.coroutines.CoroutineScope
@@ -26,7 +28,7 @@ class ScheduleFragment : Fragment() {
     private lateinit var viewModelFactory: MainViewModelFactory
     private lateinit var viewModel: MainViewModel
     lateinit var calendarView : MaterialCalendarView
-
+    var selectedDate : CalendarDay = CalendarDay.today()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,8 +41,7 @@ class ScheduleFragment : Fragment() {
 
         setCalendar(calendarView)
 
-        viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(Repository())).get(
-            MainViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(Repository()))[MainViewModel::class.java]
 
         CoroutineScope(Dispatchers.Main).launch {
             fetchSchedule()
@@ -70,6 +71,15 @@ class ScheduleFragment : Fragment() {
 
         cal.setTitleFormatter(MonthArrayTitleFormatter(resources.getStringArray(R.array.custom_months)))
         cal.setWeekDayFormatter(ArrayWeekDayFormatter(resources.getStringArray(R.array.custom_weekdays)))
+        cal.setHeaderTextAppearance(R.style.CalendarWidgetHeader)
+        //cal.addDecorators()
+        val todayDecorator = context?.let { TodayDecorator(it) }
+        cal.addDecorator(todayDecorator)
+
+        cal.setOnDateChangedListener { widget, date, selected ->
+            selectedDate = cal.selectedDate
+            Log.d(TAG, "onDateSelected: 선택 날짜 : $selectedDate")
+        }
 
 
     }

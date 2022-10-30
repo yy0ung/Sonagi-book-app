@@ -25,11 +25,26 @@
     </style>
 
     //캘린더
+    <style name="CustomTextAppearance" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/dark_main</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
     <style name="CustomWeekDayAppearance" parent="TextAppearance.MaterialCalendarWidget.WeekDay">
         <item name="android:textColor">@color/dark_main</item>
         <item name="android:textSize">12dp</item>
         <item name="fontFamily">@font/regular</item>
         <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:weekNumberColor">@color/black</item>
+    </style>
+    <style name="CalendarWidgetHeader">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 <!--    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">-->
 <!--        <item name="android:textColor">@color/dark_main</item>-->
