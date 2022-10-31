@@ -17,6 +17,26 @@
         app:mcv_selectionColor="#C4C9FF"
         app:mcv_showOtherDates="all"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/scheduleCalender"
+        android:text="날짜"
+        android:id="@+id/scheduleDetailTitle"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/medium"
+        android:textFontWeight="700"
+        android:textSize="18dp"
+        android:includeFontPadding="false"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scheduleDetailList"
+        app:layout_constraintTop_toBottomOf="@id/scheduleDetailTitle"
+        android:layout_marginTop="10dp"/>
+
     <ImageView
         android:id="@+id/scheduleAddBtn"
         android:layout_width="wrap_content"

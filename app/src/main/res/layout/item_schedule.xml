@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="335dp"
+    android:layout_height="83dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:id="@+id/scheduleItemContainer"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scheduleItemTitle"
+            android:text="테스트"
+            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/regular"
+            android:textSize="14dp"
+            android:textFontWeight="500"
+            android:textColor="#28324C"
+            android:includeFontPadding="false"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scheduleItemPlace"
+            android:text="오비룸"
+            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/regular"
+            android:textSize="14dp"
+            android:textFontWeight="500"
+            android:textColor="#28324C"
+            android:includeFontPadding="false"
+            app:layout_constraintTop_toBottomOf="@id/scheduleItemTitle"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scheduleItemTime"
+            android:text="오후 7:00\n~9:00"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="@font/regular"
+            android:textSize="14dp"
+            android:textFontWeight="500"
+            android:textColor="#28324C"
+            android:includeFontPadding="false"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
