@@ -2,15 +2,21 @@ package young.com.sonagibook_app
 
 import android.content.ContentValues.TAG
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.coroutines.*
 import young.com.sonagibook_app.databinding.ActivityMainBinding
+import young.com.sonagibook_app.retrofit.Dto.ScheduleDto
 import young.com.sonagibook_app.room.Token
 import young.com.sonagibook_app.room.TokenDatabase
+import java.time.LocalDate
+import kotlin.math.log
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +25,11 @@ class MainActivity : AppCompatActivity() {
     var token : String = ""
     private lateinit var viewModel: MainViewModel
     private lateinit var mainViewModelFactory: MainViewModelFactory
+    @RequiresApi(Build.VERSION_CODES.O)
+    private var today = LocalDate.now()
+    private lateinit var todayFormat : String
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -28,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModelFactory = MainViewModelFactory(Repository())
         viewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
+        
 
 
         CoroutineScope(Dispatchers.Main).launch {
@@ -60,11 +71,28 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "onCreate: $it")
                 viewModel.homeNoticeDataModel.add(it)
             }
+            todayFormat = today.toString().substring(0,4)+today.toString().substring(5,7)
 
-            getScheduleList(accessToken, "202210")
+            Log.d(TAG, "onCreate: 오늘 날짜 $todayFormat")
+            getScheduleList(accessToken, todayFormat)
             viewModel.repositories5.observe(this@MainActivity){
                 Log.d(TAG, "onCreate: $it")
-                viewModel.homeScheduleDataModel.add(it)
+                Log.d(TAG, "onCreate: 사이즈 ${it.data.size}")
+
+                for(i in 0..it.data.size-1){
+                    Log.d(TAG, "onCreate: ${viewModel.homeScheduleDataModel}")
+                    var date = it.data[i].start.substring(0,10)
+                    Log.d(TAG, "onCreate: 날짜 : $date")
+                    if(viewModel.homeScheduleDataModel[date]==null){
+                        var temp = ArrayList<ScheduleDto>()
+                        temp.add(it.data[i])
+
+                        viewModel.homeScheduleDataModel.put(date, temp)
+                    }else{
+                        viewModel.homeScheduleDataModel[date]!!.add(it.data[i])
+                    }
+                }
+                //viewModel.homeScheduleDataModel.add(it)
             }
         }
 

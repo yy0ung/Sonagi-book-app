@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/scheduleCalender"
-        app:mcv_selectionColor="#6B77FF"
+        app:mcv_selectionColor="#C4C9FF"
         app:mcv_showOtherDates="all"/>
 
     <ImageView

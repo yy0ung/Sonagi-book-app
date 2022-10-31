@@ -6,10 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import young.com.sonagibook_app.retrofit.Dto.RetrofitGetResponseAllInfo
-import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseNoticeDto
-import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseRefreshTokenDto
-import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseScheduleDto
+import young.com.sonagibook_app.retrofit.Dto.*
 import young.com.sonagibook_app.room.Token
 import young.com.sonagibook_app.room.TokenDatabase
 
@@ -42,9 +39,9 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     }
 
     
-    val userHomeDataModel = ArrayList<RetrofitGetResponseAllInfo>()
-    val homeNoticeDataModel = ArrayList<RetrofitResponseNoticeDto>()
-    val homeScheduleDataModel = ArrayList<RetrofitResponseScheduleDto>()
+    var userHomeDataModel = ArrayList<RetrofitGetResponseAllInfo>()
+    var homeNoticeDataModel = ArrayList<RetrofitResponseNoticeDto>()
+    var homeScheduleDataModel = HashMap<String, ArrayList<ScheduleDto>>()
 
     fun getAccessToken(token : String, refreshToken : String){
         Log.d(TAG, "getAccessToken: getget")

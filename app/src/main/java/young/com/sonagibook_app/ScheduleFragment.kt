@@ -8,20 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import android.widget.Button
-import android.widget.CalendarView
 import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 import com.prolificinteractive.materialcalendarview.format.MonthArrayTitleFormatter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.time.DayOfWeek
+import kotlinx.coroutines.*
 import java.util.*
 
 class ScheduleFragment : Fragment() {
@@ -39,6 +32,13 @@ class ScheduleFragment : Fragment() {
 
         calendarView = view.findViewById(R.id.scheduleCalender)
 
+        calendarView.setTitleFormatter(MonthArrayTitleFormatter(resources.getStringArray(R.array.custom_months)))
+        calendarView.setWeekDayFormatter(ArrayWeekDayFormatter(resources.getStringArray(R.array.custom_weekdays)))
+        calendarView.setHeaderTextAppearance(R.style.CalendarWidgetHeader)
+        //cal.addDecorators()
+        val todayDecorator = context?.let { TodayDecorator(it) }
+        calendarView.addDecorator(todayDecorator)
+
         setCalendar(calendarView)
 
         viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(Repository()))[MainViewModel::class.java]
@@ -46,7 +46,7 @@ class ScheduleFragment : Fragment() {
         CoroutineScope(Dispatchers.Main).launch {
             fetchSchedule()
             Log.d(TAG, "onCreateView: 일정 요청")
-            Log.d(TAG, "onCreateView: ${viewModel.homeScheduleDataModel[0]}")
+            Log.d(TAG, "onCreateView: ${viewModel.homeScheduleDataModel}")
         }
 
 
@@ -69,19 +69,35 @@ class ScheduleFragment : Fragment() {
 
     private fun setCalendar(cal : MaterialCalendarView){
 
-        cal.setTitleFormatter(MonthArrayTitleFormatter(resources.getStringArray(R.array.custom_months)))
-        cal.setWeekDayFormatter(ArrayWeekDayFormatter(resources.getStringArray(R.array.custom_weekdays)))
-        cal.setHeaderTextAppearance(R.style.CalendarWidgetHeader)
-        //cal.addDecorators()
-        val todayDecorator = context?.let { TodayDecorator(it) }
-        cal.addDecorator(todayDecorator)
+
 
         cal.setOnDateChangedListener { widget, date, selected ->
             selectedDate = cal.selectedDate
+            var aa = cal.selectedDate.month+1
+            Log.d(TAG, "setCalendar: $aa")
+            lateinit var dateString : String
+            if(aa<10){
+                //여기 9월일 때 확인
+                dateString = selectedDate.year.toString()+"-0"+aa+"-"+selectedDate.day
+            }else{
+                dateString = selectedDate.year.toString()+"-"+aa+"-"+selectedDate.day
+            }
+
             Log.d(TAG, "onDateSelected: 선택 날짜 : $selectedDate")
+            //dateString = dateString.substring(startDateString(dateString)+1, endDateString(dateString))
+            Log.d(TAG, "setCalendar: 날짜 : $dateString")
+            Log.d(TAG, "setCalendar: 선택 일정 : ${viewModel.homeScheduleDataModel[dateString]}")
         }
 
 
+    }
+
+    private fun startDateString(st: String): Int {
+        return st.indexOf("{")
+    }
+
+    private fun endDateString(st : String) : Int{
+        return st.indexOf("}")
     }
 
 }
