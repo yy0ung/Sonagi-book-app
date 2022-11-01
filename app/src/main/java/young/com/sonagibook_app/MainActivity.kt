@@ -49,12 +49,18 @@ class MainActivity : AppCompatActivity() {
             getAccessToken(accessToken,token?.refreshToken.toString())
 
             viewModel.repositories3.observe(this@MainActivity){it->
-                Log.d(TAG, "onCreate: 만료 됨")
-                CoroutineScope(Dispatchers.IO).launch { updateTokenDB(Token(it.data.accessToken.toString(),token?.refreshToken.toString())) }
+                Log.d(TAG, "onCreate: Room db 업데이트")
+                CoroutineScope(Dispatchers.IO).launch {
+                    //locking 필요한지?
+                    updateTokenDB(Token(it.data.accessToken.toString(),token?.refreshToken.toString()))
+                    Log.d(TAG, "onCreate: 재발급중")
+                    getAccessToken(it.data.accessToken.toString(),token?.refreshToken.toString())
+                    Log.d(TAG, "onCreate: 재발급 완료")
+                }
             }
 
-            viewModel.repositories1.observe(this@MainActivity){
-                Log.d(TAG, "만료 안됨")
+            viewModel.repositories1.observe(this@MainActivity){it->
+                Log.d(TAG, "만료 여부 상관 없음")
                 viewModel.userHomeDataModel.add(it)
             }
             //Log.d(TAG, "@@@Activity onCreate: $accessToken")

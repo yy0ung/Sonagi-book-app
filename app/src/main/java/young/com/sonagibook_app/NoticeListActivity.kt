@@ -24,8 +24,13 @@ class NoticeListActivity : AppCompatActivity() {
     private val noticeList = ArrayList<RetrofitResponseNoticeDto>()
     private val searchList = ArrayList<RetrofitResponseNoticeDto>()
 
-    override fun onStart() {
-        super.onStart()
+
+    override fun onResume() {
+        super.onResume()
+        binding = ActivityNoticeListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        Log.d(TAG, "onResume: 리로드 로그")
         CoroutineScope(Dispatchers.Main).launch {
             val token =
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { tokenDB?.tokenDao()?.getAll() }
@@ -41,12 +46,6 @@ class NoticeListActivity : AppCompatActivity() {
             }
 
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityNoticeListBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         //toolbar
         setSupportActionBar(binding.noticeListToolbar)

@@ -1,5 +1,6 @@
 package young.com.sonagibook_app
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,14 +30,16 @@ class ScheduleFragment : Fragment() {
     var selectedDate : CalendarDay = CalendarDay.today()
     private var scheduleDetailList : ArrayList<ScheduleDto>? = ArrayList<ScheduleDto>()
 
+
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_schedule, container, false)
         val addBtn : ImageView = view.findViewById(R.id.scheduleAddBtn)
-
-
+        val detailTitle : TextView = view.findViewById(R.id.scheduleDetailTitle)
+        detailTitle.text = "${selectedDate.day.toString()}일 ${selectedDate.date.toString().substring(0,3)}"
         calendarView = view.findViewById(R.id.scheduleCalender)
         calendarView.setTitleFormatter(MonthArrayTitleFormatter(resources.getStringArray(R.array.custom_months)))
         calendarView.setWeekDayFormatter(ArrayWeekDayFormatter(resources.getStringArray(R.array.custom_weekdays)))
@@ -73,12 +77,14 @@ class ScheduleFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setCalendar(cal : MaterialCalendarView){
         cal.setOnDateChangedListener { widget, date, selected ->
             selectedDate = cal.selectedDate
             var aa = cal.selectedDate.month+1
             var date = cal.selectedDate.day
-            Log.d(TAG, "setCalendar: $aa")
+            val detailTitle : TextView = requireView().findViewById(R.id.scheduleDetailTitle)
+            detailTitle.text = "${selectedDate.day.toString()}일 ${selectedDate.date.toString().substring(0,3)}"
             lateinit var dateString : String
             if(aa<10){
                 if(date<10){

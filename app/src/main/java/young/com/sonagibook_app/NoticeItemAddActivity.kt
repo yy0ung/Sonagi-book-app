@@ -18,6 +18,7 @@ class NoticeItemAddActivity : AppCompatActivity() {
         val btn = findViewById<Button>(R.id.noticeItemAddBtn)
         btn.setOnClickListener {
             aa()
+
         }
 
 
@@ -30,6 +31,6 @@ class NoticeItemAddActivity : AppCompatActivity() {
 
         val map = dataDtoNoticeContentDto(title.text.toString(),"aa")
         Toast.makeText(this,"$map",Toast.LENGTH_LONG).show()
-
+        finish()
     }
 }

@@ -54,8 +54,19 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 }else{
                     val map = HashMap<String, String>()
                     map["refresh_token"] = refreshToken
-                    Log.d(TAG, "getAccessToken: viewModel 재발급")
-                    postRefreshToken(map)
+//                    Log.d(TAG, "getAccessToken: viewModel 재발급")
+//                    postRefreshToken(map)
+                    repository.postRefreshToken(map).let { response ->
+                        if(response.isSuccessful){
+                            Log.d(TAG, "postRefreshToken: ${response.body()}")
+                            _repositoriesPostRefreshToken.postValue(response.body())
+                            //response.body()?.data?.let { getAccessToken(it.accessToken, refreshToken) }
+                            Log.d(TAG, "getAccessToken: 재발급 뷰모델")
+                        }else{
+                            Log.d(TAG, "무한루프 x")
+                        }
+                    }
+
 
                 }
             }
@@ -95,7 +106,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                     Log.d(TAG, "postRefreshToken: ${response.body()}")
                     _repositoriesPostRefreshToken.postValue(response.body())
                     response.body()?.data?.let { getAccessToken(it.accessToken, refreshToken["refreshToken"].toString()) }
-                    //getWithNewAccessToken(response.body()?.data?.accessToken.toString())
 
                 }
             }
