@@ -77,13 +77,22 @@ class ScheduleFragment : Fragment() {
         cal.setOnDateChangedListener { widget, date, selected ->
             selectedDate = cal.selectedDate
             var aa = cal.selectedDate.month+1
+            var date = cal.selectedDate.day
             Log.d(TAG, "setCalendar: $aa")
             lateinit var dateString : String
             if(aa<10){
-                //여기 9월일 때 확인
-                dateString = selectedDate.year.toString()+"-0"+aa+"-"+selectedDate.day
+                if(date<10){
+                    dateString = selectedDate.year.toString()+"-0"+aa+"-0"+selectedDate.day
+                }else{
+                    dateString = selectedDate.year.toString()+"-0"+aa+"-"+selectedDate.day
+                }
+
             }else{
-                dateString = selectedDate.year.toString()+"-"+aa+"-"+selectedDate.day
+                if(date<10){
+                    dateString = selectedDate.year.toString()+"-"+aa+"-0"+selectedDate.day
+                }else{
+                    dateString = selectedDate.year.toString()+"-"+aa+"-"+selectedDate.day
+                }
             }
 
             Log.d(TAG, "onDateSelected: 선택 날짜 : $selectedDate")
