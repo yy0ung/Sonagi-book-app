@@ -3,6 +3,7 @@ package young.com.sonagibook_app
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -39,6 +40,11 @@ class ScheduleFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_schedule, container, false)
         val addBtn : ImageView = view.findViewById(R.id.scheduleAddBtn)
         val detailTitle : TextView = view.findViewById(R.id.scheduleDetailTitle)
+
+        var arr = ArrayList<CalendarDay>()
+        arr.add(CalendarDay.today())
+
+
         detailTitle.text = "${selectedDate.day.toString()}일 ${selectedDate.date.toString().substring(0,3)}"
         calendarView = view.findViewById(R.id.scheduleCalender)
         calendarView.setTitleFormatter(MonthArrayTitleFormatter(resources.getStringArray(R.array.custom_months)))
@@ -47,6 +53,8 @@ class ScheduleFragment : Fragment() {
         //cal.addDecorators()
         val todayDecorator = context?.let { TodayDecorator(it) }
         calendarView.addDecorator(todayDecorator)
+        calendarView.addDecorator(EventDecorator(Color.parseColor("#9AC1AA"), arr))
+        calendarView.addDecorator(EventDecorator(Color.parseColor("#9AC4AA"), arr))
 
         setCalendar(calendarView)
 
