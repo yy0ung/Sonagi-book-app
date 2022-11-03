@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NoticeContentActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scheduleContentToolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"
+        android:paddingTop="40dp"
+        android:theme="@style/ToolbarTheme">
+        <ImageView
+            android:layout_width="19dp"
+            android:layout_height = "19dp"
+            android:src="@drawable/noticeedit"
+            android:layout_gravity="right"
+            android:layout_marginEnd="20dp"
+            android:id="@+id/scheduleContentEditBtn"/>
+
+    </androidx.appcompat.widget.Toolbar>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="중요"
+        app:layout_goneMarginStart="20dp"
+        android:id="@+id/scheduleContentImportant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scheduleContentToolbar"
+        android:fontFamily="@font/bold"
+        android:textSize="18dp"
+        android:paddingEnd="5dp"
+        android:layout_marginTop="15dp"
+        android:visibility="gone"
+        android:textFontWeight="500"
+        android:textColor="#FF4848"
+        android:includeFontPadding="false"/>
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scheduleContentTitle"
+        android:fontFamily="@font/bold"
+        android:textSize="18dp"
+        android:textFontWeight="500"
+        android:text="일정 제목"
+        android:textColor="@color/black"
+        android:includeFontPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/scheduleContentToolbar"
+        app:layout_constraintStart_toEndOf="@id/scheduleContentImportant"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scheduleContentWriterContainer"
+        android:orientation="vertical"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scheduleContentTitle">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scheduleContentDate"
+            android:text="2022년 7월 20일"
+            android:fontFamily="@font/regular"
+            android:textSize="11dp"
+            android:textFontWeight="400"
+            android:layout_marginTop="2dp"
+            android:textColor="#717784"
+            android:includeFontPadding="false"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scheduleContentPlace"
+            android:text="써클룸"
+            android:fontFamily="@font/regular"
+            android:textSize="11dp"
+            android:textFontWeight="400"
+            android:layout_marginTop="2dp"
+            android:textColor="#717784"
+            android:includeFontPadding="false"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/scheduleContentContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/scheduleContentWriterContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="38dp"
+        android:text="일정 내용"
+        android:paddingHorizontal="20dp"
+        android:textFontWeight="400"
+        android:textColor="@color/black"
+        android:lineHeight="23.1dp"
+        android:includeFontPadding="false"
+        android:textSize="14dp"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

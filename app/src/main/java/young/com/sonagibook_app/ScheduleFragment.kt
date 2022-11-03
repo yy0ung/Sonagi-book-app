@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -54,7 +55,6 @@ class ScheduleFragment : Fragment() {
         val todayDecorator = context?.let { TodayDecorator(it) }
         calendarView.addDecorator(todayDecorator)
         calendarView.addDecorator(EventDecorator(Color.parseColor("#9AC1AA"), arr))
-        calendarView.addDecorator(EventDecorator(Color.parseColor("#9AC4AA"), arr))
 
         setCalendar(calendarView)
 
@@ -64,6 +64,10 @@ class ScheduleFragment : Fragment() {
             fetchSchedule()
             Log.d(TAG, "onCreateView: 일정 요청")
             Log.d(TAG, "onCreateView: ${viewModel.homeScheduleDataModel}")
+
+            for (i in viewModel.homeScheduleDataModel.keys){
+                Log.d(TAG, "onCreateView: 날짜 $i")
+            }
 
         }
 

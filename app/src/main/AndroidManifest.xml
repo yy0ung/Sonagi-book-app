@@ -14,6 +14,12 @@
         android:theme="@style/Theme.SonagiBookapp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ScheduleItemEditActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ScheduleContentActivity"
+            android:exported="true" />
+        <activity
             android:name=".ScheduleAddActivity"
             android:exported="true" />
         <activity
