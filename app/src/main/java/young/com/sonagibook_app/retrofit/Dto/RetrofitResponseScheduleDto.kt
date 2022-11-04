@@ -18,8 +18,10 @@ data class ScheduleResponseDto(
     val eid : Int,
     val end : String,
     val place : String,
-    val repeatDat : Int?,
+    val repeatDay : Int?,
     val start : String,
     val title : String,
+    val nid : Int?,
+    val type : Int?,
     val updatedAt : String
 )

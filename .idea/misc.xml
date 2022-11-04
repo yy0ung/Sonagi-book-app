@@ -5,6 +5,10 @@
       <map>
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable-v24/home_box_item2.xml" value="0.175" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable-v24/home_box_item3.xml" value="0.28854166666666664" />
+        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable-v24/schedule_event.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable-v24/schedule_performance.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable-v24/schedule_prac.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable-v24/schedule_show.xml" value="0.26145833333333335" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/calendar_checked.xml" value="0.16296296296296298" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/calendar_selector.xml" value="0.16296296296296298" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/calendar_today.xml" value="0.1" />
@@ -15,6 +19,7 @@
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/round_btn_item.xml" value="0.33" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/round_graybtn_item.xml" value="0.30364583333333334" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/round_profilemsg_item.xml" value="0.22685185185185186" />
+        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/schedule_etc.xml" value="0.2203125" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout-v28/fragment_login_code_input.xml" value="0.21979166666666666" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/activity_design_test.xml" value="0.1140625" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/activity_home2.xml" value="0.1" />
@@ -41,7 +46,7 @@
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/fragment_more.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/fragment_schedule.xml" value="0.25" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/item_notice.xml" value="0.5" />
-        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/item_schedule.xml" value="0.33" />
+        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/item_schedule.xml" value="0.67" />
       </map>
     </option>
   </component>

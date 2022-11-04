@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Color
+import android.icu.util.Calendar
+import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.util.Log
@@ -13,6 +15,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +25,9 @@ import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 import com.prolificinteractive.materialcalendarview.format.MonthArrayTitleFormatter
 import kotlinx.coroutines.*
 import young.com.sonagibook_app.retrofit.Dto.ScheduleDto
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -31,9 +37,10 @@ class ScheduleFragment : Fragment() {
     lateinit var calendarView : MaterialCalendarView
     var selectedDate : CalendarDay = CalendarDay.today()
     private var scheduleDetailList : ArrayList<ScheduleDto>? = ArrayList<ScheduleDto>()
+    var arr = ArrayList<CalendarDay>()
 
-
-    @SuppressLint("SetTextI18n")
+    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,9 +48,6 @@ class ScheduleFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_schedule, container, false)
         val addBtn : ImageView = view.findViewById(R.id.scheduleAddBtn)
         val detailTitle : TextView = view.findViewById(R.id.scheduleDetailTitle)
-
-        var arr = ArrayList<CalendarDay>()
-        arr.add(CalendarDay.today())
 
 
         detailTitle.text = "${selectedDate.day.toString()}일 ${selectedDate.date.toString().substring(0,3)}"
@@ -54,7 +58,6 @@ class ScheduleFragment : Fragment() {
         //cal.addDecorators()
         val todayDecorator = context?.let { TodayDecorator(it) }
         calendarView.addDecorator(todayDecorator)
-        calendarView.addDecorator(EventDecorator(Color.parseColor("#9AC1AA"), arr))
 
         setCalendar(calendarView)
 
@@ -65,9 +68,9 @@ class ScheduleFragment : Fragment() {
             Log.d(TAG, "onCreateView: 일정 요청")
             Log.d(TAG, "onCreateView: ${viewModel.homeScheduleDataModel}")
 
-            for (i in viewModel.homeScheduleDataModel.keys){
-                Log.d(TAG, "onCreateView: 날짜 $i")
-            }
+            dotArray()
+            //Log.d(TAG, "onCreateView: 순서")
+            calendarView.addDecorator(EventDecorator(Color.parseColor("#A3E27B"), arr))
 
         }
 
@@ -133,6 +136,18 @@ class ScheduleFragment : Fragment() {
 
     private fun endDateString(st : String) : Int{
         return st.indexOf("}")
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private suspend fun dotArray(){
+        for (i in viewModel.homeScheduleDataModel.keys){
+            var fDate = LocalDate.parse(i, DateTimeFormatter.ISO_DATE)
+            var c  = CalendarDay.from(fDate.year,fDate.monthValue-1,fDate.dayOfMonth)
+            //Log.d(TAG, "dotArray: 점 $c")
+            arr.add(c)
+        }
+
+        //Log.d(TAG, "dotArray: 배열 $arr")
     }
 
 }

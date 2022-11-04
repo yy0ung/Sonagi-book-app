@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
                     //locking 필요한지?
                     updateTokenDB(Token(it.data.accessToken.toString(),token?.refreshToken.toString()))
                     Log.d(TAG, "onCreate: 재발급중")
+                    delay(3000)
                     getAccessToken(it.data.accessToken.toString(),token?.refreshToken.toString())
                     Log.d(TAG, "onCreate: 재발급 완료")
                 }

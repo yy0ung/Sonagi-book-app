@@ -1,11 +1,13 @@
 package young.com.sonagibook_app
 
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import young.com.sonagibook_app.retrofit.Dto.ScheduleDto
 
@@ -26,6 +28,34 @@ class ScheduleListItemsAdapter(private val scheduleItemList : ArrayList<Schedule
         holder.itemTitle.text = scheduleItemList[position].title
         holder.itemPlace.text = scheduleItemList[position].place
         holder.itemTime.text = scheduleItemList[position].start
+
+        when(scheduleItemList[position].type){
+            0 -> {
+                holder.itemType.setBackgroundResource(R.drawable.schedule_prac)
+                holder.itemType.text = "연습"
+            }
+            1-> {
+                holder.itemType.setBackgroundResource(R.drawable.schedule_event)
+                holder.itemType.text = "행사"
+            }
+            2->{
+                holder.itemType.setBackgroundResource(R.drawable.schedule_show)
+                holder.itemType.text = "공연"
+            }
+            3->{
+                holder.itemType.setBackgroundResource(R.drawable.schedule_performance)
+                holder.itemType.text = "발표회"
+            }
+            4->{
+                holder.itemType.setBackgroundResource(R.drawable.schedule_etc)
+                holder.itemType.text = "기타"
+            }
+        }
+
+        holder.itemContainer.setOnClickListener {
+            val intent = Intent(holder.itemContainer.context,ScheduleContentActivity::class.java)
+            ContextCompat.startActivity(holder.itemContainer.context,intent,null)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -33,6 +63,7 @@ class ScheduleListItemsAdapter(private val scheduleItemList : ArrayList<Schedule
     }
     inner class CustomViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val itemContainer : ConstraintLayout = itemView.findViewById(R.id.scheduleItemContainer)
+        val itemType : TextView = itemView.findViewById(R.id.scheduleContentType)
         val itemTitle : TextView = itemView.findViewById(R.id.scheduleItemTitle)
         val itemPlace : TextView = itemView.findViewById(R.id.scheduleItemPlace)
         val itemTime : TextView = itemView.findViewById(R.id.scheduleItemTime)

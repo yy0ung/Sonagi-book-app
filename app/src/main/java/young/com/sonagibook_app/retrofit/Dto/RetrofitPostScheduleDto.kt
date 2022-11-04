@@ -10,5 +10,7 @@ data class ScheduleDto(
     var place : String,
     var start : String,
     var end : String,
-    var repeatDay : Int?
+    var repeatDay : Int?,
+    var nid : Int?,
+    var type : Int?
 )

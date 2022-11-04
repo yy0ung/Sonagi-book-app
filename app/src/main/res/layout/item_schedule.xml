@@ -14,11 +14,28 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="기타"
+            android:textSize="10dp"
+            android:background="@drawable/schedule_etc"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="2dp"
+            android:fontFamily="@font/medium"
+            android:textFontWeight="700"
+            android:textColor="#FFFFFF"
+            android:includeFontPadding="false"
+            android:id="@+id/scheduleContentType"/>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/scheduleItemTitle"
             android:text="테스트"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/scheduleContentType"
+            android:layout_marginStart="5dp"
             android:fontFamily="@font/regular"
             android:textSize="14dp"
             android:textFontWeight="500"

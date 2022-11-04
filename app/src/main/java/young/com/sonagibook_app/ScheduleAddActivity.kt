@@ -28,7 +28,7 @@ class ScheduleAddActivity : AppCompatActivity() {
         viewModelFactory = ScheduleViewModelFactory(Repository())
         viewModel = ViewModelProvider(this,viewModelFactory)[ScheduleAddViewModel::class.java]
 
-        val data = RetrofitPostScheduleDto(ScheduleDto("일정 테스트", "일정 테스트입니다", "장소", "202211010900", "202211011000", null))
+        val data = RetrofitPostScheduleDto(ScheduleDto("일정 테스트", "일정 테스트입니다", "장소", "202211010900", "202211011000", null , 1, 1))
 
         binding.scheduleAddSendBtn.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
