@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="320dp"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시작 날짜 선택"
+        android:textSize="20dp"
+        android:fontFamily="@font/medium"
+        android:textFontWeight="300"
+        android:textColor="@color/black"
+        android:includeFontPadding="false"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <NumberPicker
+            android:id="@+id/dialogStartYear"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginVertical="20sp"
+            android:layout_marginHorizontal="20sp"
+            android:fontFamily="@font/medium"
+            android:textFontWeight="300"
+            android:textColor="@color/black"
+            android:includeFontPadding="false"
+            android:scaleX="1.5"
+            android:scaleY="1.5" />
+
+        <NumberPicker
+            android:id="@+id/dialogStartMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginVertical="20sp"
+            android:layout_marginHorizontal="20sp"
+            android:fontFamily="@font/medium"
+            android:textFontWeight="300"
+            android:textColor="@color/black"
+            android:includeFontPadding="false"
+            android:scaleX="1.5"
+            android:scaleY="1.5" />
+        <NumberPicker
+            android:id="@+id/dialogStartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginVertical="20sp"
+            android:layout_marginHorizontal="20sp"
+            android:fontFamily="@font/medium"
+            android:textFontWeight="300"
+            android:textColor="@color/black"
+            android:includeFontPadding="false"
+            android:scaleX="1.5"
+            android:scaleY="1.5" />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="완료"
+        android:id="@+id/dialogStartDateDone"
+        android:textSize="30dp"/>
+
+</LinearLayout>
