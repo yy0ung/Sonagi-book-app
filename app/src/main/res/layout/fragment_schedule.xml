@@ -4,17 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="20dp"
-    android:layout_marginTop="50dp"
+    android:paddingHorizontal="20dp"
+    android:layout_marginTop="40dp"
     tools:context=".ScheduleFragment">
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:id="@+id/scheduleTopTitle"
+        android:text="일정"
+        android:textSize="30dp"
+        android:textFontWeight="700"
+        android:fontFamily="@font/bold"
+        android:includeFontPadding="false"/>
+
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        app:layout_constraintTop_toBottomOf="@id/scheduleTopTitle"
+        android:layout_marginTop="22dp"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/scheduleCalender"
         app:mcv_selectionColor="#C4C9FF"
+
         app:mcv_showOtherDates="all"/>
 
     <TextView

@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import young.com.sonagibook_app.login.LoginViewModel
 import young.com.sonagibook_app.login.LoginViewModelFactory
+import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseNoticeDto
 import young.com.sonagibook_app.retrofit.LoginRepository
 
 class HomeFragment : Fragment() {
@@ -30,14 +31,17 @@ class HomeFragment : Fragment() {
     @SuppressLint("SetTextI18n")
 
     override fun onStart() {
-        val noticeRecycler = requireView().findViewById<RecyclerView>(R.id.homeNoticeContainer)
         super.onStart()
+        val noticeRecycler = requireView().findViewById<RecyclerView>(R.id.homeNoticeContainer)
+
         CoroutineScope(Dispatchers.Main).launch {
             fetchNoticeInfo()
             Log.d(TAG, "onCreateView: ${viewModel.homeNoticeDataModel.get(0)}")
             val adapter = NoticeItemsAdapter(viewModel.homeNoticeDataModel)
             noticeRecycler.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
             noticeRecycler.adapter = adapter
+            Log.d(TAG, "onStart: 리셋")
+            refreshAdapter(adapter,viewModel.homeNoticeDataModel, noticeRecycler)
         }
     }
 
@@ -50,6 +54,7 @@ class HomeFragment : Fragment() {
         val info = view.findViewById<TextView>(R.id.homeProfileInfo)
         //val profileMsg = view.findViewById<TextView>(R.id.homeProfileMsg)
         val noticeMore = view.findViewById<TextView>(R.id.homeNoticeMoreBtn)
+
 
 
         val btn = view.findViewById<LinearLayout>(R.id.homeUpcomingContainer)
@@ -84,6 +89,15 @@ class HomeFragment : Fragment() {
         withContext(Dispatchers.IO){
             while (viewModel.homeNoticeDataModel.size==0){}
         }
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    private fun refreshAdapter(adapter : NoticeItemsAdapter?, data : ArrayList<RetrofitResponseNoticeDto>, recyclerView: RecyclerView){
+
+        val adapter = NoticeItemsAdapter(data)
+        recyclerView.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+        recyclerView.adapter = adapter
+        adapter?.notifyDataSetChanged()
+
     }
 
     

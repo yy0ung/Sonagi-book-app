@@ -55,6 +55,8 @@ class ScheduleFragment : Fragment() {
         calendarView.setTitleFormatter(MonthArrayTitleFormatter(resources.getStringArray(R.array.custom_months)))
         calendarView.setWeekDayFormatter(ArrayWeekDayFormatter(resources.getStringArray(R.array.custom_weekdays)))
         calendarView.setHeaderTextAppearance(R.style.CalendarWidgetHeader)
+
+        //calendarView.topbarVisible = false
         //cal.addDecorators()
         val todayDecorator = context?.let { TodayDecorator(it) }
         calendarView.addDecorator(todayDecorator)
@@ -149,5 +151,7 @@ class ScheduleFragment : Fragment() {
 
         //Log.d(TAG, "dotArray: 배열 $arr")
     }
+
+    
 
 }
