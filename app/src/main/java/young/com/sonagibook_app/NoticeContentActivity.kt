@@ -22,7 +22,7 @@ class NoticeContentActivity : AppCompatActivity() {
     private lateinit var binding : ActivityNoticeContentBinding
     private lateinit var viewModel : NoticeContentViewModel
     private lateinit var viewModelFactory : NoticeContentViewModelFactory
-    private var contentLike : Boolean = false
+    private var contentLike : Boolean? = false
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,14 +49,17 @@ class NoticeContentActivity : AppCompatActivity() {
                 contentLike = it.data.liked
                 binding.noticeContentTitle.text = it.data.title
                 binding.noticeContentContent.text = it.data.content
-                binding.noticeContentWriter.text = it.data.name
+                binding.noticeContentWriter.text = it.data.user.name.toString()
                 binding.noticeContentLikeNum.text = it.data.likes.toString()
+                binding.noticeContentConnectTitle.text = it.data.event?.title
+                Log.d(TAG, "onCreate: 공지 작성자 ${it.data.user}")
+                Log.d(TAG, "onCreate: 공지 연결 공지 ${it.data.event}")
                 //type 다시 체크
                 if(it.data.important==true){
                     binding.noticeContentImportant.visibility = View.VISIBLE
                     Log.d(TAG, "onCreate: 중요 공지")
                 }
-                if(it.data.liked){
+                if(it.data.liked == true){
                     binding.noticeContentLikeImg.visibility = View.INVISIBLE
                 }
 
@@ -69,7 +72,7 @@ class NoticeContentActivity : AppCompatActivity() {
 
 
                 binding.noticeContentLikeContainer.setOnClickListener {
-                    if(contentLike){
+                    if(contentLike == true){
                         CoroutineScope(Dispatchers.IO).launch { postNoticeCancelLike(accessToken, nid) }
                         viewModel.repositories3.observe(this@NoticeContentActivity){ it2->
                             binding.noticeContentLikeNum.text = (it2.data?.likes).toString()

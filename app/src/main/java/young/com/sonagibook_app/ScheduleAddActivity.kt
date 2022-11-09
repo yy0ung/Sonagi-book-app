@@ -41,7 +41,7 @@ class ScheduleAddActivity : AppCompatActivity() {
             })
         }
 
-        val data = RetrofitPostScheduleDto(ScheduleDto("일정 테스트", "일정 테스트입니다", "장소", "202211010900", "202211011000", null , 1, 1))
+        val data = RetrofitPostScheduleDto(ScheduleDto("일정 테스트", "일정 테스트입니다", "장소", "202211090900", "202211091000", null, null,1))
 
         binding.scheduleAddSendBtn.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {

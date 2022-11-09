@@ -128,6 +128,18 @@
         android:lineHeight="23.1dp"
         android:includeFontPadding="false"
         android:textSize="14dp"/>
+    <TextView
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/noticeContentContent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textFontWeight="400"
+        android:textColor="@color/purple_200"
+        android:lineHeight="23.1dp"
+        android:includeFontPadding="false"
+        android:textSize="14dp"
+        android:id="@+id/noticeContentConnectTitle"/>
     <LinearLayout
         android:layout_width="83dp"
         android:layout_height="43dp"

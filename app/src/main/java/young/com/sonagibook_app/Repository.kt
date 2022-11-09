@@ -54,7 +54,7 @@ class Repository {
         return iRetrofit.putNoticeContent(nid, token, data)
     }
 
-    suspend fun postSchedule(token : String, data : RetrofitPostScheduleDto) : Response<RetrofitResponseScheduleDto>{
+    suspend fun postSchedule(token : String, data : RetrofitPostScheduleDto){
         return iRetrofit.postSchedule(token, data)
     }
 

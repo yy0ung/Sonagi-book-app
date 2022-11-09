@@ -28,7 +28,7 @@ class NoticeItemsAdapter(private val noticeItemList : ArrayList<RetrofitResponse
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.itemTitle.text = noticeItemList.get(0).data[position].title
-        holder.itemUser.text = noticeItemList.get(0).data[position].name
+        holder.itemUser?.text = noticeItemList.get(0).data[position].user?.name
         holder.itemLike.text = noticeItemList.get(0).data[position].likes.toString()
         holder.itemContainer.setOnClickListener {
             val intent = Intent(holder.itemContainer.context,NoticeContentActivity::class.java)
@@ -61,7 +61,7 @@ class NoticeItemsAdapter(private val noticeItemList : ArrayList<RetrofitResponse
         val itemContainer : ConstraintLayout = itemView.findViewById(R.id.noticeItemContainer)
         val itemTitle : TextView = itemView.findViewById(R.id.noticeItemTitle)
         val itemContent : TextView = itemView.findViewById(R.id.noticeItemContext)
-        val itemUser : TextView = itemView.findViewById(R.id.noticeItemWriter)
+        val itemUser : TextView? = itemView.findViewById(R.id.noticeItemWriter)
         val itemLike : TextView = itemView.findViewById(R.id.noticeItemLikeNum)
         val itemDate : TextView = itemView.findViewById(R.id.noticeItemDate)
     }

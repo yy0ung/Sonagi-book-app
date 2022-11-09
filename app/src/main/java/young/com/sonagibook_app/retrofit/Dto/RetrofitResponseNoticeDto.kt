@@ -1,6 +1,7 @@
 package young.com.sonagibook_app.retrofit.Dto
 
 import com.google.gson.annotations.SerializedName
+import young.com.sonagibook_app.retrofit.dataDto.dataDtoNestedUser
 
 data class RetrofitResponseNoticeDto(
     val data : List<DataDto>
@@ -11,12 +12,10 @@ data class RetrofitResponseNoticeContentDto(
 )
 
 data class DataDto(
-    @SerializedName("User.name")
-    val name : String,
-    @SerializedName("User.privileged")
-    val privileged : Int,
-    @SerializedName("User.session")
-    val session : String,
+    @SerializedName("Event")
+    val event : EventDto?,
+    @SerializedName("User")
+    val user : dataDtoNestedUser,
     val content : String?,
     val createdAt : String,
     val nid : String,
@@ -24,5 +23,15 @@ data class DataDto(
     val important : Any?,
     val updatedAt : String,
     val likes : Int,
-    val liked : Boolean
+    val liked : Boolean?
 )
+
+data class EventDto(
+    val content : String?,
+    val end : String?,
+    val place : String?,
+    val start : String?,
+    val title : String?,
+    val type : Int?
+)
+

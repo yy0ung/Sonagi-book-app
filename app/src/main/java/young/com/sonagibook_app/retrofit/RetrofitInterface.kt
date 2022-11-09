@@ -74,7 +74,7 @@ interface RetrofitInterface {
     @POST("v1/event")
     @Headers("Content-type: application/json")
     suspend fun postSchedule(@Header("Authorization") token : String, @Body data : RetrofitPostScheduleDto)
-            :Response<RetrofitResponseScheduleDto>
+
 
     @GET("v1/event/list/{date}")
     @Headers("Content-type: application/json")

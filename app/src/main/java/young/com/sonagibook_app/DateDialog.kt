@@ -27,6 +27,7 @@ class DateDialog(context: Context) {
         val date = dialog.findViewById<NumberPicker>(R.id.dialogStartDate)
         val doneBtn = dialog.findViewById<TextView>(R.id.dialogStartDateDone)
         year.minValue = 2022
+        year.maxValue = 2025
         month.minValue = 1
         month.maxValue = 12
         date.minValue = 1
