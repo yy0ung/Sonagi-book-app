@@ -62,5 +62,9 @@ class Repository {
         return iRetrofit.getScheduleList(token, date)
     }
 
+    suspend fun getScheduleContent(eid : String, token: String) : Response<RetrofitResponseScheduleContentDto>{
+        return  iRetrofit.getScheduleContent(eid, token)
+    }
+
 
 }

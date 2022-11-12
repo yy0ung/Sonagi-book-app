@@ -80,4 +80,9 @@ interface RetrofitInterface {
     @Headers("Content-type: application/json")
     suspend fun getScheduleList(@Header("Authorization") token : String, @Path("date") date : String) : Response<RetrofitResponseScheduleDto>
 
+    @GET("v1/notice/{eid}")
+    @Headers("Content-type: application/json")
+    suspend fun getScheduleContent(@Path("eid") eid : String, @Header("Authorization") token : String)
+            :Response<RetrofitResponseScheduleContentDto>
+
 }

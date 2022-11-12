@@ -25,6 +25,7 @@ import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 import com.prolificinteractive.materialcalendarview.format.MonthArrayTitleFormatter
 import kotlinx.coroutines.*
 import young.com.sonagibook_app.retrofit.Dto.ScheduleDto
+import young.com.sonagibook_app.retrofit.Dto.ScheduleResponseDto
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -36,7 +37,7 @@ class ScheduleFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     lateinit var calendarView : MaterialCalendarView
     var selectedDate : CalendarDay = CalendarDay.today()
-    private var scheduleDetailList : ArrayList<ScheduleDto>? = ArrayList<ScheduleDto>()
+    private var scheduleDetailList : ArrayList<ScheduleResponseDto>? = ArrayList<ScheduleResponseDto>()
     var arr = ArrayList<CalendarDay>()
 
     @RequiresApi(Build.VERSION_CODES.O)

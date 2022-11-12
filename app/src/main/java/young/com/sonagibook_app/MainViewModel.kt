@@ -41,7 +41,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     
     var userHomeDataModel = ArrayList<RetrofitGetResponseAllInfo>()
     var homeNoticeDataModel = ArrayList<RetrofitResponseNoticeDto>()
-    var homeScheduleDataModel = HashMap<String, ArrayList<ScheduleDto>>()
+    var homeScheduleDataModel = HashMap<String, ArrayList<ScheduleResponseDto>>()
 
     fun getAccessToken(token : String, refreshToken : String){
         Log.d(TAG, "getAccessToken: getget")

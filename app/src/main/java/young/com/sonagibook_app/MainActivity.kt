@@ -13,6 +13,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.coroutines.*
 import young.com.sonagibook_app.databinding.ActivityMainBinding
 import young.com.sonagibook_app.retrofit.Dto.ScheduleDto
+import young.com.sonagibook_app.retrofit.Dto.ScheduleResponseDto
 import young.com.sonagibook_app.room.Token
 import young.com.sonagibook_app.room.TokenDatabase
 import java.time.LocalDate
@@ -91,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                     var date = it.data[i].start.substring(0,10)
                     Log.d(TAG, "onCreate: 날짜 : $date")
                     if(viewModel.homeScheduleDataModel[date]==null){
-                        var temp = ArrayList<ScheduleDto>()
+                        var temp = ArrayList<ScheduleResponseDto>()
                         temp.add(it.data[i])
 
                         viewModel.homeScheduleDataModel.put(date, temp)

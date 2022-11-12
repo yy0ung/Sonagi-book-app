@@ -23,24 +23,26 @@
 
     </androidx.appcompat.widget.Toolbar>
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="중요"
-        app:layout_goneMarginStart="20dp"
-        android:id="@+id/scheduleContentImportant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/scheduleContentToolbar"
-        android:fontFamily="@font/bold"
-        android:textSize="18dp"
-        android:paddingEnd="5dp"
-        android:layout_marginTop="15dp"
-        android:visibility="gone"
-        android:textFontWeight="500"
-        android:textColor="#FF4848"
-        android:includeFontPadding="false"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="기타"
+        android:textSize="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/schedule_etc"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="2dp"
+        android:fontFamily="@font/medium"
+        android:textFontWeight="700"
+        android:textColor="#FFFFFF"
+        android:includeFontPadding="false"
+        android:id="@+id/scheduleContentType"/>
+
     <TextView
         android:layout_marginTop="15dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/scheduleContentTitle"
@@ -51,7 +53,7 @@
         android:textColor="@color/black"
         android:includeFontPadding="false"
         app:layout_constraintTop_toBottomOf="@id/scheduleContentToolbar"
-        app:layout_constraintStart_toEndOf="@id/scheduleContentImportant"/>
+        app:layout_constraintStart_toEndOf="@id/scheduleContentType"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

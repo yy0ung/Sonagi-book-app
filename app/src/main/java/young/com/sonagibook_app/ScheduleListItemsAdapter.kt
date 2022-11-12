@@ -10,8 +10,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import young.com.sonagibook_app.retrofit.Dto.ScheduleDto
+import young.com.sonagibook_app.retrofit.Dto.ScheduleResponseDto
 
-class ScheduleListItemsAdapter(private val scheduleItemList : ArrayList<ScheduleDto>)
+class ScheduleListItemsAdapter(private val scheduleItemList : ArrayList<ScheduleResponseDto>)
     : RecyclerView.Adapter<ScheduleListItemsAdapter.CustomViewHolder>(){
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -54,6 +55,7 @@ class ScheduleListItemsAdapter(private val scheduleItemList : ArrayList<Schedule
 
         holder.itemContainer.setOnClickListener {
             val intent = Intent(holder.itemContainer.context,ScheduleContentActivity::class.java)
+            intent.putExtra("eid", scheduleItemList[position].eid.toString())
             ContextCompat.startActivity(holder.itemContainer.context,intent,null)
         }
     }

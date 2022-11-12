@@ -4,7 +4,11 @@ import com.google.gson.annotations.SerializedName
 import young.com.sonagibook_app.retrofit.dataDto.dataDtoNestedUser
 
 data class RetrofitResponseScheduleDto(
-    val data : List<ScheduleDto>
+    val data : List<ScheduleResponseDto>
+)
+
+data class RetrofitResponseScheduleContentDto(
+    val data : ScheduleResponseDto
 )
 
 data class ScheduleResponseDto(
