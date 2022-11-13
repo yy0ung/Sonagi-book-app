@@ -1,5 +1,6 @@
 package young.com.sonagibook_app
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues.TAG
@@ -23,6 +24,7 @@ class ScheduleAddActivity : AppCompatActivity() {
     lateinit var binding: ActivityScheduleAddBinding
     lateinit var viewModel: ScheduleAddViewModel
     lateinit var viewModelFactory : ScheduleViewModelFactory
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,6 +33,10 @@ class ScheduleAddActivity : AppCompatActivity() {
 
         viewModelFactory = ScheduleViewModelFactory(Repository())
         viewModel = ViewModelProvider(this,viewModelFactory)[ScheduleAddViewModel::class.java]
+
+        val today = Calendar.getInstance()
+        binding.scheduleDatePicker1.text = "${today.get(Calendar.YEAR)}.${today.get(Calendar.MONTH)+1}.${today.get(Calendar.DAY_OF_MONTH)}"
+        binding.scheduleTimePicker1.text = "${today.get(Calendar.AM_PM)} ${today.get(Calendar.HOUR)}시 ${today.get(Calendar.MINUTE)}분"
 
 
         binding.scheduleDatePicker1.setOnClickListener {

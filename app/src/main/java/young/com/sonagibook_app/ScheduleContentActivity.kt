@@ -1,8 +1,10 @@
 package young.com.sonagibook_app
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +40,7 @@ class ScheduleContentActivity : AppCompatActivity() {
 
             getScheduleContent(eid, accessToken)
             viewModel.repositories1.observe(this@ScheduleContentActivity){
+                Log.d(TAG, "onCreate: 로그 $it")
                 binding.scheduleContentTitle.text = it.data.title
                 binding.scheduleContentPlace.text = it.data.place
                 binding.scheduleContentDate.text = it.data.start
@@ -59,7 +62,7 @@ class ScheduleContentActivity : AppCompatActivity() {
         viewModel.getScheduleContent(eid, token)
     }
     
-    fun selectColor(type : Int){
+    private fun selectColor(type : Int){
         when(type){
                     0 -> {
                         binding.scheduleContentType.setBackgroundResource(R.drawable.schedule_prac)
