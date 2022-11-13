@@ -1,5 +1,7 @@
 package young.com.sonagibook_app
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -32,13 +34,20 @@ class ScheduleAddActivity : AppCompatActivity() {
 
 
         binding.scheduleDatePicker1.setOnClickListener {
-            val dialog = DateDialog(this)
-            dialog.showDialog(Calendar.getInstance())
-            dialog.setOnClickListener(object : DateDialog.onDialogClickListener{
-                override fun onClicked(date: String) {
-                    Toast.makeText(this@ScheduleAddActivity,date.toString(),Toast.LENGTH_LONG).show()
-                }
-            })
+            val cal = Calendar.getInstance()
+            val data1 = DatePickerDialog.OnDateSetListener{ view, year, month, date ->
+                binding.scheduleDatePicker1.text = "$year/${month+1}/$date"
+            }
+            DatePickerDialog(this, data1, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
+        binding.scheduleTimePicker1.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val data2 = TimePickerDialog.OnTimeSetListener{ view, hourOfDay, minute ->
+                binding.scheduleTimePicker1.text = "$hourOfDay : $minute"
+            }
+            TimePickerDialog(this, data2, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
         }
 
         val data = RetrofitPostScheduleDto(ScheduleDto("일정 테스트", "일정 테스트입니다", "장소", "202211090900", "202211091000", null, null,1))
