@@ -66,5 +66,13 @@ class Repository {
         return  iRetrofit.getScheduleContent(eid, token)
     }
 
+    suspend fun deleteScheduleItem(eid : String, token: String){
+        return iRetrofit.deleteScheduleItem(eid, token)
+    }
+
+    suspend fun putScheduleContent(eid : String, token: String, data : RetrofitPostScheduleDto){
+        return iRetrofit.putScheduleContent(eid, token, data)
+    }
+
 
 }

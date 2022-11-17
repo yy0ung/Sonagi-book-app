@@ -85,4 +85,14 @@ interface RetrofitInterface {
     suspend fun getScheduleContent(@Path("eid") eid : String, @Header("Authorization") token : String)
             :Response<RetrofitResponseScheduleContentDto>
 
+    @DELETE("v1/event/{eid}")
+    @Headers("Content-type: application/json")
+    suspend fun deleteScheduleItem(@Path("eid") eid : String, @Header("Authorization") token : String)
+
+    @PUT("v1/event/{eid}")
+    @Headers("Content-type: application/json")
+    suspend fun putScheduleContent(@Path("eid") eid : String,
+                                 @Header("Authorization") token : String, @Body data : RetrofitPostScheduleDto)
+
+
 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingHorizontal="20dp"
+
     android:layout_marginTop="40dp"
     tools:context=".ScheduleFragment">
 
@@ -24,6 +24,7 @@
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         app:layout_constraintTop_toBottomOf="@id/scheduleTopTitle"
         android:layout_marginTop="22dp"
+        android:paddingHorizontal="20dp"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,10 +33,21 @@
 
         app:mcv_showOtherDates="all"/>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginVertical="5dp"
+        android:id="@+id/scheduleLine"
+        app:layout_constraintTop_toBottomOf="@id/scheduleCalender"
+        android:background="#EDEDED"/>
+
+
     <TextView
+        android:paddingHorizontal="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/scheduleCalender"
+        app:layout_constraintTop_toBottomOf="@id/scheduleLine"
         android:text="날짜"
         android:id="@+id/scheduleDetailTitle"
         android:layout_marginTop="10dp"
@@ -46,6 +58,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:paddingHorizontal="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/scheduleDetailList"
