@@ -40,12 +40,18 @@
     <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textColor">@color/black</item>
         <item name="android:weekNumberColor">@color/black</item>
+        <item name="fontFamily">@font/medium</item>
+        <item name="android:includeFontPadding">false</item>
+
+
     </style>
     <style name="CalendarWidgetHeader">
-        <item name="android:textSize">18sp</item>
-        <item name="android:textAlignment">textStart</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/medium</item>
+        <item name="android:includeFontPadding">false</item>
+
     </style>
 <!--    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">-->
 <!--        <item name="android:textColor">@color/dark_main</item>-->

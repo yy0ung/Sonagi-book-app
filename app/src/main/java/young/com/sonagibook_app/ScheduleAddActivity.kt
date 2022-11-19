@@ -39,28 +39,36 @@ class ScheduleAddActivity : AppCompatActivity() {
 
         viewModelFactory = ScheduleViewModelFactory(Repository())
         viewModel = ViewModelProvider(this,viewModelFactory)[ScheduleAddViewModel::class.java]
+        
 
         dateTimePick()
         selectTag()
-
+        val format = DecimalFormat("00")
         val today = Calendar.getInstance()
-        binding.scheduleDatePicker1.text = "${today.get(Calendar.YEAR)}.${today.get(Calendar.MONTH)+1}.${today.get(Calendar.DAY_OF_MONTH)}"
-        binding.scheduleDatePicker2.text = "${today.get(Calendar.YEAR)}.${today.get(Calendar.MONTH)+1}.${today.get(Calendar.DAY_OF_MONTH)}"
+        binding.scheduleDatePicker1.text = "${today.get(Calendar.YEAR)}.${format.format(today.get(Calendar.MONTH)+1)}.${format.format(today.get(Calendar.DAY_OF_MONTH))}"
+        binding.scheduleDatePicker2.text = "${today.get(Calendar.YEAR)}.${format.format(today.get(Calendar.MONTH)+1)}.${format.format(today.get(Calendar.DAY_OF_MONTH))}"
+
+        startDate = "${today.get(Calendar.YEAR)}${format.format(today.get(Calendar.MONTH)+1)}${format.format(today.get(Calendar.DAY_OF_MONTH))}" +
+                "${format.format(today.get(Calendar.HOUR))}${format.format(today.get(Calendar.MINUTE))}"
+
+        Log.d(TAG, "onCreate: 초기값 $startDate")
         if(today.get(Calendar.AM_PM)==0){
-            binding.scheduleTimePicker1.text = "오전 ${today.get(Calendar.HOUR)}시 ${today.get(Calendar.MINUTE)}분"
-            binding.scheduleTimePicker2.text = "오전 ${today.get(Calendar.HOUR)}시 ${today.get(Calendar.MINUTE)}분"
+            binding.scheduleTimePicker1.text = "오전 ${format.format(today.get(Calendar.HOUR))}시 ${format.format(today.get(Calendar.MINUTE))}분"
+            binding.scheduleTimePicker2.text = "오전 ${format.format(today.get(Calendar.HOUR))}시 ${format.format(today.get(Calendar.MINUTE))}분"
         }else{
-            binding.scheduleTimePicker1.text = "오후 ${today.get(Calendar.HOUR)}시 ${today.get(Calendar.MINUTE)}분"
-            binding.scheduleTimePicker2.text = "오후 ${today.get(Calendar.HOUR)}시 ${today.get(Calendar.MINUTE)}분"
+            binding.scheduleTimePicker1.text = "오후 ${format.format(today.get(Calendar.HOUR))}시 ${format.format(today.get(Calendar.MINUTE))}분"
+            binding.scheduleTimePicker2.text = "오후 ${format.format(today.get(Calendar.HOUR))}시 ${format.format(today.get(Calendar.MINUTE))}분"
         }
 
-
-
-
-        val data = RetrofitPostScheduleDto(ScheduleDto("일정 테스트", "일정 테스트입니다", "장소", "202211090900", "202211091000", null, null,1))
-
+        
         binding.scheduleAddSendBtn.setOnClickListener {
-            addSchedule()
+            if(startDate.toLong()<endDate.toLong()){
+                addSchedule()
+                Log.d(TAG, "onCreate: 시작 종료 $startDate $endDate")
+            }else{
+                Toast.makeText(this, "시작 일자와 종료 일자를 다시 확인하세요", Toast.LENGTH_LONG).show()
+            }
+            
 
         }
 
@@ -79,7 +87,7 @@ class ScheduleAddActivity : AppCompatActivity() {
             val data1 = DatePickerDialog.OnDateSetListener{ view, year, month, date ->
                 val m1 = format.format(month+1)
                 val d1 = format.format(date)
-                binding.scheduleDatePicker1.text = "$year/$m1/$d1"
+                binding.scheduleDatePicker1.text = "$year.$m1.$d1"
                 startDate = "$year$m1$d1"
             }
             DatePickerDialog(this, data1, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
@@ -90,7 +98,7 @@ class ScheduleAddActivity : AppCompatActivity() {
             val data2 = DatePickerDialog.OnDateSetListener{ view, year, month, date ->
                 val m2 = format.format(month+1)
                 val d2 = format.format(date)
-                binding.scheduleDatePicker2.text = "$year/$m2/$d2"
+                binding.scheduleDatePicker2.text = "$year.$m2.$d2"
                 endDate = "$year$m2$d2"
             }
             DatePickerDialog(this, data2, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
@@ -104,7 +112,11 @@ class ScheduleAddActivity : AppCompatActivity() {
                 binding.scheduleTimePicker1.text = "$h1 : $m1"
                 startDate += "$h1$m1"
             }
-            TimePickerDialog(this, data2, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+            if(startDate.length>8){
+                Toast.makeText(this,"날짜를 먼저 선택하세요", Toast.LENGTH_LONG).show()
+            }else{
+                TimePickerDialog(this, data2, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+            }
         }
 
         binding.scheduleTimePicker2.setOnClickListener {
@@ -114,7 +126,13 @@ class ScheduleAddActivity : AppCompatActivity() {
                 binding.scheduleTimePicker2.text = "$h2 : $m2"
                 endDate+="$h2$m2"
             }
-            TimePickerDialog(this, data4, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+            if(endDate == "00000000"){
+                Toast.makeText(this,"날짜를 먼저 선택하세요", Toast.LENGTH_LONG).show()
+
+            }else{
+                TimePickerDialog(this, data4, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+
+            }
         }
 
 

@@ -51,11 +51,17 @@ class ScheduleFragment : Fragment() {
         val detailTitle : TextView = view.findViewById(R.id.scheduleDetailTitle)
 
 
-        detailTitle.text = "${selectedDate.day.toString()}일 ${selectedDate.date.toString().substring(0,3)}"
+        detailTitle.text = "${selectedDate.day.toString()}일 ${setDayKorean(selectedDate.date.toString().substring(0,3))}"
         calendarView = view.findViewById(R.id.scheduleCalender)
         calendarView.setTitleFormatter(MonthArrayTitleFormatter(resources.getStringArray(R.array.custom_months)))
         calendarView.setWeekDayFormatter(ArrayWeekDayFormatter(resources.getStringArray(R.array.custom_weekdays)))
         calendarView.setHeaderTextAppearance(R.style.CalendarWidgetHeader)
+
+
+
+        //calendarView.setOnDateChangedListener(
+        //onMonthChanged()
+        //)
 
         //calendarView.topbarVisible = false
         //cal.addDecorators()
@@ -89,6 +95,10 @@ class ScheduleFragment : Fragment() {
         return view
     }
 
+    fun onMonthChanged(cal : MaterialCalendarView, date : CalendarDay) {
+
+    }
+
     private suspend fun fetchSchedule(){
         withContext(Dispatchers.IO){
             while (viewModel.homeScheduleDataModel.size==0){}
@@ -102,7 +112,7 @@ class ScheduleFragment : Fragment() {
             var aa = cal.selectedDate.month+1
             var date = cal.selectedDate.day
             val detailTitle : TextView = requireView().findViewById(R.id.scheduleDetailTitle)
-            detailTitle.text = "${selectedDate.day.toString()}일 ${selectedDate.date.toString().substring(0,3)}"
+            detailTitle.text = "${selectedDate.day.toString()}일 ${setDayKorean(selectedDate.date.toString().substring(0,3))}"
             lateinit var dateString : String
             if(aa<10){
                 if(date<10){
@@ -139,6 +149,20 @@ class ScheduleFragment : Fragment() {
 
     private fun endDateString(st : String) : Int{
         return st.indexOf("}")
+    }
+
+    private fun setDayKorean(day : String) : String{
+        var wDay : String?= null
+        when(day){
+            "Mon" -> wDay = "월요일"
+            "Tue" -> wDay = "화요일"
+            "Wed" -> wDay = "수요일"
+            "Thu" -> wDay = "목요일"
+            "Fri" -> wDay = "금요일"
+            "Sat" -> wDay = "토요일"
+            "Sun" -> wDay = "일요일"
+        }
+        return wDay.toString()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

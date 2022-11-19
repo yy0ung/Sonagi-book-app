@@ -28,7 +28,9 @@ class ScheduleListItemsAdapter(private val scheduleItemList : ArrayList<Schedule
     ) {
         holder.itemTitle.text = scheduleItemList[position].title
         holder.itemPlace.text = scheduleItemList[position].place
-        holder.itemTime.text = scheduleItemList[position].start
+        val startTime = scheduleItemList[position].start.substring(11,16)
+        val endTime = scheduleItemList[position].end.substring(11,16)
+        holder.itemTime.text = "$startTime\n~$endTime"
 
         when(scheduleItemList[position].type){
             0 -> {
@@ -67,7 +69,7 @@ class ScheduleListItemsAdapter(private val scheduleItemList : ArrayList<Schedule
         val itemContainer : ConstraintLayout = itemView.findViewById(R.id.scheduleItemContainer)
         val itemType : TextView = itemView.findViewById(R.id.scheduleContentType)
         val itemTitle : TextView = itemView.findViewById(R.id.scheduleItemTitle)
-        val itemPlace : TextView = itemView.findViewById(R.id.scheduleItemPlace)
+        val itemPlace : TextView = itemView.findViewById(R.id.scheduleItemPlaceText)
         val itemTime : TextView = itemView.findViewById(R.id.scheduleItemTime)
     }
 

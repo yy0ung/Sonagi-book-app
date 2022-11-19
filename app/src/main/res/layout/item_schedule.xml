@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="335dp"
     android:layout_height="83dp"
-    android:paddingStart="20dp"
     android:paddingEnd="20dp"
     android:id="@+id/scheduleItemContainer"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -42,18 +41,32 @@
             android:textColor="#28324C"
             android:includeFontPadding="false"
             app:layout_constraintTop_toTopOf="parent"/>
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/scheduleItemPlace"
-            android:text="오비룸"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            android:fontFamily="@font/regular"
-            android:textSize="14dp"
-            android:textFontWeight="500"
-            android:textColor="#28324C"
-            android:includeFontPadding="false"
-            app:layout_constraintTop_toBottomOf="@id/scheduleItemTitle"/>
+            app:layout_constraintTop_toBottomOf="@id/scheduleItemTitle">
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="13dp"
+                android:src="@drawable/schedule_place"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="4dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오비룸"
+                android:id="@+id/scheduleItemPlaceText"
+                android:fontFamily="@font/regular"
+                android:textSize="14dp"
+                android:textFontWeight="500"
+                android:textColor="#28324C"
+                android:includeFontPadding="false"
+                />
+        </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

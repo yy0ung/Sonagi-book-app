@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    android:layout_marginTop="40dp"
+    android:layout_marginTop="60dp"
     tools:context=".ScheduleFragment">
 
     <TextView
@@ -16,6 +16,7 @@
         android:layout_marginStart="20dp"
         android:id="@+id/scheduleTopTitle"
         android:text="일정"
+        android:textColor="@color/black"
         android:textSize="30dp"
         android:textFontWeight="700"
         android:fontFamily="@font/bold"
@@ -23,14 +24,15 @@
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         app:layout_constraintTop_toBottomOf="@id/scheduleTopTitle"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="18dp"
         android:paddingHorizontal="20dp"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/scheduleCalender"
         app:mcv_selectionColor="#C4C9FF"
-
+        app:mcv_leftArrowMask="@drawable/schedule_left"
+        app:mcv_rightArrowMask="@drawable/schedule_right"
         app:mcv_showOtherDates="all"/>
 
 
@@ -40,7 +42,8 @@
         android:layout_marginVertical="5dp"
         android:id="@+id/scheduleLine"
         app:layout_constraintTop_toBottomOf="@id/scheduleCalender"
-        android:background="#EDEDED"/>
+        android:background="#EDEDED"
+        tools:ignore="Orientation" />
 
 
     <TextView
@@ -63,7 +66,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/scheduleDetailList"
         app:layout_constraintTop_toBottomOf="@id/scheduleDetailTitle"
-        android:layout_marginTop="10dp"/>
+        />
 
     <ImageView
         android:id="@+id/scheduleAddBtn"
