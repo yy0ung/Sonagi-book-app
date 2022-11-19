@@ -94,5 +94,14 @@ interface RetrofitInterface {
     suspend fun putScheduleContent(@Path("eid") eid : String,
                                  @Header("Authorization") token : String, @Body data : RetrofitPostScheduleDto)
 
+    //book
+    @POST("v1/reservation")
+    @Headers("Content-type: application/json")
+    suspend fun postBook(@Header("Authorization") token : String, @Body data : RetrofitPostBookDto)
+
+    @GET("v1/event/list/{yyyymmdd}")
+    @Headers("Content-type: application/json")
+    suspend fun getBookList(@Path("yyyymmdd") date : String, @Header("Authorization") token : String)
+            :Response<RetrofitResponseBookDto>
 
 }

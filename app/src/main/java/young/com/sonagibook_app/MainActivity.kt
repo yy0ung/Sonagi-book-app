@@ -80,28 +80,8 @@ class MainActivity : AppCompatActivity() {
                 viewModel.homeNoticeDataModel.add(it)
             }
             todayFormat = today.toString().substring(0,4)+today.toString().substring(5,7)
+            getMonthSchedule(todayFormat)
 
-            Log.d(TAG, "onCreate: 오늘 날짜 $todayFormat")
-            getScheduleList(accessToken, todayFormat)
-            viewModel.repositories5.observe(this@MainActivity){
-                Log.d(TAG, "onCreate: $it")
-                Log.d(TAG, "onCreate: 사이즈 ${it.data.size}")
-
-                for(i in 0..it.data.size-1){
-                    Log.d(TAG, "onCreate: ${viewModel.homeScheduleDataModel}")
-                    var date = it.data[i].start.substring(0,10)
-                    Log.d(TAG, "onCreate: 날짜 : $date")
-                    if(viewModel.homeScheduleDataModel[date]==null){
-                        var temp = ArrayList<ScheduleResponseDto>()
-                        temp.add(it.data[i])
-
-                        viewModel.homeScheduleDataModel.put(date, temp)
-                    }else{
-                        viewModel.homeScheduleDataModel[date]!!.add(it.data[i])
-                    }
-                }
-                //viewModel.homeScheduleDataModel.add(it)
-            }
         }
 
 //        viewModel.accessToken.add(accessToken)
@@ -141,6 +121,37 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+    fun getMonthSchedule(date : String){
+        CoroutineScope(Dispatchers.Main).launch {
+            viewModel.homeScheduleDataModel.clear()
+            val token =
+                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }
+            val accessToken = "Bearer ${token?.accessToken}"
+
+            Log.d(TAG, "onCreate: 달력 날짜 $date")
+            getScheduleList(accessToken, date)
+            viewModel.repositories5.observe(this@MainActivity){
+                Log.d(TAG, "onCreate: $it")
+                Log.d(TAG, "onCreate: 사이즈 ${it.data.size}")
+
+                for(i in 0..it.data.size-1){
+                    Log.d(TAG, "onCreate: ${viewModel.homeScheduleDataModel}")
+                    var date = it.data[i].start.substring(0,10)
+                    Log.d(TAG, "onCreate: 날짜 : $date")
+                    if(viewModel.homeScheduleDataModel[date]==null){
+                        var temp = ArrayList<ScheduleResponseDto>()
+                        temp.add(it.data[i])
+
+                        viewModel.homeScheduleDataModel.put(date, temp)
+                    }else{
+                        viewModel.homeScheduleDataModel[date]!!.add(it.data[i])
+                    }
+                }
+                //viewModel.homeScheduleDataModel.add(it)
+            }
+        }
     }
 
     private suspend fun getAccessToken(token : String, refreshToken : String) {

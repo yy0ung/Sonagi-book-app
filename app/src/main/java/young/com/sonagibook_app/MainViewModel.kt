@@ -26,6 +26,9 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     private val _repositoriesGetSchedule = MutableLiveData<RetrofitResponseScheduleDto>()
     val repositories5 : MutableLiveData<RetrofitResponseScheduleDto>
         get() = _repositoriesGetSchedule
+    private val _repositoriesGetBook = MutableLiveData<RetrofitResponseBookDto>()
+    val repositories6 : MutableLiveData<RetrofitResponseBookDto>
+        get() = _repositoriesGetBook
 
 
     private var _newAccessToken : String? = null
@@ -118,6 +121,25 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 if(response.isSuccessful){
                     Log.d(TAG, "getScheduleList: ${response.body()}")
                     _repositoriesGetSchedule.postValue(response.body())
+                }
+            }
+        }
+    }
+
+    fun postBook(token : String, data : RetrofitPostBookDto){
+        viewModelScope.launch {
+            repository.postBook(token, data).let {
+                Log.d(TAG, "postBook: 예약 업로드 성공")
+            }
+        }
+    }
+
+    fun getBookList(date : String, token : String){
+        viewModelScope.launch {
+            repository.getBookList(date, token).let { response ->
+                if(response.isSuccessful){
+                    Log.d(TAG, "getBookList: ${response.body()}")
+                    _repositoriesGetBook.postValue(response.body())
                 }
             }
         }

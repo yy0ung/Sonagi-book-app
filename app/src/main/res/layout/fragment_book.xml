@@ -11,5 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="예약 fragment" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="업로드"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="30dp"
+        android:id="@+id/bookUpload"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="불러오기"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/bookGet"
+        android:layout_marginStart="80dp"/>
 
 </FrameLayout>

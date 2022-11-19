@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,21 +50,28 @@ class ScheduleFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_schedule, container, false)
         val addBtn : ImageView = view.findViewById(R.id.scheduleAddBtn)
         val detailTitle : TextView = view.findViewById(R.id.scheduleDetailTitle)
+        val calHeader : TextView = view.findViewById(R.id.scheduleCalenderHeader)
 
-
+        calHeader.text = "${selectedDate.year}년 ${selectedDate.month+1}월"
         detailTitle.text = "${selectedDate.day.toString()}일 ${setDayKorean(selectedDate.date.toString().substring(0,3))}"
         calendarView = view.findViewById(R.id.scheduleCalender)
         calendarView.setTitleFormatter(MonthArrayTitleFormatter(resources.getStringArray(R.array.custom_months)))
         calendarView.setWeekDayFormatter(ArrayWeekDayFormatter(resources.getStringArray(R.array.custom_weekdays)))
         calendarView.setHeaderTextAppearance(R.style.CalendarWidgetHeader)
+        calendarView.topbarVisible = false
 
+        calendarView.setOnMonthChangedListener { widget, date ->
+            calHeader.text = "${date.year}년 ${date.month+1}월"
+            (activity as MainActivity).getMonthSchedule(date.year.toString()+(date.month+1).toString())
+            CoroutineScope(Dispatchers.Main).launch {
+                fetchSchedule()
+                dotArray()
+                calendarView.addDecorator(EventDecorator(Color.parseColor("#A3E27B"), arr))
 
+            }
 
-        //calendarView.setOnDateChangedListener(
-        //onMonthChanged()
-        //)
+        }
 
-        //calendarView.topbarVisible = false
         //cal.addDecorators()
         val todayDecorator = context?.let { TodayDecorator(it) }
         calendarView.addDecorator(todayDecorator)
@@ -95,9 +103,6 @@ class ScheduleFragment : Fragment() {
         return view
     }
 
-    fun onMonthChanged(cal : MaterialCalendarView, date : CalendarDay) {
-
-    }
 
     private suspend fun fetchSchedule(){
         withContext(Dispatchers.IO){

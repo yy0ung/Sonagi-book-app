@@ -2,6 +2,7 @@ package young.com.sonagibook_app
 
 import androidx.room.Room
 import retrofit2.Response
+import retrofit2.http.Body
 import young.com.sonagibook_app.Utils.API
 import young.com.sonagibook_app.retrofit.Dto.*
 import young.com.sonagibook_app.retrofit.RetrofitClient
@@ -72,6 +73,14 @@ class Repository {
 
     suspend fun putScheduleContent(eid : String, token: String, data : RetrofitPostScheduleDto){
         return iRetrofit.putScheduleContent(eid, token, data)
+    }
+
+    suspend fun postBook(token : String, data : RetrofitPostBookDto){
+        return iRetrofit.postBook(token, data)
+    }
+
+    suspend fun getBookList(date : String, token : String) : Response<RetrofitResponseBookDto>{
+        return iRetrofit.getBookList(date, token)
     }
 
 
