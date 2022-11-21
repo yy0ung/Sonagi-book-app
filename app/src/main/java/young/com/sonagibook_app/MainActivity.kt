@@ -16,7 +16,12 @@ import young.com.sonagibook_app.retrofit.Dto.ScheduleDto
 import young.com.sonagibook_app.retrofit.Dto.ScheduleResponseDto
 import young.com.sonagibook_app.room.Token
 import young.com.sonagibook_app.room.TokenDatabase
+import java.text.DecimalFormat
+import java.text.Format
+import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.log
 
 
@@ -124,6 +129,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getMonthSchedule(date : String){
+        val format = DecimalFormat("00")
+        val cal = Calendar.getInstance()
+        cal.set(date.substring(0,4).toInt(), date.substring(4).toInt(), 1)
+        val nextYear = format.format(cal.get(Calendar.YEAR))
+        val nextMonth = format.format(cal.get(Calendar.MONTH)+1)
+        val lastYear = format.format(cal.get(Calendar.YEAR))
+        val lastMonth = format.format(cal.get(Calendar.MONTH)-1)
+        val nextDate = "$nextYear$nextMonth"
+        val lastDate = "$lastYear$lastMonth"
+
         CoroutineScope(Dispatchers.Main).launch {
             viewModel.homeScheduleDataModel.clear()
             val token =
@@ -132,9 +147,8 @@ class MainActivity : AppCompatActivity() {
 
             Log.d(TAG, "onCreate: 달력 날짜 $date")
             getScheduleList(accessToken, date)
-            viewModel.repositories5.observe(this@MainActivity){
-                Log.d(TAG, "onCreate: $it")
-                Log.d(TAG, "onCreate: 사이즈 ${it.data.size}")
+            viewModel.repositories5.observe(this@MainActivity){it ->
+                Log.d(TAG, "getMonthSchedule: 순서1")
 
                 for(i in 0..it.data.size-1){
                     Log.d(TAG, "onCreate: ${viewModel.homeScheduleDataModel}")
@@ -146,7 +160,42 @@ class MainActivity : AppCompatActivity() {
 
                         viewModel.homeScheduleDataModel.put(date, temp)
                     }else{
-                        viewModel.homeScheduleDataModel[date]!!.add(it.data[i])
+                        viewModel.homeScheduleDataModel[date]?.add(it.data[i])
+                    }
+                }
+                CoroutineScope(Dispatchers.Main).launch {
+                    getNextScheduleList(accessToken, nextDate)
+                    Log.d(TAG, "getMonthSchedule: 순서2")
+                    viewModel.repositories51.observe(this@MainActivity){it2->
+                        for(i in 0..it2.data.size-1){
+                            var date = it2.data[i].start.substring(0,10)
+                            Log.d(TAG, "onCreate: 날짜 : $date")
+                            if(viewModel.homeScheduleDataModel[date]==null){
+                                var temp = ArrayList<ScheduleResponseDto>()
+                                temp.add(it.data[i])
+
+                                viewModel.homeScheduleDataModel.put(date, temp)
+                            }else{
+                                viewModel.homeScheduleDataModel[date]?.add(it.data[i])
+                            }
+                        }
+
+                    }
+                    getLastScheduleList(accessToken, lastDate)
+                    viewModel.repositories51.observe(this@MainActivity){it3->
+                        for(i in 0..it3.data.size-1){
+                            var date = it3.data[i].start.substring(0,10)
+                            Log.d(TAG, "onCreate: 날짜 : $date")
+                            if(viewModel.homeScheduleDataModel[date]==null){
+                                var temp = ArrayList<ScheduleResponseDto>()
+                                temp.add(it.data[i])
+
+                                viewModel.homeScheduleDataModel.put(date, temp)
+                            }else{
+                                viewModel.homeScheduleDataModel[date]?.add(it.data[i])
+                            }
+                        }
+
                     }
                 }
                 //viewModel.homeScheduleDataModel.add(it)
@@ -198,6 +247,14 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun getScheduleList(token: String, date : String){
         viewModel.getScheduleList(token, date)
+    }
+
+    private suspend fun getNextScheduleList(token: String, date: String){
+        viewModel.getNextScheduleList(token, date)
+    }
+
+    private suspend fun getLastScheduleList(token: String, date: String){
+        viewModel.getLastScheduleList(token, date)
     }
     
 

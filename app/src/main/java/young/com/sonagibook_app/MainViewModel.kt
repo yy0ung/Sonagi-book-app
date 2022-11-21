@@ -26,6 +26,12 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     private val _repositoriesGetSchedule = MutableLiveData<RetrofitResponseScheduleDto>()
     val repositories5 : MutableLiveData<RetrofitResponseScheduleDto>
         get() = _repositoriesGetSchedule
+    private val _repositoriesGetNextSchedule = MutableLiveData<RetrofitResponseScheduleDto>()
+    val repositories51 : MutableLiveData<RetrofitResponseScheduleDto>
+        get() = _repositoriesGetNextSchedule
+    private val _repositoriesGetLastSchedule = MutableLiveData<RetrofitResponseScheduleDto>()
+    val repositories52 : MutableLiveData<RetrofitResponseScheduleDto>
+        get() = _repositoriesGetLastSchedule
     private val _repositoriesGetBook = MutableLiveData<RetrofitResponseBookDto>()
     val repositories6 : MutableLiveData<RetrofitResponseBookDto>
         get() = _repositoriesGetBook
@@ -125,6 +131,29 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
             }
         }
     }
+    fun getNextScheduleList(token: String, date : String){
+        viewModelScope.launch {
+            repository.getSchedule(token, date).let { response ->
+                if(response.isSuccessful){
+                    Log.d(TAG, "getNextScheduleList: ${response.body()}")
+                    _repositoriesGetNextSchedule.postValue(response.body())
+                }
+            }
+        }
+    }
+
+    fun getLastScheduleList(token: String, date : String){
+        viewModelScope.launch {
+            repository.getSchedule(token, date).let { response ->
+                if(response.isSuccessful){
+                    Log.d(TAG, "getLastScheduleList: ${response.body()}")
+                    _repositoriesGetLastSchedule.postValue(response.body())
+                }
+            }
+        }
+    }
+
+
 
     fun postBook(token : String, data : RetrofitPostBookDto){
         viewModelScope.launch {
