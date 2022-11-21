@@ -1,6 +1,7 @@
 package young.com.sonagibook_app
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -31,20 +32,25 @@ class BookFragment : Fragment() {
         val g : TextView = view.findViewById(R.id.bookGet)
         viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(Repository()))[MainViewModel::class.java]
 
-        val data = RetrofitPostBookDto(BookDto("예약 테스트", 0, "202211200900", "202211201000" ))
+        u.setOnClickListener {
+            val intent = Intent(context, BookAddActivity::class.java)
+            startActivity(intent)
+        }
 
         CoroutineScope(Dispatchers.Main).launch {
-            val token =
-                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { tokenDB?.tokenDao()?.getAll() }
-            val accessToken = "Bearer ${token?.accessToken}"
-            Log.d(TAG, "onCreateView: 토큰 $accessToken")
-            u.setOnClickListener { viewModel.postBook(accessToken, data) }
-
-
-
+            fetchBook()
+            Log.d(TAG, "결과: ${viewModel.bookDataModel}")
         }
 
         return view
+    }
+
+    private suspend fun fetchBook(){
+        Log.d(TAG, "fetchBook: 시작")
+        withContext(Dispatchers.IO){
+            while (viewModel.bookDataModel.size==0){}
+        }
+        Log.d(TAG, "fetchBook: 끝")
     }
 
 }

@@ -99,9 +99,9 @@ interface RetrofitInterface {
     @Headers("Content-type: application/json")
     suspend fun postBook(@Header("Authorization") token : String, @Body data : RetrofitPostBookDto)
 
-    @GET("v1/event/list/{yyyymmdd}")
+    @GET("v1/reservation/list/{date}")
     @Headers("Content-type: application/json")
-    suspend fun getBookList(@Path("yyyymmdd") date : String, @Header("Authorization") token : String)
+    suspend fun getBookList(@Path("date") date : String, @Header("Authorization") token : String)
             :Response<RetrofitResponseBookDto>
 
 }

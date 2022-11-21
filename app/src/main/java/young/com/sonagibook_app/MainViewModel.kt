@@ -51,6 +51,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     var userHomeDataModel = ArrayList<RetrofitGetResponseAllInfo>()
     var homeNoticeDataModel = ArrayList<RetrofitResponseNoticeDto>()
     var homeScheduleDataModel = HashMap<String, ArrayList<ScheduleResponseDto>>()
+    var bookDataModel = ArrayList<RetrofitResponseBookDto>()
 
     fun getAccessToken(token : String, refreshToken : String){
         Log.d(TAG, "getAccessToken: getget")
@@ -154,14 +155,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     }
 
 
-
-    fun postBook(token : String, data : RetrofitPostBookDto){
-        viewModelScope.launch {
-            repository.postBook(token, data).let {
-                Log.d(TAG, "postBook: 예약 업로드 성공")
-            }
-        }
-    }
 
     fun getBookList(date : String, token : String){
         viewModelScope.launch {
