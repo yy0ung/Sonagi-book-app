@@ -13,6 +13,7 @@
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/calendar_selector.xml" value="0.16296296296296298" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/calendar_today.xml" value="0.1" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/home_box_item.xml" value="0.25" />
+        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.20572916666666666" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/notice_round_btn.xml" value="0.14739583333333334" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/notice_writer.xml" value="0.16979166666666667" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/noticecontent_round_graybtn_item.xml" value="0.16197916666666667" />
@@ -21,6 +22,7 @@
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/round_profilemsg_item.xml" value="0.22685185185185186" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/schedule_datepicker.xml" value="0.3241025641025641" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/schedule_etc.xml" value="0.2203125" />
+        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/drawable/scheduleadd_background.xml" value="0.20572916666666666" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout-v28/dialog_start_date.xml" value="0.1859375" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout-v28/dialog_start_time.xml" value="0.1859375" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout-v28/fragment_login_code_input.xml" value="0.21979166666666666" />
@@ -36,7 +38,7 @@
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/activity_notice_item_add.xml" value="0.2390625" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/activity_notice_item_edit.xml" value="0.2390625" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/activity_notice_list.xml" value="0.25" />
-        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/activity_schedule_add.xml" value="0.33" />
+        <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/activity_schedule_add.xml" value="0.25" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/activity_schedule_content.xml" value="0.49444444444444446" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/activity_schedule_detail.xml" value="0.21041666666666667" />
         <entry key="..\:/Users/oinbo/Desktop/kotlin/sonagiBookapp/app/src/main/res/layout/activity_schedule_item_edit.xml" value="0.20833333333333334" />

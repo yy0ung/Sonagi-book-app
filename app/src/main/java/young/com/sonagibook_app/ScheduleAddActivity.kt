@@ -29,6 +29,8 @@ class ScheduleAddActivity : AppCompatActivity() {
     private var pickedType by Delegates.notNull<Int>()
     private var startDate : String = "00000000"
     private var endDate : String = "00000000"
+    private lateinit var fStartDate : String
+    private lateinit var fEndDate : String
     lateinit var description : String
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,8 +50,9 @@ class ScheduleAddActivity : AppCompatActivity() {
         binding.scheduleDatePicker1.text = "${today.get(Calendar.YEAR)}.${format.format(today.get(Calendar.MONTH)+1)}.${format.format(today.get(Calendar.DAY_OF_MONTH))}"
         binding.scheduleDatePicker2.text = "${today.get(Calendar.YEAR)}.${format.format(today.get(Calendar.MONTH)+1)}.${format.format(today.get(Calendar.DAY_OF_MONTH))}"
 
-        startDate = "${today.get(Calendar.YEAR)}${format.format(today.get(Calendar.MONTH)+1)}${format.format(today.get(Calendar.DAY_OF_MONTH))}" +
-                "${format.format(today.get(Calendar.HOUR))}${format.format(today.get(Calendar.MINUTE))}"
+//        startDate  = "${today.get(Calendar.YEAR)}${format.format(today.get(Calendar.MONTH)+1)}${format.format(today.get(Calendar.DAY_OF_MONTH))}" +
+//                "${format.format(today.get(Calendar.HOUR))}${format.format(today.get(Calendar.MINUTE))}"
+//        endDate = startDate
 
         Log.d(TAG, "onCreate: 초기값 $startDate")
         if(today.get(Calendar.AM_PM)==0){
@@ -62,10 +65,16 @@ class ScheduleAddActivity : AppCompatActivity() {
 
         
         binding.scheduleAddSendBtn.setOnClickListener {
-            if(startDate.toLong()<endDate.toLong()){
+            startDate = binding.scheduleDatePicker1.text.toString()+binding.scheduleTimePicker1.text.toString()
+            endDate = binding.scheduleDatePicker2.text.toString()+binding.scheduleTimePicker2.text.toString()
+            fStartDate = setSubstring(startDate,0,4)+setSubstring(startDate,5,7)+setSubstring(startDate,8,10)+setSubstring(startDate,13,15)+setSubstring(startDate,17,19)
+            fEndDate = setSubstring(endDate,0,4)+setSubstring(endDate,5,7)+setSubstring(endDate,8,10)+setSubstring(endDate,13,15)+setSubstring(endDate,17,19)
+
+            if(fStartDate.toLong()<fEndDate.toLong()){
                 addSchedule()
-                Log.d(TAG, "onCreate: 시작 종료 $startDate $endDate")
+                Log.d(TAG, "YES: 시작 종료 $fStartDate $fEndDate")
             }else{
+                Log.d(TAG, "NO 시작 종료 $fStartDate $fEndDate")
                 Toast.makeText(this, "시작 일자와 종료 일자를 다시 확인하세요", Toast.LENGTH_LONG).show()
             }
             
@@ -80,6 +89,7 @@ class ScheduleAddActivity : AppCompatActivity() {
         viewModel.postSchedule(token, data)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun dateTimePick(){
         val cal = Calendar.getInstance()
         val format = DecimalFormat("00")
@@ -88,7 +98,7 @@ class ScheduleAddActivity : AppCompatActivity() {
                 val m1 = format.format(month+1)
                 val d1 = format.format(date)
                 binding.scheduleDatePicker1.text = "$year.$m1.$d1"
-                startDate = "$year$m1$d1"
+//                startDate = "$year$m1$d1"
             }
             DatePickerDialog(this, data1, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)).show()
@@ -99,7 +109,7 @@ class ScheduleAddActivity : AppCompatActivity() {
                 val m2 = format.format(month+1)
                 val d2 = format.format(date)
                 binding.scheduleDatePicker2.text = "$year.$m2.$d2"
-                endDate = "$year$m2$d2"
+//                endDate = "$year$m2$d2"
             }
             DatePickerDialog(this, data2, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)).show()
@@ -109,30 +119,30 @@ class ScheduleAddActivity : AppCompatActivity() {
             val data2 = TimePickerDialog.OnTimeSetListener{ view, hourOfDay, minute ->
                 val h1 = format.format(hourOfDay)
                 val m1 = format.format(minute)
-                binding.scheduleTimePicker1.text = "$h1 : $m1"
-                startDate += "$h1$m1"
+                if(h1.toInt()<=12) {
+                    binding.scheduleTimePicker1.text = "오전 ${h1}시 ${m1}분"
+                }else{
+                    binding.scheduleTimePicker1.text = "오후 ${format.format(h1.toInt()-12)}시 ${m1}분"
+                }
+//                startDate += "$h1$m1"
             }
-            if(startDate.length>8){
-                Toast.makeText(this,"날짜를 먼저 선택하세요", Toast.LENGTH_LONG).show()
-            }else{
-                TimePickerDialog(this, data2, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
-            }
+            TimePickerDialog(this, data2, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+
         }
 
         binding.scheduleTimePicker2.setOnClickListener {
             val data4 = TimePickerDialog.OnTimeSetListener{ view, hourOfDay, minute ->
                 val h2 = format.format(hourOfDay)
                 val m2 = format.format(minute)
-                binding.scheduleTimePicker2.text = "$h2 : $m2"
-                endDate+="$h2$m2"
+                if(h2.toInt()<=12) {
+                    binding.scheduleTimePicker2.text = "오전 ${h2}시 ${m2}분"
+                }else{
+                    binding.scheduleTimePicker2.text = "오후 ${format.format(h2.toInt()-12)}시 ${m2}분"
+                }
+//                endDate+="$h2$m2"
             }
-            if(endDate == "00000000"){
-                Toast.makeText(this,"날짜를 먼저 선택하세요", Toast.LENGTH_LONG).show()
+            TimePickerDialog(this, data4, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
 
-            }else{
-                TimePickerDialog(this, data4, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
-
-            }
         }
 
 
@@ -147,7 +157,7 @@ class ScheduleAddActivity : AppCompatActivity() {
         val place = binding.scheduleAddInputPlace.text.toString()
         val description = binding.scheduleAddInputDetail.text.toString()
 
-        val data = RetrofitPostScheduleDto(ScheduleDto(title, description, place, startDate, endDate, null, null, pickedType))
+        val data = RetrofitPostScheduleDto(ScheduleDto(title, description, place, fStartDate, fEndDate, repeatDay = null, nid=null, pickedType))
 
         CoroutineScope(Dispatchers.Main).launch {
             val token =
@@ -157,6 +167,10 @@ class ScheduleAddActivity : AppCompatActivity() {
             postSchedule(accessToken.toString(), data)
             Log.d(TAG, "데이터 $data")
         }
+    }
+
+    private fun setSubstring(str : String, start : Int, end : Int) : String{
+        return str.substring(start, end)
     }
 
 }
