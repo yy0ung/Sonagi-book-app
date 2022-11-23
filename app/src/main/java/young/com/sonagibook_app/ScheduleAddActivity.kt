@@ -149,7 +149,16 @@ class ScheduleAddActivity : AppCompatActivity() {
     }
 
     private fun selectTag(){
+        binding.scheduleT1.setOnClickListener {
+            pickedType = 0
+            binding.scheduleT1.setBackgroundResource(R.drawable.schedule_etc)
+        }
+        binding.scheduleT2.setOnClickListener {
+            pickedType = 1
+            binding.scheduleT2.setBackgroundResource(R.drawable.schedule_event)
+        }
         pickedType = 1
+        Log.d(TAG, "selectTag: $pickedType")
     }
 
     private fun addSchedule(){
