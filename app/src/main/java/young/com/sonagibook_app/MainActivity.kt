@@ -85,7 +85,9 @@ class MainActivity : AppCompatActivity() {
                 viewModel.homeNoticeDataModel.add(it)
             }
             todayFormat = today.toString().substring(0,4)+today.toString().substring(5,7)
+            var nextFormat = todayFormat.toLong()-1
             getMonthSchedule(todayFormat)
+
 
             val todayBookFormat = todayFormat+today.toString().substring(8)
             getBookList(todayBookFormat, accessToken)
@@ -160,6 +162,7 @@ class MainActivity : AppCompatActivity() {
 
                         viewModel.homeScheduleDataModel.put(date, temp)
                     }else{
+                        //여기 날짜 더하는 문젠가?
                         viewModel.homeScheduleDataModel[date]!!.add(it.data[i])
                     }
                 }

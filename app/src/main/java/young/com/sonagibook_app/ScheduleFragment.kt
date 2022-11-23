@@ -25,8 +25,10 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 import com.prolificinteractive.materialcalendarview.format.MonthArrayTitleFormatter
 import kotlinx.coroutines.*
+import okhttp3.internal.format
 import young.com.sonagibook_app.retrofit.Dto.ScheduleDto
 import young.com.sonagibook_app.retrofit.Dto.ScheduleResponseDto
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -40,6 +42,7 @@ class ScheduleFragment : Fragment() {
     var selectedDate : CalendarDay = CalendarDay.today()
     private var scheduleDetailList : ArrayList<ScheduleResponseDto>? = ArrayList<ScheduleResponseDto>()
     var arr = ArrayList<CalendarDay>()
+    private val format = DecimalFormat("00")
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
@@ -62,7 +65,9 @@ class ScheduleFragment : Fragment() {
 
         calendarView.setOnMonthChangedListener { widget, date ->
             calHeader.text = "${date.year}년 ${date.month+1}월"
-            (activity as MainActivity).getMonthSchedule(date.year.toString()+(date.month+1).toString())
+            //Log.d(TAG, "onCreateView: $$$$ ${date.calendar.add(1,1)}")
+            (activity as MainActivity).getMonthSchedule(date.year.toString()+(format.format(date.month)).toString())
+            Log.d(TAG, "##########쿼리 ${date.year.toString()+(format.format(date.month)).toString()}")
             CoroutineScope(Dispatchers.Main).launch {
                 fetchSchedule()
                 dotArray()
