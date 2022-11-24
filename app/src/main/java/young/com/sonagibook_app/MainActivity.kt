@@ -90,12 +90,8 @@ class MainActivity : AppCompatActivity() {
 
 
             val todayBookFormat = todayFormat+today.toString().substring(8)
-            getBookList(todayBookFormat, accessToken)
-            viewModel.repositories6.observe(this@MainActivity){
-                Log.d(TAG, "onCreate: $it ㅁㅁㅁㅁㅁ")
-                viewModel.bookDataModel.add(it)
-                Log.d(TAG, "onCreate: 추가한 모델 ${viewModel.bookDataModel}")
-            }
+            getWeekBook("20221113")
+
 
         }
 
@@ -164,6 +160,32 @@ class MainActivity : AppCompatActivity() {
                     }else{
                         //여기 날짜 더하는 문젠가?
                         viewModel.homeScheduleDataModel[date]!!.add(it.data[i])
+                    }
+                }
+                //viewModel.homeScheduleDataModel.add(it)
+            }
+        }
+    }
+
+    private suspend fun getWeekBook(date : String){
+        CoroutineScope(Dispatchers.Main).launch {
+            viewModel.bookDataModel.clear()
+            val token =
+                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }
+            val accessToken = "Bearer ${token?.accessToken}"
+
+            getBookList(date, accessToken)
+            viewModel.repositories6.observe(this@MainActivity){
+                Log.d(TAG, "onCreate: 추가한 모델 ${viewModel.bookDataModel}")
+
+                for(i in 0..it.data.size-1){
+                    var rDate = it.data[i].start.substring(8,10).toInt()
+                    var fDate = date.substring(6,8).toInt()
+                    if(viewModel.bookDataModel[rDate-fDate]==null){
+                        val temp = ArrayList<Int>()
+                        val time =it.data[i].start.substring(11,13)
+                        temp.add(time.toInt())
+                        viewModel.bookDataModel.put(rDate-fDate, temp)
                     }
                 }
                 //viewModel.homeScheduleDataModel.add(it)

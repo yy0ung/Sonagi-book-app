@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
+import android.widget.TableLayout
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,18 +36,19 @@ class BookFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_book, container, false)
         val calendarRecyclerView = view.findViewById<RecyclerView>(R.id.bookCalendarList)
-
+        val h = view.findViewById<TableLayout>(R.id.bookCalendarHeader)
         viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(Repository()))[MainViewModel::class.java]
-        //        u.setOnClickListener {
-//            val intent = Intent(context, BookAddActivity::class.java)
-//            startActivity(intent)
-//        }
+        h.setOnClickListener {
+            val intent = Intent(context, BookAddActivity::class.java)
+            startActivity(intent)
+        }
 
         CoroutineScope(Dispatchers.Main).launch {
             fetchBook()
             Log.d(TAG, "결과: ${viewModel.bookDataModel}")
-             val adapter = BookListAdapter(temp)
-            calendarRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            val adapter = BookListAdapter(viewModel.bookDataModel)
+
+            calendarRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             calendarRecyclerView.adapter = adapter
         }
 

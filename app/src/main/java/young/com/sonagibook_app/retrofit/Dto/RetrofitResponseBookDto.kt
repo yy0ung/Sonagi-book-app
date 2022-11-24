@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 import young.com.sonagibook_app.retrofit.dataDto.dataDtoNestedUser
 
 data class RetrofitResponseBookDto(
+    val data : List<ResponseBookDto>
+)
+data class ResponseBookDto(
     @SerializedName("User")
     val user : dataDtoNestedUser,
     val title : String,

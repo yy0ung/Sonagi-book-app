@@ -28,7 +28,7 @@ class BookAddActivity : AppCompatActivity() {
         viewModelFactory = BookAddViewModelFactory(Repository())
         viewModel = ViewModelProvider(this,viewModelFactory)[BookAddViewModel::class.java]
 
-        val data = RetrofitPostBookDto(BookDto("예약 테스트", 0, "202211200900", "202211201000" ))
+        val data = RetrofitPostBookDto(BookDto("예약 테스트", 0, "202211240900", "202211241000" ))
 
         CoroutineScope(Dispatchers.Main).launch {
             val token =
