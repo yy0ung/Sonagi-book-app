@@ -52,6 +52,11 @@ class BookFragment : Fragment() {
             calendarRecyclerView.adapter = adapter
         }
 
+        view.findViewById<TextView>(R.id.add).setOnClickListener {
+            val bottomSheet = BookAddDialog()
+            bottomSheet.show(requireActivity().supportFragmentManager,bottomSheet.tag)
+        }
+
         return view
     }
 
