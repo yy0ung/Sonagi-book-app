@@ -36,12 +36,8 @@ class BookFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_book, container, false)
         val calendarRecyclerView = view.findViewById<RecyclerView>(R.id.bookCalendarList)
-        val h = view.findViewById<TableLayout>(R.id.bookCalendarHeader)
         viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(Repository()))[MainViewModel::class.java]
-        h.setOnClickListener {
-            val intent = Intent(context, BookAddActivity::class.java)
-            startActivity(intent)
-        }
+
 
         CoroutineScope(Dispatchers.Main).launch {
             fetchBook()

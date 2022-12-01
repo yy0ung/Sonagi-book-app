@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="450dp"
+    android:layout_height="500dp"
+    android:padding="5dp"
+    android:paddingBottom="20dp"
     android:orientation="vertical"
     >
     <androidx.appcompat.widget.Toolbar
@@ -97,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="~"
-            android:layout_marginHorizontal="50dp"
+            android:layout_marginHorizontal="40dp"
             android:textColor="@color/black"
             android:textSize="18dp"
             android:fontFamily="@font/regular"
@@ -134,7 +136,7 @@
     <EditText
         android:layout_marginTop="10dp"
         android:id="@+id/bookAddTitleInput"
-        android:layout_width="370dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="18dp"
@@ -146,14 +148,15 @@
         app:layout_constraintTop_toBottomOf="@id/bookAddTitleTitle"/>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bookAddSendBtn"
-        android:layout_width="339dp"
-        android:layout_height="50dp"
+        android:layout_width="320dp"
+        android:layout_height="45dp"
         android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/round_btn_item"
         android:fontFamily="@font/medium"
         android:text="에약완료"
         android:textColor="@color/white"
-        android:textSize="16dp"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bookAddTitleInput" />

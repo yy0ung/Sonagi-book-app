@@ -1,5 +1,6 @@
 package young.com.sonagibook_app
 
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -163,6 +164,14 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                     Log.d(TAG, "getBookList: ${response.body()}")
                     _repositoriesGetBook.postValue(response.body())
                 }
+            }
+        }
+    }
+
+    fun postBook(token : String, data : RetrofitPostBookDto){
+        viewModelScope.launch {
+            repository.postBook(token, data).let {
+                Log.d(ContentValues.TAG, "postBook: 예약 업로드 성공")
             }
         }
     }
