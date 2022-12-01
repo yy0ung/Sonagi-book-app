@@ -10,7 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
@@ -22,12 +24,14 @@ import young.com.sonagibook_app.retrofit.Dto.RetrofitPostBookDto
 import young.com.sonagibook_app.room.TokenDatabase
 import java.text.DecimalFormat
 import java.util.*
+import kotlin.math.log
 
 class BookAddDialog : BottomSheetDialogFragment() {
     private val tokenDB by lazy { TokenDatabase.getInstance(requireContext()) }
     private lateinit var viewModel: MainViewModel
     private val format = DecimalFormat("00")
     private val cal = Calendar.getInstance()
+    private lateinit var data : RetrofitPostBookDto
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,18 +45,25 @@ class BookAddDialog : BottomSheetDialogFragment() {
 
         viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(Repository()))[MainViewModel::class.java]
 
-        val data = RetrofitPostBookDto(BookDto("예약 테스트", 0, "202211150900", "202211151000" ))
-
-        CoroutineScope(Dispatchers.Main).launch {
-            val token =
-                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { tokenDB?.tokenDao()?.getAll() }
-            val accessToken = "Bearer ${token?.accessToken}"
-            bookSendBtn.setOnClickListener { viewModel.postBook(accessToken, data) }
-
-        }
+        
         bookAddDate.setOnClickListener { datePicker(bookAddDate) }
         startTime.setOnClickListener { startTimePicker(startTime) }
         endTime.setOnClickListener { endTimePicker(endTime) }
+
+
+        bookSendBtn.setOnClickListener {
+            CoroutineScope(Dispatchers.Main).launch {
+                val token =
+                    withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { tokenDB?.tokenDao()?.getAll() }
+                val accessToken = "Bearer ${token?.accessToken}"
+                addTitle(bookAddDate, startTime, endTime)
+                Log.d(TAG, "onCreateView: 333333 $data")
+
+                
+            }
+        }
+        
+
 
         return view
     }
@@ -95,8 +106,19 @@ class BookAddDialog : BottomSheetDialogFragment() {
 
     }
 
-    private fun addTitle(){
+    private fun addTitle(date : TextView, startTime : TextView, endTime : TextView){
+        var titleInput : EditText? = view?.findViewById(R.id.bookAddTitleInput)
+        val date : String = getSS(date, 0,4)+getSS(date, 6,8)+getSS(date,10,12)
+        val startTime :String = getSS(startTime,3,5) + startTime.text.toString().substring(6)
+        val endTime :String = getSS(endTime,3,5) + endTime.text.toString().substring(6)
+        data= RetrofitPostBookDto(BookDto(titleInput?.text.toString(), 0,
+            date+startTime, date+endTime))
+        
 
+    }
+
+    private fun getSS(text : TextView, start : Int, end : Int) : String{
+        return text.text.toString().substring(start, end)
     }
 
 

@@ -60,7 +60,7 @@ class NoticeContentActivity : AppCompatActivity() {
                     Log.d(TAG, "onCreate: 중요 공지")
                 }
                 if(it.data.liked == true){
-                    binding.noticeContentLikeImg.visibility = View.INVISIBLE
+                    binding.noticeContentLikeContainer.setBackgroundResource(R.drawable.noticecontent_like_active)
                 }
 
 
@@ -76,22 +76,27 @@ class NoticeContentActivity : AppCompatActivity() {
                         CoroutineScope(Dispatchers.IO).launch { postNoticeCancelLike(accessToken, nid) }
                         viewModel.repositories3.observe(this@NoticeContentActivity){ it2->
                             binding.noticeContentLikeNum.text = (it2.data?.likes).toString()
+                            binding.noticeContentLikeContainer.setBackgroundResource(R.drawable.noticecontent_round_graybtn_item)
                         }
                     }else{
                         CoroutineScope(Dispatchers.IO).launch { postNoticeLike(accessToken, nid) }
                         viewModel.repositories2.observe(this@NoticeContentActivity){it3->
                             binding.noticeContentLikeNum.text = (it3.data?.likes?.plus(1)).toString()
+                            binding.noticeContentLikeContainer.setBackgroundResource(R.drawable.noticecontent_like_active)
+
                         }
                 }
                 }
 
             }
 
-
+            /*
             binding.delete.setOnClickListener {
                 viewModel.deleteNoticeItem(nid, accessToken)
                 Log.d(TAG, "onCreate: 삭제 성공")
             }
+
+             */
 
 
 
