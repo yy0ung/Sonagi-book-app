@@ -16,7 +16,7 @@
         <ImageView
             android:layout_width="19dp"
             android:layout_height = "19dp"
-            android:src="@drawable/noticeedit"
+            android:src="@drawable/notice_content_option"
             android:layout_gravity="right"
             android:layout_marginEnd="20dp"
             android:id="@+id/scheduleContentEditBtn"/>
@@ -89,11 +89,21 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_height="3dp"
+        android:background="#EDEDED"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/scheduleContentWriterContainer"
+        android:id="@+id/scheduleContentLine"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="Orientation" />
+
     <TextView
         android:id="@+id/scheduleContentContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/scheduleContentWriterContainer"
+        app:layout_constraintTop_toBottomOf="@id/scheduleContentLine"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="38dp"
         android:text="일정 내용"

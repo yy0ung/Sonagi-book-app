@@ -33,10 +33,10 @@ class ScheduleItemEditActivity : AppCompatActivity() {
             getScheduleContent(eid.toString(), accessToken)
             viewModel.repositories1.observe(this@ScheduleItemEditActivity){
                 binding.scheduleEditInputTitle.setText(it.data.title.toString())
-                binding.scheduleEditInputContext.setText(it.data.content.toString())
+                binding.scheduleEditInputPlace.setText(it.data.content.toString())
             }
 
-            binding.scheduleAddSendBtn.setOnClickListener {
+            binding.scheduleEditSendBtn.setOnClickListener {
                 CoroutineScope(Dispatchers.IO).launch { editContent(eid.toString(), accessToken.toString()) }
             }
         }
@@ -56,7 +56,7 @@ class ScheduleItemEditActivity : AppCompatActivity() {
 
     private suspend fun editContent(eid : String, token: String){
         var title = binding.scheduleEditInputTitle.text
-        var content = binding.scheduleEditInputContext.text
+        var content = binding.scheduleEditInputPlace.text
 
         //다른 변경 가능한 사항 뭔지?
         //val data = RetrofitPostScheduleDto(ScheduleDto(title.toString(), token.toString(), ))
