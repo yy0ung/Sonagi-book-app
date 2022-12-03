@@ -178,10 +178,15 @@ class MainActivity : AppCompatActivity() {
             viewModel.repositories6.observe(this@MainActivity){
                 Log.d(TAG, "onCreate: 추가한 모델 ${viewModel.bookDataModel}")
 
+
+                //테스트 필요
+
+
                 for(i in 0..it.data.size-1){
                     var rDate = it.data[i].start.substring(8,10).toInt()
                     var fDate = date.substring(6,8).toInt()
                     if(viewModel.bookDataModel[rDate-fDate]==null){
+                        //얘를 hash map으로 바꿔서 end time, title, place 같이 저장해서 이후에 써야할 것 같음.
                         val temp = ArrayList<Int>()
                         val time =it.data[i].start.substring(11,13)
                         temp.add(time.toInt())

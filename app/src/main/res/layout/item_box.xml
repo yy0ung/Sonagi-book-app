@@ -47,4 +47,175 @@
         tools:ignore="Orientation"
 
         />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="5"
+        android:id="@+id/grid5"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="6"
+        android:id="@+id/grid6"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="7"
+        android:id="@+id/grid7"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="8"
+        android:id="@+id/grid8"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="9"
+        android:id="@+id/grid9"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="10"
+        android:id="@+id/grid10"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="11"
+        android:id="@+id/grid11"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="12"
+        android:id="@+id/grid12"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="12"
+        android:id="@+id/grid12"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="13"
+        android:id="@+id/grid13"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="14"
+        android:id="@+id/grid14"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="15"
+        android:id="@+id/grid15"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="16"
+        android:id="@+id/grid16"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="17"
+        android:id="@+id/grid17"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="18"
+        android:id="@+id/grid18"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="19"
+        android:id="@+id/grid19"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="20"
+        android:id="@+id/grid20"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="21"
+        android:id="@+id/grid21"
+        tools:ignore="Orientation"
+
+        />
+    <LinearLayout
+        android:layout_width="40dp"
+        android:background="@drawable/book_boxline"
+        android:layout_height="25dp"
+        android:layout_row="22"
+        android:id="@+id/grid22"
+        tools:ignore="Orientation"
+
+        />
 </GridLayout>

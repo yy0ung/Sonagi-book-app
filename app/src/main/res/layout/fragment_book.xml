@@ -19,9 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="22dp"
                 android:layout_height="50dp"
-                android:layout_weight="0.5"
                 android:background="@color/purple_200"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -207,13 +206,195 @@
             </LinearLayout>
         </TableRow>
     </TableLayout>
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bookCalendarHeader"
-        android:id="@+id/bookCalendarList"/>
+        app:layout_constraintTop_toBottomOf="@+id/bookCalendarHeader"
+        android:orientation="horizontal"
+        android:id="@+id/bookCalendarMainContainer">
+        <GridLayout
+            android:layout_width="22dp"
+            android:layout_height="match_parent"
+            android:background="@color/purple_200"
+            android:columnCount="1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/book_boxline"
+                tools:ignore="Orientation" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="9AM"
+                    android:textSize="9dp"
+                    android:textColor="#797979"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/book_boxline"
+                tools:ignore="Orientation" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10AM"
+                    android:textSize="9dp"
+                    android:textColor="#797979"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/book_boxline"
+                tools:ignore="Orientation" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="11AM"
+                    android:textSize="9dp"
+                    android:textColor="#797979"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/book_boxline"
+                tools:ignore="Orientation" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12PM"
+                    android:textSize="9dp"
+                    android:textColor="#797979"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/book_boxline"
+                tools:ignore="Orientation" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1PM"
+                    android:textSize="9dp"
+                    android:textColor="#797979"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/book_boxline"
+                tools:ignore="Orientation" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2PM"
+                    android:textSize="9dp"
+                    android:textColor="#797979"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/book_boxline"
+                tools:ignore="Orientation" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3PM"
+                    android:textSize="9dp"
+                    android:textColor="#797979"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/book_boxline"
+                tools:ignore="Orientation" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4PM"
+                    android:textSize="9dp"
+                    android:textColor="#797979"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/book_boxline"
+                tools:ignore="Orientation" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5PM"
+                    android:textSize="9dp"
+                    android:textColor="#797979"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/book_boxline"
+                tools:ignore="Orientation" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6PM"
+                    android:textSize="9dp"
+                    android:textColor="#797979"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/book_boxline"
+                tools:ignore="Orientation" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="7PM"
+                    android:textSize="9dp"
+                    android:textColor="#797979"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/book_boxline"
+                tools:ignore="Orientation" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="8PM"
+                    android:textSize="9dp"
+                    android:textColor="#797979"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/book_boxline"
+                tools:ignore="Orientation" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="9PM"
+                    android:textSize="9dp"
+                    android:textColor="#797979"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/book_boxline"
+                tools:ignore="Orientation" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10PM"
+                    android:textSize="9dp"
+                    android:textColor="#797979"/>
+            </LinearLayout>
+        </GridLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bookCalendarList"/>
+
+    </LinearLayout>
+
 
     <!-- TODO: Update blank fragment layout -->
 <!--    <TextView-->

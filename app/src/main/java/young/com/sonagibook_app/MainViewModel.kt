@@ -38,6 +38,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         get() = _repositoriesGetBook
 
 
+
     private var _newAccessToken : String? = null
     val newAccessToken : String? get() = _newAccessToken
 
@@ -52,7 +53,9 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     var userHomeDataModel = ArrayList<RetrofitGetResponseAllInfo>()
     var homeNoticeDataModel = ArrayList<RetrofitResponseNoticeDto>()
     var homeScheduleDataModel = HashMap<String, ArrayList<ScheduleResponseDto>>()
+    //arraylist -> hashmap
     var bookDataModel = HashMap<Int, ArrayList<Int>>()
+
 
     fun getAccessToken(token : String, refreshToken : String){
         Log.d(TAG, "getAccessToken: getget")

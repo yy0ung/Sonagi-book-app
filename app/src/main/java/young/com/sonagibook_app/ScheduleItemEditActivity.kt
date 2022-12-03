@@ -1,7 +1,9 @@
 package young.com.sonagibook_app
 
+import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +33,9 @@ class ScheduleItemEditActivity : AppCompatActivity() {
             val token = withContext(CoroutineScope(Dispatchers.IO).coroutineContext){ getTokenDB() }
             val accessToken = "Bearer ${token?.accessToken}"
             getScheduleContent(eid.toString(), accessToken)
+            Log.d(TAG, "onCreate: ##$eid")
             viewModel.repositories1.observe(this@ScheduleItemEditActivity){
+                Log.d(TAG, "onCreate: ##${it.data}")
                 binding.scheduleEditInputTitle.setText(it.data.title.toString())
                 binding.scheduleEditInputPlace.setText(it.data.content.toString())
             }
