@@ -7,14 +7,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_marginRight="3dp"
+        android:layout_width="45dp"
         android:layout_height="25dp"
         android:layout_row="0"
         android:background="@drawable/book_boxline"
         android:id="@+id/grid0"
         tools:ignore="Orientation" />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="1"
@@ -22,7 +23,7 @@
         tools:ignore="Orientation"
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="2"
@@ -30,7 +31,7 @@
         tools:ignore="Orientation"
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="3"
@@ -39,7 +40,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="4"
@@ -48,7 +49,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="5"
@@ -57,7 +58,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="6"
@@ -66,7 +67,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="7"
@@ -75,7 +76,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="8"
@@ -84,7 +85,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="9"
@@ -93,7 +94,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="10"
@@ -102,7 +103,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="11"
@@ -111,7 +112,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="12"
@@ -119,17 +120,9 @@
         tools:ignore="Orientation"
 
         />
-    <LinearLayout
-        android:layout_width="40dp"
-        android:background="@drawable/book_boxline"
-        android:layout_height="25dp"
-        android:layout_row="12"
-        android:id="@+id/grid12"
-        tools:ignore="Orientation"
 
-        />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="13"
@@ -138,7 +131,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="14"
@@ -147,7 +140,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="15"
@@ -156,7 +149,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="16"
@@ -165,7 +158,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="17"
@@ -174,7 +167,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="18"
@@ -183,7 +176,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="19"
@@ -192,7 +185,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="20"
@@ -201,7 +194,7 @@
 
         />
     <LinearLayout
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:background="@drawable/book_boxline"
         android:layout_height="25dp"
         android:layout_row="21"
@@ -209,13 +202,5 @@
         tools:ignore="Orientation"
 
         />
-    <LinearLayout
-        android:layout_width="40dp"
-        android:background="@drawable/book_boxline"
-        android:layout_height="25dp"
-        android:layout_row="22"
-        android:id="@+id/grid22"
-        tools:ignore="Orientation"
 
-        />
 </GridLayout>

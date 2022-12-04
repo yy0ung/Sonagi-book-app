@@ -1,16 +1,19 @@
 package young.com.sonagibook_app
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseBookDto
 
-class BookListAdapter(private val bookList : HashMap<Int, ArrayList<Int>>)
+class BookListAdapter(private val bookList : HashMap<Int, ArrayList<Int>>, private val supportFragmentManager: FragmentManager)
     :RecyclerView.Adapter<BookListAdapter.CustomViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -25,15 +28,31 @@ class BookListAdapter(private val bookList : HashMap<Int, ArrayList<Int>>)
             when {
                 t?.equals(0) == true -> {
                     holder.a0.setBackgroundResource(R.drawable.schedule_event)
+                    holder.a0.setOnClickListener {
+                        val bottomSheet = BookContentDialog()
+                        bottomSheet.show(supportFragmentManager,bottomSheet.tag)
+                    }
                 }
                 t?.equals(1) == true -> {
                     holder.a1.setBackgroundResource(R.drawable.schedule_event)
+                    holder.a1.setOnClickListener {
+                        val bottomSheet = BookContentDialog()
+                        bottomSheet.show(supportFragmentManager,bottomSheet.tag)
+                    }
                 }
                 t?.equals(2) == true -> {
                     holder.a2.setBackgroundResource(R.drawable.schedule_event)
+                    holder.a2.setOnClickListener {
+                        val bottomSheet = BookContentDialog()
+                        bottomSheet.show(supportFragmentManager,bottomSheet.tag)
+                    }
                 }
                 t?.equals(3) == true -> {
                     holder.a3.setBackgroundResource(R.drawable.schedule_event)
+                    holder.a3.setOnClickListener {
+                        val bottomSheet = BookContentDialog()
+                        bottomSheet.show(supportFragmentManager,bottomSheet.tag)
+                    }
                 }
                 t?.equals(4) == true -> {
                     holder.a4.setBackgroundResource(R.drawable.schedule_event)
@@ -71,7 +90,6 @@ class BookListAdapter(private val bookList : HashMap<Int, ArrayList<Int>>)
         val a19 : LinearLayout = itemView.findViewById(R.id.grid19)
         val a20 : LinearLayout = itemView.findViewById(R.id.grid20)
         val a21 : LinearLayout = itemView.findViewById(R.id.grid21)
-        val a22 : LinearLayout = itemView.findViewById(R.id.grid22)
     }
 
 

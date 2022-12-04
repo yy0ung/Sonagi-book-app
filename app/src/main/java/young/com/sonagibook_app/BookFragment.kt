@@ -42,7 +42,7 @@ class BookFragment : Fragment() {
         CoroutineScope(Dispatchers.Main).launch {
             fetchBook()
             Log.d(TAG, "결과: ${viewModel.bookDataModel}")
-            val adapter = BookListAdapter(viewModel.bookDataModel)
+            val adapter = BookListAdapter(viewModel.bookDataModel, requireActivity().supportFragmentManager)
 
             calendarRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             calendarRecyclerView.adapter = adapter
