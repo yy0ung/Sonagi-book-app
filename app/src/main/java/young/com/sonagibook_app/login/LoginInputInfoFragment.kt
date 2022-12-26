@@ -56,6 +56,7 @@ class LoginInputInfoFragment : Fragment() {
 
         CoroutineScope(Dispatchers.Main).launch {
             getLastInfo(viewModel)
+            //accessToken = viewModel.loginModel.get(0).data.access_token.toString()
             registerToken = viewModel.loginModel.get(0).data.register_token.toString()
             code = viewModel.loginModel2.get(0).inviteCode.toString()
             userName = viewModel.loginModel2.get(0).data?.name.toString()
@@ -89,7 +90,7 @@ class LoginInputInfoFragment : Fragment() {
 
         info = RetrofitMoreInfoPostDto(registerToken,code, dataDtoMoreInfo(birth?.text.toString(),
                 phone?.text.toString(), major?.text.toString(), profile?.text.toString()))
-
+        Log.d(TAG, "inputInfo: @@@@@@@@$info")
         postMoreInfo(info)
         viewModel.loginRepositories3.observe(requireActivity()){
             Log.d(TAG, "////onCreateView: ${it.data}")

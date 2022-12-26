@@ -1,6 +1,5 @@
 package young.com.sonagibook_app.room
 
-import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -13,7 +12,7 @@ abstract class TokenDatabase : RoomDatabase() {
     companion object{
         private var INSTANCE : TokenDatabase? = null
 
-        fun getInstance(context: Context) : TokenDatabase?{
+        fun getInstance(context: MainActivity) : TokenDatabase?{
             return INSTANCE ?: synchronized(this){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,

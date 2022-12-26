@@ -6,10 +6,13 @@ import young.com.sonagibook_app.retrofit.dataDto.dataDtoNestedUser
 data class RetrofitResponseBookDto(
     val data : List<ResponseBookDto>
 )
+
+//date type : "2022-11-27T13:00:00.000Z"
 data class ResponseBookDto(
-    @SerializedName("User")
+    @SerializedName("writter")
     val user : dataDtoNestedUser,
     val title : String,
+    val content : String,
     val place : Int,
     val start : String,
     val end : String,

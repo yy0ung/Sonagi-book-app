@@ -31,8 +31,8 @@ class Repository {
         return iRetrofit.getNoticeList(page, token)
     }
 
-    suspend fun postRefreshToken(refreshToken : HashMap<String,String>) : Response<RetrofitResponseRefreshTokenDto>{
-        return iRetrofit.postRefreshToken(refreshToken)
+    suspend fun postRefreshToken(token: String, refreshToken : HashMap<String,String>) : Response<RetrofitResponseRefreshTokenDto>{
+        return iRetrofit.postRefreshToken(token, refreshToken)
     }
 
     suspend fun getNoticeContent(nid : String, token: String) : Response<RetrofitResponseNoticeContentDto>{

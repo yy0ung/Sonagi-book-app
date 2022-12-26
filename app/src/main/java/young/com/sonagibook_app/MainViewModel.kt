@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import young.com.sonagibook_app.retrofit.Dto.*
-import young.com.sonagibook_app.room.Token
 import young.com.sonagibook_app.room.TokenDatabase
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
@@ -55,50 +54,68 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     var homeScheduleDataModel = HashMap<String, ArrayList<ScheduleResponseDto>>()
     //arraylist -> hashmap
     var bookDataModel = HashMap<Int, ArrayList<Int>>()
+    var getNewAccessToken = HashMap<String, String>()
 
-
-    fun getAccessToken(token : String, refreshToken : String){
-        Log.d(TAG, "getAccessToken: getget")
+    fun getAccessToken(token: String, refreshToken: String){
         viewModelScope.launch {
-            repository.getAccessToken(token).let { response ->
+            repository.getAccessToken(token).let { response->
                 if(response.isSuccessful){
-                    Log.d(TAG, "getAccessToken: ${response.body()}")
+                    //만료되지 않음
                     _repositoriesGetAccessToken.postValue(response.body())
-                    //response.body()?.let { userHomeDataModel.add(it) }
                 }else{
-                    val map = HashMap<String, String>()
-                    map["refresh_token"] = refreshToken
-//                    Log.d(TAG, "getAccessToken: viewModel 재발급")
-//                    postRefreshToken(map)
-                    repository.postRefreshToken(map).let { response ->
-                        if(response.isSuccessful){
-                            Log.d(TAG, "postRefreshToken: ${response.body()}")
-                            _repositoriesPostRefreshToken.postValue(response.body())
-                            //response.body()?.data?.let { getAccessToken(it.accessToken, refreshToken) }
-                            Log.d(TAG, "getAccessToken: 재발급 뷰모델")
-                        }else{
-                            Log.d(TAG, "무한루프 x")
-                        }
-                    }
-
-
+                    //만료됨
+                    getNewToken(token,refreshToken)
                 }
             }
         }
     }
-    fun getWithNewAccessToken(token : String){
-        Log.d(TAG, "getAccessToken: 새로운 fun")
+
+    fun getNewToken(token: String, refreshToken: String){
+        val map = HashMap<String, String>()
+        map["refresh_token"] = refreshToken
         viewModelScope.launch {
-            repository.getAccessToken(token).let { response ->
+            repository.postRefreshToken(token, map).let { response ->
                 if(response.isSuccessful){
-                    Log.d(TAG, "getNewAccessToken: ${response.body()}")
-                    _repositoriesGetNewAccessToken.postValue(response.body())
+                    getNewAccessToken["accessToken"] = response.body()!!.data.accessToken
+                    getAccessToken(response.body()!!.data.accessToken, refreshToken)
+                    Log.d(TAG, "getNewToken: 재발급 후 다시 로그인 성공")
                 }else{
-                    Log.d(TAG, "getWithNewAccessToken: 불러오기 실패")
+                    Log.d(TAG, "getNewToken: 어플 종료 후 재시작")
                 }
             }
         }
     }
+
+
+//    fun getAccessToken(token : String, refreshToken : String) {
+//        Log.d(TAG, "getAccessToken: getget")
+//        viewModelScope.launch {
+//            repository.getAccessToken(token).let { response ->
+//                if (response.isSuccessful) {
+//                    Log.d(TAG, "getAccessToken: ${response.body()}")
+//                    _repositoriesGetAccessToken.postValue(response.body())
+//                    //response.body()?.let { userHomeDataModel.add(it) }
+//                } else {
+//                    val map = HashMap<String, String>()
+//                    map["refresh_token"] = refreshToken
+////                    Log.d(TAG, "getAccessToken: viewModel 재발급")
+////                    postRefreshToken(map)
+//                    repository.postRefreshToken(token, map).let { response ->
+//                        if (response.isSuccessful) {
+//                            Log.d(TAG, "postRefreshToken: ${response.body()}")
+//                            _repositoriesPostRefreshToken.postValue(response.body())
+//                            //response.body()?.data?.let { getAccessToken(it.accessToken, refreshToken) }
+//                            Log.d(TAG, "getAccessToken: 재발급 뷰모델")
+//                        } else {
+//                            Log.d(TAG, "무한루프 x")
+//                        }
+//                    }
+//
+//
+//                }
+//            }
+//        }
+//    }
 
 
 
@@ -113,9 +130,9 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun postRefreshToken(refreshToken : HashMap<String,String>){
+    fun postRefreshToken(token: String, refreshToken : HashMap<String,String>){
         viewModelScope.launch {
-            repository.postRefreshToken(refreshToken).let { response ->
+            repository.postRefreshToken(token, refreshToken).let { response ->
                 if(response.isSuccessful){
                     Log.d(TAG, "postRefreshToken: ${response.body()}")
                     _repositoriesPostRefreshToken.postValue(response.body())

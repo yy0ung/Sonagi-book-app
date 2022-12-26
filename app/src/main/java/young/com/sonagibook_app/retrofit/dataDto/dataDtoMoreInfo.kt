@@ -9,6 +9,6 @@ data class dataDtoMoreInfo(
     var phone : String,
     @SerializedName("major")
     var major : String,
-    @SerializedName("profile_message")
-    var profile_message : String?
+    @SerializedName("profileMessage")
+    var profileMessage : String?
 )

@@ -11,10 +11,11 @@ data class RetrofitResponseScheduleContentDto(
     val data : ScheduleResponseDto
 )
 
+//date type : "2022-11-27T13:00:00.000Z"
 data class ScheduleResponseDto(
-    @SerializedName("User")
+    @SerializedName("writter")
     val user : dataDtoNestedUser,
-    @SerializedName("Notice")
+    @SerializedName("linkedNotice")
     val notice : NoticeNestedDto?,
     val content : String,
     val createdAt : String,

@@ -12,7 +12,7 @@ data class dataDtoAllInfo(
     val major : String,
     @SerializedName("phone")
     val phone : String,
-    @SerializedName("profile_message")
-    val profile_message : String?,
-    val uid : String
+    @SerializedName("profileMessage")
+    val profileMessage : String?,
+    val uid : Int
 )

@@ -15,7 +15,6 @@ import kotlinx.coroutines.withContext
 import young.com.sonagibook_app.databinding.ActivityNoticeContentBinding
 import young.com.sonagibook_app.retrofit.Dto.RetrofitPostNoticeLikeDto
 import young.com.sonagibook_app.room.TokenDatabase
-import kotlin.properties.Delegates
 
 class NoticeContentActivity : AppCompatActivity() {
     private val tokenDB by lazy { TokenDatabase.getInstance(this) }

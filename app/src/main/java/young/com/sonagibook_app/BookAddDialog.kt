@@ -2,7 +2,6 @@ package young.com.sonagibook_app
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
@@ -24,7 +22,6 @@ import young.com.sonagibook_app.retrofit.Dto.RetrofitPostBookDto
 import young.com.sonagibook_app.room.TokenDatabase
 import java.text.DecimalFormat
 import java.util.*
-import kotlin.math.log
 
 class BookAddDialog : BottomSheetDialogFragment() {
     private val tokenDB by lazy { TokenDatabase.getInstance(requireContext()) }
@@ -112,7 +109,7 @@ class BookAddDialog : BottomSheetDialogFragment() {
         val date : String = getSS(date, 0,4)+getSS(date, 6,8)+getSS(date,10,12)
         val startTime :String = getSS(startTime,3,5) + startTime.text.toString().substring(6)
         val endTime :String = getSS(endTime,3,5) + endTime.text.toString().substring(6)
-        data= RetrofitPostBookDto(BookDto(titleInput?.text.toString(), 0,
+        data= RetrofitPostBookDto(BookDto(titleInput?.text.toString(), "content", 0,
             date+startTime, date+endTime))
         
 

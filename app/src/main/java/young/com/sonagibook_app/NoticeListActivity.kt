@@ -3,7 +3,6 @@ package young.com.sonagibook_app
 import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.util.Log
 import android.widget.SearchView
 import androidx.lifecycle.ViewModelProvider

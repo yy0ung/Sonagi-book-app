@@ -10,8 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import young.com.sonagibook_app.databinding.ActivityScheduleItemEditBinding
-import young.com.sonagibook_app.retrofit.Dto.RetrofitPostScheduleDto
-import young.com.sonagibook_app.retrofit.Dto.ScheduleDto
 import young.com.sonagibook_app.room.Token
 import young.com.sonagibook_app.room.TokenDatabase
 
