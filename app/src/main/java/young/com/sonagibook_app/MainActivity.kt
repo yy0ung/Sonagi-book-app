@@ -51,33 +51,10 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "onCreate: 재발급 완료 된 상태여야 함.")
                 viewModel.userHomeDataModel.add(it)
                 var newAccessToken = viewModel.getNewAccessToken["accessToken"]
-                updateTokenDB(Token(newAccessToken.toString(),token?.refreshToken.toString()))
+                CoroutineScope(Dispatchers.IO).launch { updateTokenDB(Token(newAccessToken.toString(),token?.refreshToken.toString())) }
 
             }
-
-//            viewModel.repositories3.observe(this@MainActivity){it->
-//                Log.d(TAG, "onCreate: Room db 업데이트")
-//                updateTokenDB(Token(it.data.accessToken.toString(),token?.refreshToken.toString()))
-//                CoroutineScope(Dispatchers.IO).launch {
-//                    //locking 필요한지?
-////                    updateTokenDB(Token(it.data.accessToken.toString(),token?.refreshToken.toString()))
-////                    Log.d(TAG, "onCreate: 재발급중")
-//                    //delay(3000)
-//                    getAccessToken(it.data.accessToken.toString(),token?.refreshToken.toString())
-//                    Log.d(TAG, "onCreate: 재발급 완료")
-//                }
-//            }
-//
-//            viewModel.repositories1.observe(this@MainActivity){it->
-//                Log.d(TAG, "만료 여부 상관 없음")
-//                viewModel.userHomeDataModel.add(it)
-//            }
-            //Log.d(TAG, "@@@Activity onCreate: $accessToken")
-
-            //main 에서 받아야함
-//            val token1 =
-//                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }
-//            val accessToken1 = "Bearer ${token1?.accessToken}"
+            //delay 필요한지 확인
             val accessToken1 = viewModel.getNewAccessToken["accessToken"].toString()
             getNoticeList(1,accessToken1)
             viewModel.repositories2.observe(this@MainActivity){
@@ -90,17 +67,10 @@ class MainActivity : AppCompatActivity() {
 
 
             val todayBookFormat = todayFormat+today.toString().substring(8)
+            //Log.d(TAG, "onCreate: 예약 포맷 $todayBookFormat")
             getWeekBook("20221113")
         }
 
-//        CoroutineScope(Dispatchers.Main).launch {
-//
-//
-//
-//        }
-
-
-//        viewModel.accessToken.add(accessToken)
 
         val fragment = supportFragmentManager.beginTransaction()
         fragment.add(R.id.homeMainFragment, HomeFragment()).commit()
@@ -229,9 +199,11 @@ class MainActivity : AppCompatActivity() {
     private suspend fun getTokenDB() : Token?{
         return tokenDB?.tokenDao()?.getAll()
     }
-    private fun updateTokenDB(token : Token){
-        tokenDB?.tokenDao()?.update(token)
-        Log.d(TAG, "updateTokenDB: 업데이트 성공")
+    private suspend fun updateTokenDB(token : Token){
+        withContext(Dispatchers.IO){
+            tokenDB?.tokenDao()?.update(token)
+            Log.d(TAG, "updateTokenDB: 업데이트 성공")
+        }
 
 //        viewModel.getWithNewAccessToken(token.accessToken)
 //        viewModel.repositories4.observe(this@MainActivity){

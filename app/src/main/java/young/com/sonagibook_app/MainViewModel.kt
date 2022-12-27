@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import young.com.sonagibook_app.retrofit.Dto.*
 import young.com.sonagibook_app.room.TokenDatabase
+import kotlin.math.log
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
     private val _repositoriesGetAccessToken = MutableLiveData<RetrofitGetResponseAllInfo>()
@@ -64,6 +65,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                     _repositoriesGetAccessToken.postValue(response.body())
                 }else{
                     //만료됨
+                    Log.d(TAG, "getAccessToken: 만료돼서 다음으로")
                     getNewToken(token,refreshToken)
                 }
             }
@@ -71,16 +73,26 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun getNewToken(token: String, refreshToken: String){
+        Log.d(TAG, "getNewToken: 재발급 시작")
         val map = HashMap<String, String>()
         map["refresh_token"] = refreshToken
         viewModelScope.launch {
             repository.postRefreshToken(token, map).let { response ->
                 if(response.isSuccessful){
                     getNewAccessToken["accessToken"] = response.body()!!.data.accessToken
-                    getAccessToken(response.body()!!.data.accessToken, refreshToken)
-                    Log.d(TAG, "getNewToken: 재발급 후 다시 로그인 성공")
+                    Log.d(TAG, "getNewToken: 새로 발급받은 토큰 ${response.body()!!.data.accessToken}")
+                    repository.getAccessToken("Bearer ${response.body()!!.data.accessToken}").let { res->
+                        if(res.isSuccessful){
+                            _repositoriesGetAccessToken.postValue(res.body())
+                            Log.d(TAG, "getNewToken: 재발급 후 다시 로그인 성공")
+                        }else{
+                            Log.d(TAG, "getNewToken: 로그인 실패")
+                        }
+                        Log.d(TAG, "getNewToken: 루프는 들어옴")
+                    }
                 }else{
                     Log.d(TAG, "getNewToken: 어플 종료 후 재시작")
+                    return@launch
                 }
             }
         }
