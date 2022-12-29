@@ -34,8 +34,8 @@ class BookFragment : Fragment() {
 
         CoroutineScope(Dispatchers.Main).launch {
             fetchBook()
-            Log.d(TAG, "결과: ${viewModel.bookDataModel}")
-            val adapter = BookListAdapter(viewModel.bookDataModel, requireActivity().supportFragmentManager)
+            Log.d(TAG, "결과: ${viewModel.bookDataModel1}")
+            val adapter = BookListAdapter(viewModel.bookDataModel1, requireActivity().supportFragmentManager)
 
             calendarRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             calendarRecyclerView.adapter = adapter
@@ -52,7 +52,7 @@ class BookFragment : Fragment() {
     private suspend fun fetchBook(){
         Log.d(TAG, "fetchBook: 시작")
         withContext(Dispatchers.IO){
-            while (viewModel.bookDataModel.size==0){}
+            while (viewModel.bookDataModel1.size==0 || viewModel.bookDataModel2.size==0){}
         }
         //temp.add(RetrofitResponseBookDto(dataDtoNestedUser(null, null, null),
         //    "title", 0, "2022-10-25 09:00:00","2022-10-25 10:00:00", 1, "2022-10-10 09:00:00","2022-10-10 09:00:00"))

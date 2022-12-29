@@ -54,7 +54,8 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     var homeNoticeDataModel = ArrayList<RetrofitResponseNoticeDto>()
     var homeScheduleDataModel = HashMap<String, ArrayList<ScheduleResponseDto>>()
     //arraylist -> hashmap
-    var bookDataModel = HashMap<Int, ArrayList<Int>>()
+    var bookDataModel1 = HashMap<Int, HashMap<String, ArrayList<String>>>()
+    var bookDataModel2 = HashMap<Int, HashMap<String, ArrayList<String>>>()
     var getNewAccessToken = HashMap<String, String>()
 
     fun getAccessToken(token: String, refreshToken: String){

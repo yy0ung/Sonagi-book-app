@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseBookDto
 
-class BookListAdapter(private val bookList : HashMap<Int, ArrayList<Int>>, private val supportFragmentManager: FragmentManager)
+class BookListAdapter(private val bookList : HashMap<Int, HashMap<String, ArrayList<String>>>, private val supportFragmentManager: FragmentManager)
     :RecyclerView.Adapter<BookListAdapter.CustomViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -23,41 +23,56 @@ class BookListAdapter(private val bookList : HashMap<Int, ArrayList<Int>>, priva
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         if(bookList[position]!=null){
-            val t = bookList[position]?.get(0)?.minus(9)
-            Log.d(TAG, "onBindViewHolder: ㅇㅇㅇㅇㅇ $t")
-            when {
-                t?.equals(0) == true -> {
-                    holder.a0.setBackgroundResource(R.drawable.schedule_event)
-                    holder.a0.setOnClickListener {
-                        val bottomSheet = BookContentDialog()
-                        bottomSheet.show(supportFragmentManager,bottomSheet.tag)
+            //val t = bookList[position]?.get(0)?.minus(9)
+            //bookList[position]?.keys == start time
+            for(i in bookList[position]!!.keys){
+                val start = i.toInt().minus(9)
+                val end = bookList[position]!![i]!!.get(1).toInt().minus(9)
+                var t = ArrayList<Int>()
+                if(start==end){
+                    t.add(start)
+                }else{
+                    for(i in start..end){
+                        t.add(i)
                     }
                 }
-                t?.equals(1) == true -> {
-                    holder.a1.setBackgroundResource(R.drawable.schedule_event)
-                    holder.a1.setOnClickListener {
-                        val bottomSheet = BookContentDialog()
-                        bottomSheet.show(supportFragmentManager,bottomSheet.tag)
+
+                when {
+                    t.contains(0) -> {
+                        val rid = bookList[position]!![i]!![3]!!
+                        holder.a0.setBackgroundResource(R.drawable.schedule_event)
+                        holder.a0.setOnClickListener {
+                            val bottomSheet = BookContentDialog()
+                            bottomSheet.show(supportFragmentManager,bottomSheet.tag)
+                        }
                     }
-                }
-                t?.equals(2) == true -> {
-                    holder.a2.setBackgroundResource(R.drawable.schedule_event)
-                    holder.a2.setOnClickListener {
-                        val bottomSheet = BookContentDialog()
-                        bottomSheet.show(supportFragmentManager,bottomSheet.tag)
+                    t.contains(1) -> {
+                        holder.a1.setBackgroundResource(R.drawable.schedule_event)
+                        holder.a1.setOnClickListener {
+                            val bottomSheet = BookContentDialog()
+                            bottomSheet.show(supportFragmentManager,bottomSheet.tag)
+                        }
                     }
-                }
-                t?.equals(3) == true -> {
-                    holder.a3.setBackgroundResource(R.drawable.schedule_event)
-                    holder.a3.setOnClickListener {
-                        val bottomSheet = BookContentDialog()
-                        bottomSheet.show(supportFragmentManager,bottomSheet.tag)
+                    t.contains(2) -> {
+                        holder.a2.setBackgroundResource(R.drawable.schedule_event)
+                        holder.a2.setOnClickListener {
+                            val bottomSheet = BookContentDialog()
+                            bottomSheet.show(supportFragmentManager,bottomSheet.tag)
+                        }
                     }
-                }
-                t?.equals(4) == true -> {
-                    holder.a4.setBackgroundResource(R.drawable.schedule_event)
+                    t.contains(3) -> {
+                        holder.a3.setBackgroundResource(R.drawable.schedule_event)
+                        holder.a3.setOnClickListener {
+                            val bottomSheet = BookContentDialog()
+                            bottomSheet.show(supportFragmentManager,bottomSheet.tag)
+                        }
+                    }
+                    t.contains(4) -> {
+                        holder.a4.setBackgroundResource(R.drawable.schedule_event)
+                    }
                 }
             }
+
 
         }
 

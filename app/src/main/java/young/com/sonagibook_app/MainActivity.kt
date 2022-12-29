@@ -17,6 +17,7 @@ import young.com.sonagibook_app.room.TokenDatabase
 import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class MainActivity : AppCompatActivity() {
@@ -63,12 +64,14 @@ class MainActivity : AppCompatActivity() {
             }
             todayFormat = today.toString().substring(0,4)+today.toString().substring(5,7)
             var nextFormat = todayFormat.toLong()-1
+            //new format "YYYY-MM"
             getMonthSchedule(todayFormat)
 
 
             val todayBookFormat = todayFormat+today.toString().substring(8)
             //Log.d(TAG, "onCreate: 예약 포맷 $todayBookFormat")
-            getWeekBook("20221113")
+            //new format "YYYY-MM-DD"
+            getWeekBook("2022-11-13")
         }
 
 
@@ -143,28 +146,40 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun getWeekBook(date : String){
         CoroutineScope(Dispatchers.Main).launch {
-            viewModel.bookDataModel.clear()
+            viewModel.bookDataModel1.clear()
+            //2는 아직 손보기 전
             val token =
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }
             val accessToken = "Bearer ${token?.accessToken}"
 
             getBookList(date, accessToken)
             viewModel.repositories6.observe(this@MainActivity){
-                Log.d(TAG, "onCreate: 추가한 모델 ${viewModel.bookDataModel}")
+                Log.d(TAG, "onCreate: 추가한 모델 ${viewModel.bookDataModel1}")
 
 
                 //테스트 필요
 
 
-                for(i in 0..it.data.size-1){
+                for(i in 0 until it.data.size){
                     var rDate = it.data[i].start.substring(8,10).toInt()
+                    //여기서 date는 첫날인 일요일
+                    //애초에 bookDataModel을 두개로 나눠서 저장하고 (place에 따라),
                     var fDate = date.substring(6,8).toInt()
-                    if(viewModel.bookDataModel[rDate-fDate]==null){
-                        //얘를 hash map으로 바꿔서 end time, title, place 같이 저장해서 이후에 써야할 것 같음.
-                        val temp = ArrayList<Int>()
-                        val time =it.data[i].start.substring(11,13)
-                        temp.add(time.toInt())
-                        viewModel.bookDataModel.put(rDate-fDate, temp)
+                    //왜 null일때만 체크?
+                    if(viewModel.bookDataModel1[rDate-fDate]==null){
+                        //얘를 hash map으로 바꿔서 end time, title, rid, writer 같이 저장해서 이후에 보여줄 때 쓰기
+                        // hash map 아니어도 그냥 arrayList 도 가능은 함.
+                        val temp = HashMap<String, kotlin.collections.ArrayList<String>>()
+                        var info = kotlin.collections.ArrayList<String>()
+                        //val time =it.data[i].start.substring(11,13)
+                        //temp.add(time.toInt())
+                        //start, end, title, rid 순서대로
+                        info.add("9")
+                        info.add("12")
+                        info.add("title")
+                        info.add("1")
+                        temp["9"] = info
+                        viewModel.bookDataModel1.put(rDate-fDate, temp)
                     }
                 }
                 //viewModel.homeScheduleDataModel.add(it)
