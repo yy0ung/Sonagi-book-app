@@ -1,16 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ContactFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="연락처 fragment"
-        android:gravity="center"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:id="@+id/contactTopTitle"
+        android:text="일정"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:textFontWeight="700"
+        android:fontFamily="@font/bold"
+        android:includeFontPadding="false"/>
 
-</FrameLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/contactTopTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/contactContainer"
+        android:orientation="horizontal">
+        <TextView
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/contactBtn1"
+            android:text="즐겨찾기"
+            android:textColor="#C8CBD0"
+            android:textSize="15dp"
+            android:textFontWeight="500"
+            android:fontFamily="@font/regular"
+            android:includeFontPadding="false"/>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/contactBtn2"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="22학번"
+                android:textColor="#C8CBD0"
+                android:textSize="15dp"
+                android:textFontWeight="500"
+                android:fontFamily="@font/regular"
+                android:includeFontPadding="false"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="46기"
+                android:textColor="#C8CBD0"
+                android:textSize="11dp"
+                android:textFontWeight="500"
+                android:fontFamily="@font/regular"
+                android:includeFontPadding="false"/>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/contactBtn3"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="21학번"
+                android:textColor="#C8CBD0"
+                android:textSize="15dp"
+                android:textFontWeight="500"
+                android:fontFamily="@font/regular"
+                android:includeFontPadding="false"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="45기"
+                android:textColor="#C8CBD0"
+                android:textSize="11dp"
+                android:textFontWeight="500"
+                android:fontFamily="@font/regular"
+                android:includeFontPadding="false"/>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/contactBtn4"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20학번"
+                android:textColor="#C8CBD0"
+                android:textSize="15dp"
+                android:textFontWeight="500"
+                android:fontFamily="@font/regular"
+                android:includeFontPadding="false"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="44기"
+                android:textColor="#C8CBD0"
+                android:textSize="11dp"
+                android:textFontWeight="500"
+                android:fontFamily="@font/regular"
+                android:includeFontPadding="false"/>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/contactBtn5"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="19학번"
+                android:textColor="#C8CBD0"
+                android:textSize="15dp"
+                android:textFontWeight="500"
+                android:fontFamily="@font/regular"
+                android:includeFontPadding="false"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="43기"
+                android:textColor="#C8CBD0"
+                android:textSize="11dp"
+                android:textFontWeight="500"
+                android:fontFamily="@font/regular"
+                android:includeFontPadding="false"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/contactContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/contactList"
+        android:layout_marginHorizontal="20dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
