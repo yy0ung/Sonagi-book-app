@@ -13,7 +13,7 @@ data class RetrofitResponseNoticeContentDto(
 
 //event 안넣는지? writer 로 바꾸기
 data class DataDto(
-    @SerializedName("Event")
+    @SerializedName("linkedEvent")
     val event : EventNestedDto?,
     @SerializedName("User")
     val user : dataDtoNestedUser,

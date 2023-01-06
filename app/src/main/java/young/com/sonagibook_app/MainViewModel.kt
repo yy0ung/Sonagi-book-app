@@ -81,7 +81,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
             repository.postRefreshToken(token, map).let { response ->
                 if(response.isSuccessful){
                     getNewAccessToken["accessToken"] = response.body()!!.data.accessToken
-                    Log.d(TAG, "getNewToken: 새로 발급받은 토큰 ${response.body()!!.data.accessToken}")
+                    Log.d(TAG, "getNewToken: 저장된 토큰 ${getNewAccessToken["accessToken"]}")
                     repository.getAccessToken("Bearer ${response.body()!!.data.accessToken}").let { res->
                         if(res.isSuccessful){
                             _repositoriesGetAccessToken.postValue(res.body())

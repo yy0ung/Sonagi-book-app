@@ -30,6 +30,19 @@ class MainActivity : AppCompatActivity() {
     private var today = LocalDate.now()
     private lateinit var todayFormat : String
 
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume: onResume 체크")
+        mainViewModelFactory = MainViewModelFactory(Repository())
+        viewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
+        Log.d(TAG, "onResume: $viewModel")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(TAG, "onRestart: onRestart")
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,28 +63,33 @@ class MainActivity : AppCompatActivity() {
             getAccessToken(accessToken,token?.refreshToken.toString())
             viewModel.repositories1.observe(this@MainActivity){it->
                 Log.d(TAG, "onCreate: 재발급 완료 된 상태여야 함.")
-                viewModel.userHomeDataModel.add(it)
-                var newAccessToken = viewModel.getNewAccessToken["accessToken"]
-                CoroutineScope(Dispatchers.IO).launch { updateTokenDB(Token(newAccessToken.toString(),token?.refreshToken.toString())) }
 
+                var newAccessToken = viewModel.getNewAccessToken["accessToken"]
+                Log.d(TAG, "onCreate: 새 토큰 저장됨 ${newAccessToken}")
+                viewModel.userHomeDataModel.add(it)
+                
+                CoroutineScope(Dispatchers.IO).launch { updateTokenDB(Token(newAccessToken.toString(),token?.refreshToken.toString())) }
+                Log.d(TAG, "onCreate: DONE")
             }
+            
             //delay 필요한지 확인
-            val accessToken1 = viewModel.getNewAccessToken["accessToken"].toString()
+            Log.d(TAG, "onCreate: new token ${viewModel.getNewAccessToken["accessToken"]}")
+            val accessToken1 = "Bearer ${withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }?.accessToken}"
             getNoticeList(1,accessToken1)
             viewModel.repositories2.observe(this@MainActivity){
-                Log.d(TAG, "onCreate: $it")
+                Log.d(TAG, "onCreate: 실행여부 ")
                 viewModel.homeNoticeDataModel.add(it)
             }
-            todayFormat = today.toString().substring(0,4)+today.toString().substring(5,7)
-            var nextFormat = todayFormat.toLong()-1
-            //new format "YYYY-MM"
-            getMonthSchedule(todayFormat)
+            todayFormat = today.toString().substring(0,4)+"-"
+            var nextFormat = (today.toString().substring(5,7).toLong()-1).toString()
+            //new format "YYYY-MM" (check)
+            getMonthSchedule(todayFormat+nextFormat)
 
 
             val todayBookFormat = todayFormat+today.toString().substring(8)
             //Log.d(TAG, "onCreate: 예약 포맷 $todayBookFormat")
             //new format "YYYY-MM-DD"
-            getWeekBook("2022-11-13")
+            getWeekBook("2023-01-02")
         }
 
 
@@ -159,7 +177,7 @@ class MainActivity : AppCompatActivity() {
 
                 //테스트 필요
 
-
+                //start format : "2022-11-27T17:00:00.000Z"
                 for(i in 0 until it.data.size){
                     var rDate = it.data[i].start.substring(8,10).toInt()
                     //여기서 date는 첫날인 일요일
@@ -174,10 +192,10 @@ class MainActivity : AppCompatActivity() {
                         //val time =it.data[i].start.substring(11,13)
                         //temp.add(time.toInt())
                         //start, end, title, rid 순서대로
-                        info.add("9")
-                        info.add("12")
-                        info.add("title")
-                        info.add("1")
+                        info.add("9") //it.data[i].start.substring(11,13)
+                        info.add("12") //it.data[i].end.substring(11,13)
+                        info.add("title") //it.data[i].title
+                        info.add("1") //it.data[i].rid
                         temp["9"] = info
                         viewModel.bookDataModel1.put(rDate-fDate, temp)
                     }

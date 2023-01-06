@@ -56,7 +56,8 @@ class BookAddDialog : BottomSheetDialogFragment() {
                 addTitle(bookAddDate, startTime, endTime)
                 Log.d(TAG, "onCreateView: 333333 $data")
                 //post book 추가
-
+                val bookData = RetrofitPostBookDto(BookDto("test입니다.", "안드로이드 테스트", 1, "2023-01-02T17:00:00", "2023-01-02T19:00:00"))
+                postBook(accessToken, bookData)
                 
             }
         }
@@ -117,6 +118,10 @@ class BookAddDialog : BottomSheetDialogFragment() {
 
     private fun getSS(text : TextView, start : Int, end : Int) : String{
         return text.text.toString().substring(start, end)
+    }
+
+    private suspend fun postBook(token : String, data : RetrofitPostBookDto){
+        viewModel.postBook(token, data)
     }
 
 

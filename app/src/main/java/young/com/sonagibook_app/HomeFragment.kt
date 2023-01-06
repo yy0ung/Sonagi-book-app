@@ -32,17 +32,7 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val noticeRecycler = requireView().findViewById<RecyclerView>(R.id.homeNoticeContainer)
 
-        CoroutineScope(Dispatchers.Main).launch {
-            fetchNoticeInfo()
-            Log.d(TAG, "onCreateView: ${viewModel.homeNoticeDataModel.get(0)}")
-            val adapter = NoticeItemsAdapter(viewModel.homeNoticeDataModel)
-            noticeRecycler.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-            noticeRecycler.adapter = adapter
-            Log.d(TAG, "onStart: 리셋")
-            refreshAdapter(adapter,viewModel.homeNoticeDataModel, noticeRecycler)
-        }
     }
 
     override fun onCreateView(
@@ -55,6 +45,16 @@ class HomeFragment : Fragment() {
         //val profileMsg = view.findViewById<TextView>(R.id.homeProfileMsg)
         val noticeMore = view.findViewById<TextView>(R.id.homeNoticeMoreBtn)
 
+        val noticeRecycler = view.findViewById<RecyclerView>(R.id.homeNoticeContainer)
+
+        CoroutineScope(Dispatchers.Main).launch {
+            fetchNoticeInfo()
+            Log.d(TAG, "onCreateView: 리스트 받아오기 ${viewModel.homeNoticeDataModel.get(0)}")
+            val adapter = NoticeItemsAdapter(viewModel.homeNoticeDataModel)
+            noticeRecycler.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+            noticeRecycler.adapter = adapter
+            refreshAdapter(adapter,viewModel.homeNoticeDataModel, noticeRecycler)
+        }
 
 
         val btn = view.findViewById<LinearLayout>(R.id.homeUpcomingContainer)
@@ -86,9 +86,11 @@ class HomeFragment : Fragment() {
     }
 
     private suspend fun fetchNoticeInfo(){
+
         withContext(Dispatchers.IO){
             while (viewModel.homeNoticeDataModel.size==0){}
         }
+        Log.d(TAG, "fetchNoticeInfo: fetch done")
     }
     @SuppressLint("NotifyDataSetChanged")
     private fun refreshAdapter(adapter : NoticeItemsAdapter?, data : ArrayList<RetrofitResponseNoticeDto>, recyclerView: RecyclerView){
