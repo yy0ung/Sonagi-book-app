@@ -91,14 +91,14 @@ class HomeFragment : Fragment() {
     }
     @SuppressLint("NotifyDataSetChanged")
     fun refreshAdapter(){
-        val noticeRecycler = requireView().findViewById<RecyclerView>(R.id.homeNoticeContainer)
+        val noticeRecycler = view?.findViewById<RecyclerView>(R.id.homeNoticeContainer)
         CoroutineScope(Dispatchers.Main).launch {
             fetchNoticeInfo()
             Log.d(TAG, "onCreateView: 리스트 받아오기 ${viewModel.homeNoticeDataModel.get(0)}")
             data = viewModel.homeNoticeDataModel
             adapter = NoticeItemsAdapter(data)
-            noticeRecycler.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-            noticeRecycler.adapter = adapter
+            noticeRecycler?.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+            noticeRecycler?.adapter = adapter
             adapter?.notifyDataSetChanged()
         }
 

@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         Log.d(TAG, "onRestart: onRestart")
-        HomeFragment().refreshAdapter()
+        //HomeFragment().refreshAdapter()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

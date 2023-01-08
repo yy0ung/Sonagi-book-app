@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -53,7 +54,7 @@ class LoginStartFragment : Fragment() {
                     viewModel.loginRepositories1.observe(requireActivity()){
                         Log.d(ContentValues.TAG, "////setPostToken: ${it}")
                         if(it.data.registered == true){
-                            //CoroutineScope(Dispatchers.Main).launch { dbInsert(it.data.access_token.toString(), it.data.refresh_token.toString()) }
+                            CoroutineScope(Dispatchers.Main).launch{ dbInsert(it.data.access_token.toString(), it.data.refresh_token.toString()) }
                             Toast.makeText(context,"이미 로그인 된 계정",Toast.LENGTH_LONG).show()
                             val intent = Intent(context, MainActivity::class.java)
                             intent.putExtra("accessToken", it.data.access_token.toString())
