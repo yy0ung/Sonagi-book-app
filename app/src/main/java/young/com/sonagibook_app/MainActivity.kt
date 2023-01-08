@@ -30,17 +30,10 @@ class MainActivity : AppCompatActivity() {
     private var today = LocalDate.now()
     private lateinit var todayFormat : String
 
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "onResume: onResume 체크")
-        mainViewModelFactory = MainViewModelFactory(Repository())
-        viewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
-        Log.d(TAG, "onResume: $viewModel")
-    }
-
     override fun onRestart() {
         super.onRestart()
         Log.d(TAG, "onRestart: onRestart")
+        HomeFragment().refreshAdapter()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -56,30 +49,22 @@ class MainActivity : AppCompatActivity() {
 
 
         CoroutineScope(Dispatchers.Main).launch {
-            val token =
-                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }
-            val accessToken = "Bearer ${token?.accessToken}"
-            //Log.d(TAG, "onCreate: @@@@@@@$accessToken")
-            getAccessToken(accessToken,token?.refreshToken.toString())
-            viewModel.repositories1.observe(this@MainActivity){it->
-                Log.d(TAG, "onCreate: 재발급 완료 된 상태여야 함.")
+            val job = CoroutineScope(Dispatchers.Main).launch {
+                val token =
+                    withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }
+                val accessToken = "Bearer ${token?.accessToken}"
+                getAccessToken(accessToken,token?.refreshToken.toString())
+                updateDBWithNewToken(token)
+                updateInfoWithNewToken()
+            }
 
-                var newAccessToken = viewModel.getNewAccessToken["accessToken"]
-                Log.d(TAG, "onCreate: 새 토큰 저장됨 ${newAccessToken}")
-                viewModel.userHomeDataModel.add(it)
-                
-                CoroutineScope(Dispatchers.IO).launch { updateTokenDB(Token(newAccessToken.toString(),token?.refreshToken.toString())) }
-                Log.d(TAG, "onCreate: DONE")
-            }
-            
+            job.join()
+            Log.d(TAG, "onCreate: 끝남")
             //delay 필요한지 확인
-            Log.d(TAG, "onCreate: new token ${viewModel.getNewAccessToken["accessToken"]}")
-            val accessToken1 = "Bearer ${withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }?.accessToken}"
-            getNoticeList(1,accessToken1)
-            viewModel.repositories2.observe(this@MainActivity){
-                Log.d(TAG, "onCreate: 실행여부 ")
-                viewModel.homeNoticeDataModel.add(it)
-            }
+            mainGetNotice()
+
+
+
             todayFormat = today.toString().substring(0,4)+"-"
             var nextFormat = (today.toString().substring(5,7).toLong()-1).toString()
             //new format "YYYY-MM" (check)
@@ -237,18 +222,30 @@ class MainActivity : AppCompatActivity() {
             tokenDB?.tokenDao()?.update(token)
             Log.d(TAG, "updateTokenDB: 업데이트 성공")
         }
+    }
 
-//        viewModel.getWithNewAccessToken(token.accessToken)
-//        viewModel.repositories4.observe(this@MainActivity){
-//            Log.d(TAG, "자동으로 만료 token 업데이트")
-//            viewModel.userHomeDataModel.add(it)
-//        }
-//        CoroutineScope(Dispatchers.IO).launch {
-//            tokenDB?.tokenDao()?.update(token)
-//            Log.d(TAG, "updateTokenDB: 업데이트 성공")
-//        }
+    private suspend fun updateDBWithNewToken(tokenDB : Token?){
+        viewModel.repositoriesToken.observe(this@MainActivity){it->
+            Log.d(TAG, "onCreate: 새로 발급된 토큰 $it")
+            CoroutineScope(Dispatchers.IO).launch { updateTokenDB(Token(it.toString(),tokenDB?.refreshToken.toString())) }
+            Log.d(TAG, "onCreate: 순서 1")
+        }
+    }
 
+    private suspend fun updateInfoWithNewToken(){
+        viewModel.repositories1.observe(this@MainActivity){it->
+            viewModel.userHomeDataModel.add(it)
+            Log.d(TAG, "onCreate: 순서 2")
+        }
+    }
 
+    private suspend fun mainGetNotice(){
+        val accessToken = "Bearer ${withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }?.accessToken}"
+        Log.d(TAG, "onCreate: 순서 3, token 채워진 상탠지 $accessToken")
+        getNoticeList(1,accessToken)
+        viewModel.repositories2.observe(this@MainActivity){
+            viewModel.homeNoticeDataModel.add(it)
+        }
     }
 
     private suspend fun getScheduleList(token: String, date : String){

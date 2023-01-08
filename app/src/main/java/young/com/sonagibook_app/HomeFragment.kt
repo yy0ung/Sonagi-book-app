@@ -28,12 +28,9 @@ import young.com.sonagibook_app.retrofit.LoginRepository
 class HomeFragment : Fragment() {
     private lateinit var mainViewModelFactory: MainViewModelFactory
     private lateinit var viewModel: MainViewModel
+    var adapter : NoticeItemsAdapter? = null
+    var data = ArrayList<RetrofitResponseNoticeDto>()
     @SuppressLint("SetTextI18n")
-
-    override fun onStart() {
-        super.onStart()
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +50,7 @@ class HomeFragment : Fragment() {
             val adapter = NoticeItemsAdapter(viewModel.homeNoticeDataModel)
             noticeRecycler.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
             noticeRecycler.adapter = adapter
-            refreshAdapter(adapter,viewModel.homeNoticeDataModel, noticeRecycler)
+
         }
 
 
@@ -93,12 +90,17 @@ class HomeFragment : Fragment() {
         Log.d(TAG, "fetchNoticeInfo: fetch done")
     }
     @SuppressLint("NotifyDataSetChanged")
-    private fun refreshAdapter(adapter : NoticeItemsAdapter?, data : ArrayList<RetrofitResponseNoticeDto>, recyclerView: RecyclerView){
-
-        val adapter = NoticeItemsAdapter(data)
-        recyclerView.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-        recyclerView.adapter = adapter
-        adapter?.notifyDataSetChanged()
+    fun refreshAdapter(){
+        val noticeRecycler = requireView().findViewById<RecyclerView>(R.id.homeNoticeContainer)
+        CoroutineScope(Dispatchers.Main).launch {
+            fetchNoticeInfo()
+            Log.d(TAG, "onCreateView: 리스트 받아오기 ${viewModel.homeNoticeDataModel.get(0)}")
+            data = viewModel.homeNoticeDataModel
+            adapter = NoticeItemsAdapter(data)
+            noticeRecycler.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+            noticeRecycler.adapter = adapter
+            adapter?.notifyDataSetChanged()
+        }
 
     }
 

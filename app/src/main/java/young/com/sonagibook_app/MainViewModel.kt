@@ -37,10 +37,14 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     val repositories6 : MutableLiveData<RetrofitResponseBookDto>
         get() = _repositoriesGetBook
 
+    private val _newGetAccessToken = MutableLiveData<String>()
+    val repositoriesToken : MutableLiveData<String>
+        get() = _newGetAccessToken
+
 
 
     private var _newAccessToken : String? = null
-    val newAccessToken : String? get() = _newAccessToken
+
 
 
     init {
@@ -74,14 +78,14 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun getNewToken(token: String, refreshToken: String){
-        Log.d(TAG, "getNewToken: 재발급 시작")
         val map = HashMap<String, String>()
         map["refresh_token"] = refreshToken
         viewModelScope.launch {
             repository.postRefreshToken(token, map).let { response ->
                 if(response.isSuccessful){
-                    getNewAccessToken["accessToken"] = response.body()!!.data.accessToken
-                    Log.d(TAG, "getNewToken: 저장된 토큰 ${getNewAccessToken["accessToken"]}")
+                    _newGetAccessToken.postValue(response.body()!!.data.accessToken.toString())
+                    //getNewAccessToken["accessToken"] = response.body()!!.data.accessToken
+                    //Log.d(TAG, "getNewToken: 저장된 토큰 ${getNewAccessToken["accessToken"]}")
                     repository.getAccessToken("Bearer ${response.body()!!.data.accessToken}").let { res->
                         if(res.isSuccessful){
                             _repositoriesGetAccessToken.postValue(res.body())
@@ -89,7 +93,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                         }else{
                             Log.d(TAG, "getNewToken: 로그인 실패")
                         }
-                        Log.d(TAG, "getNewToken: 루프는 들어옴")
                     }
                 }else{
                     Log.d(TAG, "getNewToken: 어플 종료 후 재시작")
