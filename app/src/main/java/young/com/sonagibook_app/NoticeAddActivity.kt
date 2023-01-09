@@ -17,7 +17,7 @@ import young.com.sonagibook_app.retrofit.Dto.RetrofitPostNoticeDto
 import young.com.sonagibook_app.room.TokenDatabase
 
 class NoticeAddActivity : AppCompatActivity() {
-    private val tokenDB by lazy { TokenDatabase.getInstance(this) }
+    private val tokenDB by lazy { TokenDatabase.getInstance(applicationContext) }
     lateinit var binding : ActivityNoticeAddBinding
     private lateinit var viewModel : NoticeViewModel
     private lateinit var viewModelFactory : NoticeViewModelFactory

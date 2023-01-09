@@ -41,8 +41,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     val repositoriesToken : MutableLiveData<String>
         get() = _newGetAccessToken
 
-
-
     private var _newAccessToken : String? = null
 
 

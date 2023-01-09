@@ -17,7 +17,7 @@ class ScheduleContentActivity : AppCompatActivity() {
     lateinit var binding: ActivityScheduleContentBinding
     lateinit var viewModel: ScheduleContentViewModel
     lateinit var viewModelFactory : ScheduleViewModelFactory
-    private val tokenDB by lazy { TokenDatabase.getInstance(this) }
+    private val tokenDB by lazy { TokenDatabase.getInstance(applicationContext) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -14,7 +14,7 @@ import young.com.sonagibook_app.room.Token
 import young.com.sonagibook_app.room.TokenDatabase
 
 class ScheduleItemEditActivity : AppCompatActivity() {
-    private val tokenDB by lazy { TokenDatabase.getInstance(this) }
+    private val tokenDB by lazy { TokenDatabase.getInstance(applicationContext) }
     lateinit var binding : ActivityScheduleItemEditBinding
     lateinit var viewModel : ScheduleItemEditViewModel
     lateinit var viewModelFactory: ScheduleEditViewModelFactory

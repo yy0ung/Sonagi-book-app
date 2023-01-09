@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.*
 import young.com.sonagibook_app.databinding.ActivityMainBinding
+import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseNoticeDto
 import young.com.sonagibook_app.retrofit.Dto.ScheduleResponseDto
 import young.com.sonagibook_app.room.Token
 import young.com.sonagibook_app.room.TokenDatabase
@@ -21,7 +22,7 @@ import kotlin.collections.HashMap
 
 
 class MainActivity : AppCompatActivity() {
-    private val tokenDB by lazy { TokenDatabase.getInstance(this) }
+    private val tokenDB by lazy { TokenDatabase.getInstance(applicationContext) }
     lateinit var binding : ActivityMainBinding
     var token : String = ""
     private lateinit var viewModel: MainViewModel
@@ -33,7 +34,17 @@ class MainActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         Log.d(TAG, "onRestart: onRestart")
-        //HomeFragment().refreshAdapter()
+        CoroutineScope(Dispatchers.Main).launch {
+            mainGetNotice()
+            val accessToken = "Bearer ${withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }?.accessToken}"
+            getNoticeList(1,accessToken)
+            viewModel.repositories2.observe(this@MainActivity){
+                var temp = kotlin.collections.ArrayList<RetrofitResponseNoticeDto>()
+                temp.add(it)
+                HomeFragment().refreshAdapter(temp)
+            }
+
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

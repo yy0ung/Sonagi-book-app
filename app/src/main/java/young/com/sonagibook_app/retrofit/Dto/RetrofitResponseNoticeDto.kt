@@ -15,7 +15,7 @@ data class RetrofitResponseNoticeContentDto(
 data class DataDto(
     @SerializedName("linkedEvent")
     val event : EventNestedDto?,
-    @SerializedName("User")
+    @SerializedName("writter")
     val user : dataDtoNestedUser,
     val content : String?,
     val createdAt : String,

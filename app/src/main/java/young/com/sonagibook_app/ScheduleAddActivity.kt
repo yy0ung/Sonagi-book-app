@@ -22,7 +22,7 @@ import java.util.*
 import kotlin.properties.Delegates
 
 class ScheduleAddActivity : AppCompatActivity() {
-    private val tokenDB by lazy { TokenDatabase.getInstance(this) }
+    private val tokenDB by lazy { TokenDatabase.getInstance(applicationContext) }
     lateinit var binding: ActivityScheduleAddBinding
     lateinit var viewModel: ScheduleAddViewModel
     lateinit var viewModelFactory : ScheduleViewModelFactory

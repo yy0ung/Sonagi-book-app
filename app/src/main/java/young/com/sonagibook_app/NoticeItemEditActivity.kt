@@ -14,7 +14,7 @@ import young.com.sonagibook_app.room.Token
 import young.com.sonagibook_app.room.TokenDatabase
 
 class NoticeItemEditActivity : AppCompatActivity() {
-    private val tokenDB by lazy { TokenDatabase.getInstance(this) }
+    private val tokenDB by lazy { TokenDatabase.getInstance(applicationContext) }
     lateinit var binding: ActivityNoticeItemEditBinding
     lateinit var viewModel : NoticeEditViewModel
     lateinit var viewModelFactory : NoticeEditViewModelFactory

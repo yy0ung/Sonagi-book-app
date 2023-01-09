@@ -8,22 +8,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import young.com.sonagibook_app.login.LoginViewModel
-import young.com.sonagibook_app.login.LoginViewModelFactory
 import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseNoticeDto
-import young.com.sonagibook_app.retrofit.LoginRepository
 
 class HomeFragment : Fragment() {
     private lateinit var mainViewModelFactory: MainViewModelFactory
@@ -90,17 +85,13 @@ class HomeFragment : Fragment() {
         Log.d(TAG, "fetchNoticeInfo: fetch done")
     }
     @SuppressLint("NotifyDataSetChanged")
-    fun refreshAdapter(){
+    fun refreshAdapter(retrofitResponseNoticeDto: ArrayList<RetrofitResponseNoticeDto>) {
         val noticeRecycler = view?.findViewById<RecyclerView>(R.id.homeNoticeContainer)
-        CoroutineScope(Dispatchers.Main).launch {
-            fetchNoticeInfo()
-            Log.d(TAG, "onCreateView: 리스트 받아오기 ${viewModel.homeNoticeDataModel.get(0)}")
-            data = viewModel.homeNoticeDataModel
-            adapter = NoticeItemsAdapter(data)
-            noticeRecycler?.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-            noticeRecycler?.adapter = adapter
-            adapter?.notifyDataSetChanged()
-        }
+        data = retrofitResponseNoticeDto
+        adapter = NoticeItemsAdapter(data)
+        noticeRecycler?.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+        noticeRecycler?.adapter = adapter
+        adapter?.notifyDataSetChanged()
 
     }
 
