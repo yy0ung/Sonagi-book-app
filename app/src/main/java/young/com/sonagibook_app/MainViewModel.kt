@@ -41,6 +41,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     val repositoriesToken : MutableLiveData<String>
         get() = _newGetAccessToken
 
+    private val _failGetAccessToken = MutableLiveData<String>()
+    val repositoriesFail : MutableLiveData<String>
+        get() = _failGetAccessToken
+
     private var _newAccessToken : String? = null
 
 
@@ -94,6 +98,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                     }
                 }else{
                     Log.d(TAG, "getNewToken: 어플 종료 후 재시작")
+                    _failGetAccessToken.postValue("fail")
                     return@launch
                 }
             }

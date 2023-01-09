@@ -1,6 +1,7 @@
 package young.com.sonagibook_app
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -9,8 +10,10 @@ import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.internal.bind.util.ISO8601Utils
 import kotlinx.coroutines.*
 import young.com.sonagibook_app.databinding.ActivityMainBinding
+import young.com.sonagibook_app.login.LoginActivity
 import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseNoticeDto
 import young.com.sonagibook_app.retrofit.Dto.ScheduleResponseDto
 import young.com.sonagibook_app.room.Token
@@ -56,8 +59,6 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModelFactory = MainViewModelFactory(Repository())
         viewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
-        
-
 
         CoroutineScope(Dispatchers.Main).launch {
             val job = CoroutineScope(Dispatchers.Main).launch {
@@ -67,6 +68,13 @@ class MainActivity : AppCompatActivity() {
                 getAccessToken(accessToken,token?.refreshToken.toString())
                 updateDBWithNewToken(token)
                 updateInfoWithNewToken()
+                viewModel.repositoriesFail.observe(this@MainActivity){it->
+                    Log.d(TAG, "onCreate: 다시 로그인")
+                    CoroutineScope(Dispatchers.IO).launch { clearTokenDB() }
+                    val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             }
 
             job.join()
@@ -232,6 +240,13 @@ class MainActivity : AppCompatActivity() {
         withContext(Dispatchers.IO){
             tokenDB?.tokenDao()?.update(token)
             Log.d(TAG, "updateTokenDB: 업데이트 성공")
+        }
+    }
+
+    private suspend fun clearTokenDB(){
+        withContext(Dispatchers.IO){
+            tokenDB?.tokenDao()?.deleteAll()
+            Log.d(TAG, "updateTokenDB: 삭제 성공")
         }
     }
 
