@@ -6,7 +6,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +42,6 @@ class NoticeContentActivity : AppCompatActivity() {
 
         val nid : String = intent.getStringExtra("nid")!!
         CoroutineScope(Dispatchers.Main).launch {
-
             val token =
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { tokenDB?.tokenDao()?.getAll() }
             val accessToken = "Bearer ${token?.accessToken}"
@@ -53,6 +56,7 @@ class NoticeContentActivity : AppCompatActivity() {
                 binding.noticeContentConnectTitle.text = it.data.event?.title
                 Log.d(TAG, "onCreate: 공지 작성자 ${it.data.user}")
                 Log.d(TAG, "onCreate: 공지 연결 공지 ${it.data.event}")
+
                 //type 다시 체크
                 if(it.data.important==true){
                     binding.noticeContentImportant.visibility = View.VISIBLE
@@ -125,6 +129,24 @@ class NoticeContentActivity : AppCompatActivity() {
 
 
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.toolbarMenuEdit -> {
+                Toast.makeText(this,"수정", Toast.LENGTH_LONG).show()
+                super.onOptionsItemSelected(item)
+            }
+            R.id.toolbarMenuDelete -> {
+                Toast.makeText(this,"삭제", Toast.LENGTH_LONG).show()
+                super.onOptionsItemSelected(item)
+            }else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private suspend fun getNoticeContent(nid : String, token : String){

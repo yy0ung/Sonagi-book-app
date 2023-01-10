@@ -75,7 +75,7 @@
     <EditText
         android:id="@+id/noticeAddInputContext"
         android:layout_width="335dp"
-        android:layout_height="500dp"
+        android:layout_height="wrap_content"
         android:gravity="top"
         android:layout_marginTop="12dp"
         android:hint="내용을 입력하세요"
@@ -91,13 +91,105 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/noticeAddInputTitle" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="invisible"
+        android:background="@drawable/notice_link_item"
+        android:padding="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_width="335dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/noticeAddInputContext"
+        android:id="@+id/noticeAddLinkedContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="기타"
+            android:textSize="10dp"
+            android:background="@drawable/schedule_etc"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="2dp"
+            android:fontFamily="@font/medium"
+            android:textFontWeight="700"
+            android:textColor="#FFFFFF"
+            android:includeFontPadding="false"
+            android:id="@+id/noticeAddLinkedType"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/noticeAddLinkedTitle"
+            android:text="테스트"
+            app:layout_constraintStart_toEndOf="@id/noticeAddLinkedType"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/regular"
+            android:textSize="14dp"
+            android:textFontWeight="500"
+            android:textColor="#28324C"
+            android:includeFontPadding="false"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/noticeAddLinkedPlace"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/noticeAddLinkedTitle">
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="13dp"
+                android:src="@drawable/schedule_place"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="4dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오비룸"
+                android:id="@+id/noticeAddLinkedPlaceText"
+                android:fontFamily="@font/regular"
+                android:textSize="14dp"
+                android:textFontWeight="500"
+                android:textColor="#28324C"
+                android:includeFontPadding="false"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/noticeAddLinkedTime"
+            android:text="오후 7:00\n~9:00"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="@font/regular"
+            android:textSize="14dp"
+            android:textFontWeight="500"
+            android:textColor="#28324C"
+            android:includeFontPadding="false"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
+        android:layout_height="1dp"
+        android:background="#EDEDED"
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:paddingStart="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        app:layout_constraintBottom_toTopOf="@id/noticeAddBottomContainer"
+        android:id="@+id/noticeAddLine"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="Orientation" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/noticeAddBottomContainer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingStart="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
         <LinearLayout
             android:id="@+id/noticeAddImportBtn"
             android:layout_width="100dp"
