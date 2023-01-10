@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import young.com.sonagibook_app.databinding.ActivityNoticeContentBinding
+import young.com.sonagibook_app.dialog.DeleteDialog
 import young.com.sonagibook_app.retrofit.Dto.RetrofitPostNoticeLikeDto
 import young.com.sonagibook_app.room.TokenDatabase
 
@@ -26,6 +27,8 @@ class NoticeContentActivity : AppCompatActivity() {
     private lateinit var viewModel : NoticeContentViewModel
     private lateinit var viewModelFactory : NoticeContentViewModelFactory
     private var contentLike : Boolean? = false
+    private lateinit var nid : String
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +43,7 @@ class NoticeContentActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.noticeContentToolbar.setNavigationOnClickListener { onBackPressed() }
 
-        val nid : String = intent.getStringExtra("nid")!!
+        nid = intent.getStringExtra("nid")!!
         CoroutineScope(Dispatchers.Main).launch {
             val token =
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { tokenDB?.tokenDao()?.getAll() }
@@ -54,8 +57,6 @@ class NoticeContentActivity : AppCompatActivity() {
                 binding.noticeContentWriter.text = it.data.user.name.toString()
                 binding.noticeContentLikeNum.text = it.data.likes.toString()
                 binding.noticeContentConnectTitle.text = it.data.event?.title
-                Log.d(TAG, "onCreate: 공지 작성자 ${it.data.user}")
-                Log.d(TAG, "onCreate: 공지 연결 공지 ${it.data.event}")
 
                 //type 다시 체크
                 if(it.data.important==true){
@@ -119,12 +120,12 @@ class NoticeContentActivity : AppCompatActivity() {
 //            }
 
             }
-        binding.noticeContentEditBtn.setOnClickListener {
-            val intent = Intent(this@NoticeContentActivity, NoticeItemEditActivity::class.java)
-            intent.putExtra("nid", nid)
-            startActivity(intent)
+        //binding.noticeContentEditBtn.setOnClickListener {
+//            val intent = Intent(this@NoticeContentActivity, NoticeItemEditActivity::class.java)
+//            intent.putExtra("nid", nid)
+//            startActivity(intent)
 
-        }
+        //}
 
 
 
@@ -140,10 +141,15 @@ class NoticeContentActivity : AppCompatActivity() {
         return when(item.itemId){
             R.id.toolbarMenuEdit -> {
                 Toast.makeText(this,"수정", Toast.LENGTH_LONG).show()
+//                val intent = Intent(this@NoticeContentActivity, NoticeItemEditActivity::class.java)
+//                intent.putExtra("nid", nid)
+//                startActivity(intent)
                 super.onOptionsItemSelected(item)
             }
             R.id.toolbarMenuDelete -> {
                 Toast.makeText(this,"삭제", Toast.LENGTH_LONG).show()
+
+
                 super.onOptionsItemSelected(item)
             }else -> super.onOptionsItemSelected(item)
         }
