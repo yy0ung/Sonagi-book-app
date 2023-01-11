@@ -18,6 +18,7 @@ import young.com.sonagibook_app.retrofit.Dto.RetrofitPostScheduleDto
 import young.com.sonagibook_app.retrofit.Dto.ScheduleDto
 import young.com.sonagibook_app.room.TokenDatabase
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -41,7 +42,10 @@ class ScheduleAddActivity : AppCompatActivity() {
 
         viewModelFactory = ScheduleViewModelFactory(Repository())
         viewModel = ViewModelProvider(this,viewModelFactory)[ScheduleAddViewModel::class.java]
-        
+
+        //format check
+//        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.KOREAN)
+//        Log.d(TAG, "onCreate: get date ${sdf.format(Date())}")
 
         dateTimePick()
         selectTag()
@@ -173,8 +177,13 @@ class ScheduleAddActivity : AppCompatActivity() {
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { tokenDB?.tokenDao()?.getAll() }
             val accessToken = "Bearer ${token?.accessToken}"
 
-            postSchedule(accessToken.toString(), data)
-            Log.d(TAG, "데이터 $data")
+            //유효성 test
+            if(title.isEmpty() || description.isEmpty() || place.isEmpty()){
+                Toast.makeText(this@ScheduleAddActivity, "필수 항목을 모두 채워주세요", Toast.LENGTH_LONG).show()
+            }else{
+                postSchedule(accessToken.toString(), data)
+                Log.d(TAG, "데이터 $data")
+            }
         }
     }
 

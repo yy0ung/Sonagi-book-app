@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.Delete
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,6 +29,7 @@ class NoticeContentActivity : AppCompatActivity() {
     private lateinit var viewModelFactory : NoticeContentViewModelFactory
     private var contentLike : Boolean? = false
     private lateinit var nid : String
+    private lateinit var accessToken : String
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +49,7 @@ class NoticeContentActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             val token =
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { tokenDB?.tokenDao()?.getAll() }
-            val accessToken = "Bearer ${token?.accessToken}"
+            accessToken = "Bearer ${token?.accessToken}"
 
             getNoticeContent(nid, accessToken)
             viewModel.repositories1.observe(this@NoticeContentActivity){
@@ -148,7 +150,15 @@ class NoticeContentActivity : AppCompatActivity() {
             }
             R.id.toolbarMenuDelete -> {
                 Toast.makeText(this,"삭제", Toast.LENGTH_LONG).show()
-
+                //dialog test
+                val dialog = DeleteDialog(this)
+                dialog.createDialog()
+                dialog.setOnClickListener(object : DeleteDialog.ButtonOnClickListener{
+                    override fun onClicked() {
+                        //viewModel.deleteNoticeItem(nid, accessToken)
+                        Toast.makeText(this@NoticeContentActivity, "삭제되었습니다", Toast.LENGTH_LONG).show()
+                    }
+                })
 
                 super.onOptionsItemSelected(item)
             }else -> super.onOptionsItemSelected(item)

@@ -1,43 +1,44 @@
 package young.com.sonagibook_app.dialog
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.app.Dialog
+import android.content.Context
+import android.view.WindowManager
 import android.widget.Button
-import androidx.fragment.app.DialogFragment
 import young.com.sonagibook_app.R
 
-class DeleteDialog(nid : String ) : DialogFragment() {
-    private var dInterface : DeleteConfirmInterface? = null
-    private lateinit var nid : String
-//https://angangmoddi.tistory.com/261 see again
-    init {
-        this.nid = nid
 
-    }
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_delete_dialog, container, false)
-        val cancelBtn = view.findViewById<Button>(R.id.deleteDialogCancelBtn)
-        val deleteBtn = view.findViewById<Button>(R.id.deleteDialogDelBtn)
-        //배경 투명
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+class DeleteDialog(context : Context) {
+    private val dialog = Dialog(context)
+    private lateinit var onClickListener: ButtonOnClickListener
 
-        cancelBtn.setOnClickListener { dismiss() }
-        deleteBtn.setOnClickListener {
-            this.dInterface?.onYesButtonClick(nid)
-            dismiss()
+    fun createDialog(){
+        dialog.setContentView(R.layout.fragment_delete_dialog)
+        dialog.window!!.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setCancelable(true)
+
+        val cancelBtn = dialog.findViewById<Button>(R.id.deleteDialogCancelBtn)
+        val deleteBtn = dialog.findViewById<Button>(R.id.deleteDialogDelBtn)
+
+        cancelBtn.setOnClickListener {
+            //onClickListener.onClicked()
+            dialog.dismiss()
         }
-        return view
+
+        deleteBtn.setOnClickListener {
+            onClickListener.onClicked()
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
-}
-interface DeleteConfirmInterface {
-    fun onYesButtonClick(nid : String)
+    interface ButtonOnClickListener{
+        fun onClicked()
+    }
+
+    fun setOnClickListener(listener: ButtonOnClickListener){
+        onClickListener = listener
+    }
+
+
 }
