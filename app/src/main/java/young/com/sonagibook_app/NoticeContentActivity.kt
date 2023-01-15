@@ -143,9 +143,9 @@ class NoticeContentActivity : AppCompatActivity() {
         return when(item.itemId){
             R.id.toolbarMenuEdit -> {
                 Toast.makeText(this,"수정", Toast.LENGTH_LONG).show()
-//                val intent = Intent(this@NoticeContentActivity, NoticeItemEditActivity::class.java)
-//                intent.putExtra("nid", nid)
-//                startActivity(intent)
+                val intent = Intent(this@NoticeContentActivity, NoticeItemEditActivity::class.java)
+                intent.putExtra("nid", nid)
+                startActivity(intent)
                 super.onOptionsItemSelected(item)
             }
             R.id.toolbarMenuDelete -> {
@@ -155,7 +155,7 @@ class NoticeContentActivity : AppCompatActivity() {
                 dialog.createDialog()
                 dialog.setOnClickListener(object : DeleteDialog.ButtonOnClickListener{
                     override fun onClicked() {
-                        //viewModel.deleteNoticeItem(nid, accessToken)
+                        viewModel.deleteNoticeItem(nid, accessToken)
                         Toast.makeText(this@NoticeContentActivity, "삭제되었습니다", Toast.LENGTH_LONG).show()
                     }
                 })
