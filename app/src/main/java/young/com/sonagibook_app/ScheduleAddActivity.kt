@@ -4,21 +4,30 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues.TAG
+import android.icu.util.LocaleData
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.internal.bind.util.ISO8601Utils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.internal.format
 import young.com.sonagibook_app.databinding.ActivityScheduleAddBinding
 import young.com.sonagibook_app.retrofit.Dto.RetrofitPostScheduleDto
 import young.com.sonagibook_app.retrofit.Dto.ScheduleDto
 import young.com.sonagibook_app.room.TokenDatabase
+import java.text.DateFormat
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -33,6 +42,7 @@ class ScheduleAddActivity : AppCompatActivity() {
     private lateinit var fStartDate : String
     private lateinit var fEndDate : String
     lateinit var description : String
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +54,10 @@ class ScheduleAddActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this,viewModelFactory)[ScheduleAddViewModel::class.java]
 
         //format check
-//        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.KOREAN)
-//        Log.d(TAG, "onCreate: get date ${sdf.format(Date())}")
+
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+
+        Log.d(TAG, "onCreate: get date ${sdf.format(Date())}")
 
         dateTimePick()
         selectTag()
@@ -71,6 +83,8 @@ class ScheduleAddActivity : AppCompatActivity() {
         binding.scheduleAddSendBtn.setOnClickListener {
             startDate = binding.scheduleDatePicker1.text.toString()+binding.scheduleTimePicker1.text.toString()
             endDate = binding.scheduleDatePicker2.text.toString()+binding.scheduleTimePicker2.text.toString()
+            //
+            //오전 오후 판별식
             fStartDate = setSubstring(startDate,0,4)+setSubstring(startDate,5,7)+setSubstring(startDate,8,10)+setSubstring(startDate,13,15)+setSubstring(startDate,17,19)
             fEndDate = setSubstring(endDate,0,4)+setSubstring(endDate,5,7)+setSubstring(endDate,8,10)+setSubstring(endDate,13,15)+setSubstring(endDate,17,19)
 
@@ -169,8 +183,12 @@ class ScheduleAddActivity : AppCompatActivity() {
         val title = binding.scheduleAddInputTitle.text.toString()
         val place = binding.scheduleAddInputPlace.text.toString()
         val description = binding.scheduleAddInputDetail.text.toString()
-
-        val data = RetrofitPostScheduleDto(ScheduleDto(title, description, place, fStartDate, fEndDate, repeatDay = null, nid=null, pickedType))
+        val sDate = "${setSubstring(fStartDate,0,4)}-${setSubstring(fStartDate,4,6)}-${setSubstring(fStartDate,6,8)}T" +
+                "${setSubstring(fStartDate,8,10)}:${setSubstring(fStartDate,10,12)}:00+0900"
+        val eDate = "${setSubstring(fEndDate,0,4)}-${setSubstring(fEndDate,4,6)}-${setSubstring(fEndDate,6,8)}T" +
+                "${setSubstring(fEndDate,8,10)}:${setSubstring(fEndDate,10,12)}:00+0900"
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+        val data = RetrofitPostScheduleDto(ScheduleDto(title, description, place, sDate, eDate, repeatDay = null, nid=null, pickedType))
 
         CoroutineScope(Dispatchers.Main).launch {
             val token =
