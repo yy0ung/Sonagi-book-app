@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             todayFormat = today.toString().substring(0,4)+"-"
             var nextFormat = (today.toString().substring(5,7).toLong()-1).toString()
             //new format "YYYY-MM" (check)
-            getMonthSchedule(todayFormat+nextFormat)
+            getMonthSchedule("2023-01")
 
 
             val todayBookFormat = todayFormat+today.toString().substring(8)
@@ -141,7 +141,6 @@ class MainActivity : AppCompatActivity() {
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }
             val accessToken = "Bearer ${token?.accessToken}"
 
-            Log.d(TAG, "onCreate: 달력 날짜 $date")
             getScheduleList(accessToken, date)
             viewModel.repositories5.observe(this@MainActivity){
                 Log.d(TAG, "onCreate: $it")
@@ -150,7 +149,7 @@ class MainActivity : AppCompatActivity() {
                 for(i in 0..it.data.size-1){
                     Log.d(TAG, "onCreate: ${viewModel.homeScheduleDataModel}")
                     var date = it.data[i].start.substring(0,10)
-                    Log.d(TAG, "onCreate: 날짜 : $date")
+                    Log.d(TAG, "onCreate: %%%%%%%% : $date")
                     if(viewModel.homeScheduleDataModel[date]==null){
                         var temp = ArrayList<ScheduleResponseDto>()
                         temp.add(it.data[i])
