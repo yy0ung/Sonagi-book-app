@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseNoticeDto
 
-class NoticeItemsAdapter(private val noticeItemList : ArrayList<RetrofitResponseNoticeDto>)
+class NoticeItemsAdapter(private val noticeItemList : RetrofitResponseNoticeDto)
     : RecyclerView.Adapter<NoticeItemsAdapter.CustomViewHolder>(){
 
 
@@ -27,16 +27,16 @@ class NoticeItemsAdapter(private val noticeItemList : ArrayList<RetrofitResponse
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.itemTitle.text = noticeItemList.get(0).data[position].title
-        holder.itemUser?.text = noticeItemList.get(0).data[position].user?.name
-        holder.itemLike.text = noticeItemList.get(0).data[position].likes.toString()
+        holder.itemTitle.text = noticeItemList.data[position].title
+        holder.itemUser?.text = noticeItemList.data[position].user?.name
+        holder.itemLike.text = noticeItemList.data[position].likes.toString()
         holder.itemContainer.setOnClickListener {
             val intent = Intent(holder.itemContainer.context,NoticeContentActivity::class.java)
-            intent.putExtra("nid",noticeItemList.get(0).data[position].nid.toString())
+            intent.putExtra("nid",noticeItemList.data[position].nid.toString())
             ContextCompat.startActivity(holder.itemContainer.context,intent,null)
         }
 
-        val content = noticeItemList.get(0).data[position].content
+        val content = noticeItemList.data[position].content
         if (content != null) {
             if(content.length <26){
                 holder.itemContent.text = content.toString()
@@ -47,7 +47,7 @@ class NoticeItemsAdapter(private val noticeItemList : ArrayList<RetrofitResponse
             Log.d(TAG, "onBindViewHolder: 공지사항 내용 빈칸")
         }
 
-        val createDate = noticeItemList.get(0).data[position].createdAt
+        val createDate = noticeItemList.data[position].createdAt
         //val year = createDate.substring(0,4).toString()
         val month = createDate.substring(5,7).toString()
         val date = createDate.substring(8,10).toString()
@@ -55,7 +55,7 @@ class NoticeItemsAdapter(private val noticeItemList : ArrayList<RetrofitResponse
     }
 
     override fun getItemCount(): Int {
-        return noticeItemList.get(0).data.size
+        return noticeItemList.data.size
     }
     inner class CustomViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val itemContainer : ConstraintLayout = itemView.findViewById(R.id.noticeItemContainer)

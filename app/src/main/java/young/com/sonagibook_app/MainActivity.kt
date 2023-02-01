@@ -34,21 +34,21 @@ class MainActivity : AppCompatActivity() {
     private var today = LocalDate.now()
     private lateinit var todayFormat : String
 
-    override fun onRestart() {
-        super.onRestart()
-        Log.d(TAG, "onRestart: onRestart")
-        CoroutineScope(Dispatchers.Main).launch {
-            mainGetNotice()
-            val accessToken = "Bearer ${withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }?.accessToken}"
-            getNoticeList(1,accessToken)
-            viewModel.repositories2.observe(this@MainActivity){
-                var temp = kotlin.collections.ArrayList<RetrofitResponseNoticeDto>()
-                temp.add(it)
-                HomeFragment().refreshAdapter(temp)
-            }
-
-        }
-    }
+//    override fun onRestart() {
+//        super.onRestart()
+//        Log.d(TAG, "onRestart: onRestart")
+//        CoroutineScope(Dispatchers.Main).launch {
+//            mainGetNotice()
+//            val accessToken = "Bearer ${withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }?.accessToken}"
+//            getNoticeList(1,accessToken)
+//            viewModel.repositories2.observe(this@MainActivity){
+//                var temp = kotlin.collections.ArrayList<RetrofitResponseNoticeDto>()
+//                temp.add(it)
+//                HomeFragment().refreshAdapter(temp)
+//            }
+//
+//        }
+//    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,6 +80,8 @@ class MainActivity : AppCompatActivity() {
             job.join()
             Log.d(TAG, "onCreate: 끝남")
             //delay 필요한지 확인
+
+
             mainGetNotice()
 
 

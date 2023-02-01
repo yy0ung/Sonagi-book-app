@@ -19,8 +19,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import young.com.sonagibook_app.retrofit.Dto.RetrofitResponseNoticeDto
+import young.com.sonagibook_app.room.Token
+import young.com.sonagibook_app.room.TokenDatabase
 
 class HomeFragment : Fragment() {
+    private val tokenDB by lazy { TokenDatabase.getInstance(requireContext().applicationContext) }
     private lateinit var mainViewModelFactory: MainViewModelFactory
     private lateinit var viewModel: MainViewModel
     var adapter : NoticeItemsAdapter? = null
@@ -40,11 +43,19 @@ class HomeFragment : Fragment() {
         val noticeRecycler = view.findViewById<RecyclerView>(R.id.homeNoticeContainer)
 
         CoroutineScope(Dispatchers.Main).launch {
-            fetchNoticeInfo()
-            Log.d(TAG, "onCreateView: 리스트 받아오기 ${viewModel.homeNoticeDataModel.get(0)}")
-            val adapter = NoticeItemsAdapter(viewModel.homeNoticeDataModel)
-            noticeRecycler.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-            noticeRecycler.adapter = adapter
+            val accessToken = "Bearer ${withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }?.accessToken}"
+
+            getNoticeList(1,accessToken)
+
+            viewModel.repositories2.observe(viewLifecycleOwner){
+                Log.d(TAG, "onCreateView: fragment fffffff $it")
+                val adapter = NoticeItemsAdapter(it)
+                noticeRecycler.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+                noticeRecycler.adapter = adapter
+            }
+            //fetchNoticeInfo()
+            //Log.d(TAG, "onCreateView: 리스트 받아오기 ${viewModel.homeNoticeDataModel.get(0)}")
+
 
         }
 
@@ -71,6 +82,14 @@ class HomeFragment : Fragment() {
         return view
     }
 
+    private suspend fun getTokenDB() : Token?{
+        return tokenDB?.tokenDao()?.getAll()
+    }
+
+    private suspend fun getNoticeList(page : Int, token : String){
+        viewModel.getNoticeList(page, token)
+    }
+
     private suspend fun fetchUserInfo(){
         withContext(Dispatchers.IO){
             while (viewModel.userHomeDataModel.size==0){}
@@ -84,16 +103,16 @@ class HomeFragment : Fragment() {
         }
         Log.d(TAG, "fetchNoticeInfo: fetch done")
     }
-    @SuppressLint("NotifyDataSetChanged")
-    fun refreshAdapter(retrofitResponseNoticeDto: ArrayList<RetrofitResponseNoticeDto>) {
-        val noticeRecycler = view?.findViewById<RecyclerView>(R.id.homeNoticeContainer)
-        data = retrofitResponseNoticeDto
-        adapter = NoticeItemsAdapter(data)
-        noticeRecycler?.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-        noticeRecycler?.adapter = adapter
-        adapter?.notifyDataSetChanged()
-
-    }
+    //@SuppressLint("NotifyDataSetChanged")
+//    fun refreshAdapter(retrofitResponseNoticeDto: ArrayList<RetrofitResponseNoticeDto>) {
+//        val noticeRecycler = view?.findViewById<RecyclerView>(R.id.homeNoticeContainer)
+//        data = retrofitResponseNoticeDto
+//        adapter = NoticeItemsAdapter(data)
+//        noticeRecycler?.layoutManager =LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+//        noticeRecycler?.adapter = adapter
+//        adapter?.notifyDataSetChanged()
+//
+//    }
 
     
 }
