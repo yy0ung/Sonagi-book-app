@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import young.com.sonagibook_app.R
+import young.com.sonagibook_app.databinding.FragmentLoginCodeInputBinding
 import young.com.sonagibook_app.retrofit.Dto.RetrofitUserInfoGetDto
 import young.com.sonagibook_app.retrofit.LoginRepository
 
@@ -22,25 +23,24 @@ class LoginCodeInputFragment : Fragment() {
     private lateinit var viewModel : LoginViewModel
     private lateinit var viewModelFactory: LoginViewModelFactory
     var imm : InputMethodManager? = null
+    private var _binding : FragmentLoginCodeInputBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_login_code_input, container, false)
-        val code = view.findViewById<TextView>(R.id.code)
-        val input = view.findViewById<EditText>(R.id.codeInput)
-        val inputCode = input.text
-        val btn : Button = view.findViewById(R.id.loginCodeProofBtn)
+        _binding = FragmentLoginCodeInputBinding.inflate(layoutInflater)
+        val view = binding.root
+        val inputCode = binding.codeInput.text
 
         viewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory(LoginRepository())).get(
             LoginViewModel::class.java)
 
         imm = context?.getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager?
 
-
-        btn.setOnClickListener {
+        binding.loginCodeProofBtn.setOnClickListener {
             lifecycleScope.launch {
                 getToken(inputCode.toString(), viewModel.loginModel.get(0).data.register_token.toString())
                 viewModel.loginRepositories2.observe(requireActivity()){
@@ -52,6 +52,10 @@ class LoginCodeInputFragment : Fragment() {
         }
 
         return view
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private suspend fun getToken(code : String, token : String){

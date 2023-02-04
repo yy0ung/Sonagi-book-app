@@ -17,22 +17,22 @@
             android:name=".BookAddActivity"
             android:exported="true" />
         <activity
-            android:name=".ScheduleItemEditActivity"
+            android:name=".schedule.ScheduleItemEditActivity"
             android:exported="true" />
         <activity
-            android:name=".ScheduleContentActivity"
+            android:name=".schedule.ScheduleContentActivity"
             android:exported="true" />
         <activity
-            android:name=".ScheduleAddActivity"
+            android:name=".schedule.ScheduleAddActivity"
             android:exported="true" />
         <activity
-            android:name=".NoticeItemEditActivity"
+            android:name=".notice.NoticeItemEditActivity"
             android:exported="true" />
         <activity
-            android:name=".NoticeItemAddActivity"
+            android:name=".notice.NoticeItemAddActivity"
             android:exported="true" />
         <activity
-            android:name=".NoticeContentActivity"
+            android:name=".notice.NoticeContentActivity"
             android:exported="true" />
         <activity
             android:name=".SplashActivity"
@@ -44,10 +44,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NoticeAddActivity"
+            android:name=".notice.NoticeAddActivity"
             android:exported="true" />
         <activity
-            android:name=".NoticeListActivity"
+            android:name=".notice.NoticeListActivity"
             android:exported="true" />
         <activity
             android:name=".login.LoginActivity"

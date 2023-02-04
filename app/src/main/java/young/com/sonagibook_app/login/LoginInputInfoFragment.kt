@@ -18,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import young.com.sonagibook_app.R
+import young.com.sonagibook_app.databinding.FragmentLoginInputInfoBinding
 import young.com.sonagibook_app.retrofit.Dto.RetrofitMoreInfoPostDto
 import young.com.sonagibook_app.retrofit.LoginRepository
 import young.com.sonagibook_app.retrofit.dataDto.dataDtoMoreInfo
@@ -34,22 +35,15 @@ class LoginInputInfoFragment : Fragment() {
     private lateinit var userSession : String
     private lateinit var info : RetrofitMoreInfoPostDto
     private val tokenDB by lazy { TokenDatabase.getInstance(requireActivity()) }
+    private var _binding : FragmentLoginInputInfoBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_login_input_info, container, false)
-        val name : TextView = view.findViewById(R.id.loginInputUserName)
-        val gradeSession : TextView = view.findViewById(R.id.loginInputUserGrade_Session)
-        val phone = view.findViewById<EditText>(R.id.loginInputInputPhone)
-        val major : EditText = view.findViewById(R.id.loginInputInputMajor)
-        val birth : EditText = view.findViewById(R.id.loginInputInputBirth)
-        val profile : EditText = view.findViewById(R.id.loginInputInputProfile)
-        val btn : Button = view.findViewById(R.id.loginInputSaveBtn)
-        val map = LinkedHashMap<String, Any>()
-        val map2 = LinkedHashMap<String,String?>()
-
+        _binding = FragmentLoginInputInfoBinding.inflate(layoutInflater)
+        val view = binding.root
 
         viewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory(LoginRepository())).get(
             LoginViewModel::class.java)
@@ -62,14 +56,14 @@ class LoginInputInfoFragment : Fragment() {
             userName = viewModel.loginModel2.get(0).data?.name.toString()
             userGrade = viewModel.loginModel2.get(0).data?.grade.toString()
             userSession = viewModel.loginModel2.get(0).data?.session.toString()
-            name.text = userName
-            gradeSession.text = "$userGrade | $userSession"
-
+            binding.loginInputUserName.text = userName
+            binding.loginInputUserGradeSession.text = "$userGrade | $userSession"
         }
 
-        btn.setOnClickListener {
+        binding.loginInputSaveBtn.setOnClickListener {
             lifecycleScope.launch {
-                if(phone.text.toString().isEmpty() || birth.text.toString().isEmpty() || major.text.toString().isEmpty()){
+                if(binding.loginInputInputPhone.text.toString().isEmpty() || binding.loginInputInputBirth.text.toString().isEmpty()
+                    || binding.loginInputInputMajor.text.toString().isEmpty()){
                     Toast.makeText(context,"빈칸을 모두 채우세요",Toast.LENGTH_LONG).show()
 
                 }else{
@@ -82,14 +76,14 @@ class LoginInputInfoFragment : Fragment() {
         return view
     }
 
-    private fun inputInfo(){
-        val phone = view?.findViewById<EditText>(R.id.loginInputInputPhone)
-        val major : EditText? = view?.findViewById(R.id.loginInputInputMajor)
-        val birth : EditText? = view?.findViewById(R.id.loginInputInputBirth)
-        val profile : EditText? = view?.findViewById(R.id.loginInputInputProfile)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
-        info = RetrofitMoreInfoPostDto(registerToken,code, dataDtoMoreInfo(birth?.text.toString(),
-                phone?.text.toString(), major?.text.toString(), profile?.text.toString()))
+    private fun inputInfo(){
+        info = RetrofitMoreInfoPostDto(registerToken,code, dataDtoMoreInfo(binding.loginInputInputBirth.text.toString(),
+                binding.loginInputInputPhone.text.toString(), binding.loginInputInputMajor.text.toString(), binding.loginInputInputProfile.text.toString()))
         Log.d(TAG, "inputInfo: @@@@@@@@$info")
         postMoreInfo(info)
         viewModel.loginRepositories3.observe(requireActivity()){

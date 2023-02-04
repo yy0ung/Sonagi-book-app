@@ -20,6 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import young.com.sonagibook_app.*
+import young.com.sonagibook_app.databinding.FragmentLoginStartBinding
 import young.com.sonagibook_app.retrofit.Dto.RetrofitPostRequestDto
 import young.com.sonagibook_app.retrofit.LoginRepository
 import young.com.sonagibook_app.room.Token
@@ -30,22 +31,20 @@ class LoginStartFragment : Fragment() {
     private val tokenDB by lazy { TokenDatabase.getInstance(requireActivity()) }
     private lateinit var viewModel: LoginViewModel
     private lateinit var loginViewModelFactory: LoginViewModelFactory
+    private var _binding : FragmentLoginStartBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_login_start, container,false)
-        val homeLoginKakao : ImageView = view.findViewById(R.id.loginStartKakaoBtn)
-
-
+        _binding = FragmentLoginStartBinding.inflate(layoutInflater)
+        val view = binding.root
 
         viewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory(LoginRepository())).get(
             LoginViewModel::class.java)
 
-
-
-        homeLoginKakao.setOnClickListener{
+        binding.loginStartKakaoBtn.setOnClickListener{
             lifecycleScope.launch {
                 try {
                     val oAuthToken = context?.let { it1 -> UserApiClient.loginWithKakao(context = it1) }
@@ -80,6 +79,11 @@ class LoginStartFragment : Fragment() {
 
 
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private suspend fun setPostToken(token : String){
