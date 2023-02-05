@@ -23,6 +23,7 @@ import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 import com.prolificinteractive.materialcalendarview.format.MonthArrayTitleFormatter
 import kotlinx.coroutines.*
 import young.com.sonagibook_app.*
+import young.com.sonagibook_app.databinding.FragmentScheduleBinding
 import young.com.sonagibook_app.retrofit.Dto.ScheduleResponseDto
 import java.text.DecimalFormat
 import java.time.LocalDate
@@ -31,6 +32,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ScheduleFragment : Fragment() {
+    private var _binding : FragmentScheduleBinding? = null
+    private val binding get() = _binding!!
     private lateinit var viewModelFactory: MainViewModelFactory
     private lateinit var viewModel: MainViewModel
     lateinit var calendarView : MaterialCalendarView
@@ -45,21 +48,20 @@ class ScheduleFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_schedule, container, false)
-        val addBtn : ImageView = view.findViewById(R.id.scheduleAddBtn)
-        val detailTitle : TextView = view.findViewById(R.id.scheduleDetailTitle)
-        val calHeader : TextView = view.findViewById(R.id.scheduleCalenderHeader)
+        _binding = FragmentScheduleBinding.inflate(layoutInflater)
+        val view = binding.root
 
-        calHeader.text = "${selectedDate.year}년 ${selectedDate.month+1}월"
-        detailTitle.text = "${selectedDate.day.toString()}일 ${setDayKorean(selectedDate.date.toString().substring(0,3))}"
-        calendarView = view.findViewById(R.id.scheduleCalender)
+        binding.scheduleCalenderHeader.text = "${selectedDate.year}년 ${selectedDate.month+1}월"
+        binding.scheduleDetailTitle.text = "${selectedDate.day.toString()}일 ${setDayKorean(selectedDate.date.toString().substring(0,3))}"
+//        calendarView = view.findViewById(R.id.scheduleCalender)
+        calendarView = binding.scheduleCalender
         calendarView.setTitleFormatter(MonthArrayTitleFormatter(resources.getStringArray(R.array.custom_months)))
         calendarView.setWeekDayFormatter(ArrayWeekDayFormatter(resources.getStringArray(R.array.custom_weekdays)))
         calendarView.setHeaderTextAppearance(R.style.CalendarWidgetHeader)
         calendarView.topbarVisible = false
 
         calendarView.setOnMonthChangedListener { widget, date ->
-            calHeader.text = "${date.year}년 ${date.month+1}월"
+            binding.scheduleCalenderHeader.text = "${date.year}년 ${date.month+1}월"
             //Log.d(TAG, "onCreateView: $$$$ ${date.calendar.add(1,1)}")
             (activity as MainActivity).getMonthSchedule(date.year.toString()+(format.format(date.month)).toString())
             Log.d(TAG, "##########쿼리 ${date.year.toString()+(format.format(date.month)).toString()}")
@@ -93,7 +95,7 @@ class ScheduleFragment : Fragment() {
 
 
 
-        addBtn.setOnClickListener {
+        binding.scheduleAddBtn.setOnClickListener {
             val intent = Intent(context, ScheduleAddActivity::class.java)
             startActivity(intent)
         }
@@ -101,6 +103,11 @@ class ScheduleFragment : Fragment() {
 
 
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 
@@ -116,8 +123,7 @@ class ScheduleFragment : Fragment() {
             selectedDate = cal.selectedDate
             var aa = cal.selectedDate.month+1
             var date = cal.selectedDate.day
-            val detailTitle : TextView = requireView().findViewById(R.id.scheduleDetailTitle)
-            detailTitle.text = "${selectedDate.day.toString()}일 ${setDayKorean(selectedDate.date.toString().substring(0,3))}"
+            binding.scheduleDetailTitle.text = "${selectedDate.day.toString()}일 ${setDayKorean(selectedDate.date.toString().substring(0,3))}"
             lateinit var dateString : String
             if(aa<10){
                 if(date<10){
@@ -139,10 +145,9 @@ class ScheduleFragment : Fragment() {
             Log.d(TAG, "setCalendar: 날짜 : $dateString")
             Log.d(TAG, "setCalendar: 선택 일정 : ${viewModel.homeScheduleDataModel[dateString]}")
             scheduleDetailList = viewModel.homeScheduleDataModel[dateString]
-            val adapter = requireActivity().findViewById<RecyclerView>(R.id.scheduleDetailList)
             val detailAdapter = scheduleDetailList?.let { ScheduleListItemsAdapter(it) }
-            adapter.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
-            adapter.adapter = detailAdapter
+            binding.scheduleDetailList.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+            binding.scheduleDetailList.adapter = detailAdapter
         }
 
 
