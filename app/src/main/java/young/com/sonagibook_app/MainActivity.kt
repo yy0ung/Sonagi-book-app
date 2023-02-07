@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
             todayFormat = today.toString().substring(0,4)+"-"
             var nextFormat = (today.toString().substring(5,7).toLong()-1).toString()
             //new format "YYYY-MM" (check)
-            getMonthSchedule("2023-01")
+//            getMonthSchedule("2023-01")
 
 
             val todayBookFormat = todayFormat+today.toString().substring(8)

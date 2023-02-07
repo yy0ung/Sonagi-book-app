@@ -25,6 +25,8 @@ import kotlinx.coroutines.*
 import young.com.sonagibook_app.*
 import young.com.sonagibook_app.databinding.FragmentScheduleBinding
 import young.com.sonagibook_app.retrofit.Dto.ScheduleResponseDto
+import young.com.sonagibook_app.room.Token
+import young.com.sonagibook_app.room.TokenDatabase
 import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -32,6 +34,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ScheduleFragment : Fragment() {
+    private val tokenDB by lazy { TokenDatabase.getInstance(requireContext().applicationContext) }
     private var _binding : FragmentScheduleBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModelFactory: MainViewModelFactory
@@ -41,6 +44,7 @@ class ScheduleFragment : Fragment() {
     private var scheduleDetailList : ArrayList<ScheduleResponseDto>? = ArrayList<ScheduleResponseDto>()
     var arr = ArrayList<CalendarDay>()
     private val format = DecimalFormat("00")
+    private var homeScheduleDataModel = HashMap<String, ArrayList<ScheduleResponseDto>>()
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
@@ -63,10 +67,10 @@ class ScheduleFragment : Fragment() {
         calendarView.setOnMonthChangedListener { widget, date ->
             binding.scheduleCalenderHeader.text = "${date.year}년 ${date.month+1}월"
             //Log.d(TAG, "onCreateView: $$$$ ${date.calendar.add(1,1)}")
-            (activity as MainActivity).getMonthSchedule(date.year.toString()+(format.format(date.month)).toString())
+            //(activity as MainActivity).getMonthSchedule(date.year.toString()+(format.format(date.month)).toString())
             Log.d(TAG, "##########쿼리 ${date.year.toString()+(format.format(date.month)).toString()}")
             CoroutineScope(Dispatchers.Main).launch {
-                fetchSchedule()
+                getMonthSchedule("2023-01")
                 dotArray()
                 calendarView.addDecorator(EventDecorator(Color.parseColor("#A3E27B"), arr))
 
@@ -83,9 +87,9 @@ class ScheduleFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(Repository()))[MainViewModel::class.java]
 
         CoroutineScope(Dispatchers.Main).launch {
-            fetchSchedule()
+            getMonthSchedule("2023-01")
             Log.d(TAG, "onCreateView: 일정 요청")
-            Log.d(TAG, "onCreateView: ${viewModel.homeScheduleDataModel}")
+            Log.d(TAG, "onCreateView: pppppppp${homeScheduleDataModel}")
 
             dotArray()
             //Log.d(TAG, "onCreateView: 순서")
@@ -114,6 +118,42 @@ class ScheduleFragment : Fragment() {
     private suspend fun fetchSchedule(){
         withContext(Dispatchers.IO){
             while (viewModel.homeScheduleDataModel.size==0){}
+        }
+    }
+
+    private suspend fun getTokenDB() : Token?{
+        return tokenDB?.tokenDao()?.getAll()
+    }
+
+    private suspend fun getScheduleList(token: String, date : String){
+        viewModel.getScheduleList(token, date)
+    }
+
+    private suspend fun getMonthSchedule(date : String){
+        Log.d(TAG, "getMonthSchedule: ^^^^^^gggggggg")
+        CoroutineScope(Dispatchers.Main).launch {
+            viewModel.homeScheduleDataModel.clear()
+            val token =
+                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }
+            val accessToken = "Bearer ${token?.accessToken}"
+
+            getScheduleList(accessToken, date)
+            viewModel.repositories5.observe(viewLifecycleOwner){
+
+                for(i in 0..it.data.size-1){
+                    var date = it.data[i].start.substring(0,10)
+                    if(homeScheduleDataModel[date]==null){
+                        var temp = ArrayList<ScheduleResponseDto>()
+                        temp.add(it.data[i])
+
+                        homeScheduleDataModel.put(date, temp)
+                    }else{
+                        //여기 날짜 더하는 문젠가?
+                        homeScheduleDataModel[date]!!.add(it.data[i])
+                    }
+                }
+                //viewModel.homeScheduleDataModel.add(it)
+            }
         }
     }
 
@@ -177,7 +217,7 @@ class ScheduleFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private suspend fun dotArray(){
-        for (i in viewModel.homeScheduleDataModel.keys){
+        for (i in homeScheduleDataModel.keys){
             var fDate = LocalDate.parse(i, DateTimeFormatter.ISO_DATE)
             var c  = CalendarDay.from(fDate.year,fDate.monthValue-1,fDate.dayOfMonth)
             //Log.d(TAG, "dotArray: 점 $c")
