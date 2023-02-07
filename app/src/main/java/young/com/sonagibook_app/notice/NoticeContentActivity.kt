@@ -87,7 +87,7 @@ class NoticeContentActivity : AppCompatActivity() {
                     }else{
                         CoroutineScope(Dispatchers.IO).launch { postNoticeLike(accessToken, nid) }
                         viewModel.repositories2.observe(this@NoticeContentActivity){it3->
-                            binding.noticeContentLikeNum.text = (it3.data?.likes?.plus(1)).toString()
+                            binding.noticeContentLikeNum.text = (it3.data?.likes).toString()
                             binding.noticeContentLikeContainer.setBackgroundResource(R.drawable.noticecontent_like_active)
 
                         }

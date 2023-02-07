@@ -34,7 +34,22 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     var adapter : NoticeItemsAdapter? = null
     var data = ArrayList<RetrofitResponseNoticeDto>()
+
     @SuppressLint("SetTextI18n")
+
+    override fun onStart() {
+        super.onStart()
+        CoroutineScope(Dispatchers.Main).launch {
+            val accessToken = "Bearer ${withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { getTokenDB() }?.accessToken}"
+            getNoticeList(1,accessToken)
+            viewModel.repositories2.observe(viewLifecycleOwner){
+                Log.d(TAG, "onCreateView: fragment fffffff $it")
+                val adapter = NoticeItemsAdapter(it)
+                binding.homeNoticeContainer.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+                binding.homeNoticeContainer.adapter = adapter
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

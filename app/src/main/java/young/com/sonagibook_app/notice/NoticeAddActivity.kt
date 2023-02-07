@@ -1,17 +1,23 @@
 package young.com.sonagibook_app.notice
 
 import android.content.ContentValues
+import android.content.Intent
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.CalendarContract.Colors
 import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import young.com.sonagibook_app.MainActivity
 import young.com.sonagibook_app.R
 import young.com.sonagibook_app.Repository
 import young.com.sonagibook_app.databinding.ActivityNoticeAddBinding
@@ -39,6 +45,9 @@ class NoticeAddActivity : AppCompatActivity() {
 
         binding.noticeAddSendBtn.setOnClickListener {
             addNoticeItem()
+            finishAffinity()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
         binding.noticeAddCancelBtn.setOnClickListener {
             finish()
@@ -71,29 +80,32 @@ class NoticeAddActivity : AppCompatActivity() {
     }
 
     private fun bottomClickEvent(){
-        if(importBtn){
-            binding.noticeAddImportBtn.setOnClickListener {
+        binding.noticeAddImportBtn.setOnClickListener {
+            if(importBtn){
                 importBtn = false
-                Toast.makeText(this, "중요공지 취소", Toast.LENGTH_LONG).show()
-            }
-        }else{
-            binding.noticeAddImportBtn.setOnClickListener {
+                binding.noticeAddImportBtn.setBackgroundResource(R.drawable.notice_round_btn)
+                Toast.makeText(this, "중요공지 취소 $importBtn", Toast.LENGTH_LONG).show()
+            }else{
                 importBtn = true
-                Toast.makeText(this, "중요공지 설정", Toast.LENGTH_LONG).show()
-            }
-        }
+                binding.noticeAddImportBtn.setBackgroundResource(R.drawable.notice_round_btn_clicked)
 
-        if(addScheduleBtn){
-            binding.noticeAddScheAddBtn.setOnClickListener {
-                addScheduleBtn = false
-                binding.noticeAddLinkedContainer.visibility = View.INVISIBLE
+                Toast.makeText(this, "중요공지 설정 $importBtn", Toast.LENGTH_LONG).show()
             }
-        }else{
-            binding.noticeAddScheAddBtn.setOnClickListener {
+
+        }
+        binding.noticeAddScheAddBtn.setOnClickListener {
+            if(addScheduleBtn){
+                addScheduleBtn = false
+                binding.noticeAddImportBtn.setBackgroundResource(R.drawable.notice_round_btn)
+                binding.noticeAddLinkedContainer.visibility = View.INVISIBLE
+            }else{
                 addScheduleBtn = true
+                binding.noticeAddImportBtn.setBackgroundResource(R.drawable.notice_round_btn_clicked)
                 binding.noticeAddLinkedContainer.visibility = View.VISIBLE
             }
         }
+
+
 
 
     }
