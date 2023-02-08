@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
             todayFormat = today.toString().substring(0,4)+"-"
             var nextFormat = (today.toString().substring(5,7).toLong()-1).toString()
             //new format "YYYY-MM" (check)
-//            getMonthSchedule("2023-01")
+            getMonthSchedule("2023-02")
 
 
             val todayBookFormat = todayFormat+today.toString().substring(8)
@@ -146,6 +146,8 @@ class MainActivity : AppCompatActivity() {
             val accessToken = "Bearer ${token?.accessToken}"
 
             getScheduleList(accessToken, date)
+            getScheduleList(accessToken, "2023-01")
+            getScheduleList(accessToken, "2023-03")
             viewModel.repositories5.observe(this@MainActivity){
                 Log.d(TAG, "onCreate: $it")
                 Log.d(TAG, "onCreate: 사이즈 ${it.data.size}")

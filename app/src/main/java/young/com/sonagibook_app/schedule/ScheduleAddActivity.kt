@@ -183,7 +183,7 @@ class ScheduleAddActivity : AppCompatActivity() {
         val eDate = "${setSubstring(fEndDate,0,4)}-${setSubstring(fEndDate,4,6)}-${setSubstring(fEndDate,6,8)}T" +
                 "${setSubstring(fEndDate,8,10)}:${setSubstring(fEndDate,10,12)}:00+0900"
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-        val data = RetrofitPostScheduleDto(ScheduleDto(title, description, place, sDate, eDate, repeatDay = null, nid=null, pickedType))
+        val data = RetrofitPostScheduleDto(ScheduleDto(title, description, place, "2023-02-10T08:00:00.000Z", "2023-02-10T11:00:00.000Z", repeatDay = null, nid=null, pickedType))
 
         CoroutineScope(Dispatchers.Main).launch {
             val token =

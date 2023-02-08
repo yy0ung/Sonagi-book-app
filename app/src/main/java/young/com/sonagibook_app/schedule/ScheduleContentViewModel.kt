@@ -1,5 +1,7 @@
 package young.com.sonagibook_app.schedule
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,4 +23,13 @@ class ScheduleContentViewModel(private val repository: Repository) : ViewModel()
             }
         }
     }
+
+    fun deleteScheduleItem(eid : String, token : String) {
+        viewModelScope.launch {
+            repository.deleteScheduleItem(eid, token).let {
+                Log.d(TAG, "deleteScheduleItem: 삭제 성공")
+            }
+        }
+    }
+
 }

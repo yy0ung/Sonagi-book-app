@@ -62,7 +62,7 @@ class ScheduleFragment : Fragment() {
         calendarView.setTitleFormatter(MonthArrayTitleFormatter(resources.getStringArray(R.array.custom_months)))
         calendarView.setWeekDayFormatter(ArrayWeekDayFormatter(resources.getStringArray(R.array.custom_weekdays)))
         calendarView.setHeaderTextAppearance(R.style.CalendarWidgetHeader)
-        calendarView.topbarVisible = false
+        calendarView.topbarVisible = true
 
         calendarView.setOnMonthChangedListener { widget, date ->
             binding.scheduleCalenderHeader.text = "${date.year}년 ${date.month+1}월"
@@ -70,7 +70,7 @@ class ScheduleFragment : Fragment() {
             //(activity as MainActivity).getMonthSchedule(date.year.toString()+(format.format(date.month)).toString())
             Log.d(TAG, "##########쿼리 ${date.year.toString()+(format.format(date.month)).toString()}")
             CoroutineScope(Dispatchers.Main).launch {
-                getMonthSchedule("2023-01")
+                getMonthSchedule("${date.year}${(format.format(date.month-1))}")
                 dotArray()
                 calendarView.addDecorator(EventDecorator(Color.parseColor("#A3E27B"), arr))
 
@@ -87,7 +87,8 @@ class ScheduleFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(Repository()))[MainViewModel::class.java]
 
         CoroutineScope(Dispatchers.Main).launch {
-            getMonthSchedule("2023-01")
+//            getMonthSchedule("2023-02")
+            fetchSchedule()
             Log.d(TAG, "onCreateView: 일정 요청")
             Log.d(TAG, "onCreateView: pppppppp${homeScheduleDataModel}")
 
@@ -183,8 +184,8 @@ class ScheduleFragment : Fragment() {
             Log.d(TAG, "onDateSelected: 선택 날짜 : $selectedDate")
             //dateString = dateString.substring(startDateString(dateString)+1, endDateString(dateString))
             Log.d(TAG, "setCalendar: 날짜 : $dateString")
-            Log.d(TAG, "setCalendar: 선택 일정 : ${viewModel.homeScheduleDataModel[dateString]}")
-            scheduleDetailList = viewModel.homeScheduleDataModel[dateString]
+            Log.d(TAG, "setCalendar: 선택 일정 : ${homeScheduleDataModel[dateString]}")
+            scheduleDetailList = homeScheduleDataModel[dateString]
             val detailAdapter = scheduleDetailList?.let { ScheduleListItemsAdapter(it) }
             binding.scheduleDetailList.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
             binding.scheduleDetailList.adapter = detailAdapter
@@ -217,7 +218,7 @@ class ScheduleFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private suspend fun dotArray(){
-        for (i in homeScheduleDataModel.keys){
+        for (i in viewModel.homeScheduleDataModel.keys){
             var fDate = LocalDate.parse(i, DateTimeFormatter.ISO_DATE)
             var c  = CalendarDay.from(fDate.year,fDate.monthValue-1,fDate.dayOfMonth)
             //Log.d(TAG, "dotArray: 점 $c")
